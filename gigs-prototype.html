@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DIALOG Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Sinhala:wght@500&family=Noto+Sans+Tamil:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef0f6; --panel:#ffffff; --ink:#12142b; --muted:#5d6280; --line:#e2e5ef;
+  --accent:#4a3aff; --accent-2:#7b6dff; --accent-soft:#ecebff;
+  --gold:#f2a900; --gold-soft:#fff4d6; --good:#13a36b; --good-soft:#e1f6ec;
+  --screen:#f7f8fc; --card:#ffffff; --frame:#14152a;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b0c18; --panel:#14162a; --ink:#eef0ff; --muted:#9aa0c3; --line:#262a45;
+    --accent:#8b7fff; --accent-2:#a69cff; --accent-soft:#232048;
+    --gold:#ffc23d; --gold-soft:#33290f; --good:#3fd39a; --good-soft:#123326;
+    --screen:#101225; --card:#1a1d36; --frame:#000;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b0c18; --panel:#14162a; --ink:#eef0ff; --muted:#9aa0c3; --line:#262a45;
+  --accent:#8b7fff; --accent-2:#a69cff; --accent-soft:#232048;
+  --gold:#ffc23d; --gold-soft:#33290f; --good:#3fd39a; --good-soft:#123326;
+  --screen:#101225; --card:#1a1d36; --frame:#000;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:"Plus Jakarta Sans","Noto Sans Sinhala","Noto Sans Tamil",system-ui,sans-serif;min-height:100vh}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+.stage{display:flex;gap:56px;align-items:center;justify-content:center;min-height:100vh;padding:32px 16px}
+.side{max-width:360px}
+.side .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:6px 10px;border-radius:99px}
+.side h1{font-size:40px;line-height:1.05;margin:16px 0 12px;letter-spacing:-.02em}
+.side p.lede{color:var(--muted);font-size:16px;line-height:1.5}
+.steps{margin-top:28px;display:grid;gap:10px}
+.step{display:flex;gap:12px;align-items:center;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--panel);transition:.3s}
+.step .n{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:13px;background:var(--line);color:var(--muted);flex:none;transition:.3s}
+.step.done{border-color:var(--good)}
+.step.done .n{background:var(--good);color:#fff}
+.step b{display:block;font-size:14px}.step span{font-size:13px;color:var(--muted)}
+.timer{margin-top:18px;font-size:13px;color:var(--muted)}
+.timer strong{font-variant-numeric:tabular-nums;color:var(--ink);font-size:20px;margin-left:6px}
+.reset{margin-top:14px;font-size:13px;color:var(--accent);font-weight:600}
+
+/* phone */
+.phone{width:390px;height:800px;border-radius:52px;background:var(--frame);padding:12px;box-shadow:0 30px 80px -20px rgba(20,20,60,.45);flex:none}
+.screen{position:relative;width:100%;height:100%;border-radius:42px;overflow:hidden;background:var(--screen);display:flex;flex-direction:column}
+.status{height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;font-size:13px;font-weight:700;flex:none}
+.status .net{display:flex;gap:6px;align-items:center}
+.net .badge{font-size:10px;padding:2px 6px;border-radius:6px;background:var(--line);color:var(--muted);transition:.4s}
+.net .badge.on{background:var(--accent);color:#fff}
+.views{flex:1;position:relative;overflow:hidden}
+.view{position:absolute;inset:0;overflow-y:auto;padding:6px 18px 24px;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .25s,transform .25s}
+.view.active{opacity:1;pointer-events:auto;transform:none}
+.view::-webkit-scrollbar{display:none}
+.nav{flex:none;height:78px;display:flex;justify-content:space-around;align-items:center;border-top:1px solid var(--line);background:var(--card);padding-bottom:10px}
+.nav button{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--muted);width:64px}
+.nav button.on{color:var(--accent)}
+.nav svg{width:22px;height:22px}
+.nav .pay{width:58px;height:58px;border-radius:20px;background:var(--accent);color:#fff;justify-content:center;margin-top:-26px;box-shadow:0 10px 24px -8px var(--accent)}
+.nav .pay svg{width:26px;height:26px}
+
+h2{font-size:22px;letter-spacing:-.01em;margin:6px 0 4px}
+.sub{color:var(--muted);font-size:13px;line-height:1.45}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-top:14px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.btn{display:block;width:100%;padding:14px;border-radius:14px;background:var(--accent);color:#fff;font-weight:700;font-size:15px;text-align:center;margin-top:14px}
+.btn.ghost{background:var(--accent-soft);color:var(--accent)}
+.btn:disabled{opacity:.5;cursor:default}
+.pill{font-size:11px;font-weight:700;padding:4px 8px;border-radius:99px;background:var(--accent-soft);color:var(--accent)}
+.pill.gold{background:var(--gold-soft);color:var(--gold)}
+.pill.good{background:var(--good-soft);color:var(--good)}
+
+/* wallet */
+.wallet{background:linear-gradient(135deg,#2a1fd6,#6a3dff 60%,#a145ff);color:#fff;border:0;position:relative;overflow:hidden}
+.wallet::after{content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.08)}
+.wallet .lbl{font-size:12px;opacity:.8;font-weight:600}
+.wallet .bal{font-size:42px;font-weight:800;letter-spacing:-.02em;margin:4px 0 2px;font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:8px}
+.coin{width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe08a,#f2a900 70%);display:inline-grid;place-items:center;font-size:13px;font-weight:800;color:#6b4a00;flex:none}
+.wallet .eq{font-size:13px;opacity:.85}
+.qa{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px}
+.qa button{background:rgba(255,255,255,.14);border-radius:14px;padding:10px 0;font-size:12px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:4px}
+.qa svg{width:20px;height:20px}
+.dia-tip{display:flex;gap:12px;align-items:flex-start}
+.dia-av{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#c44dff);display:grid;place-items:center;color:#fff;font-weight:800;flex:none}
+.tip-actions{display:flex;gap:8px;margin-top:10px}
+.tip-actions button{font-size:12px;font-weight:700;padding:8px 12px;border-radius:10px;background:var(--accent);color:#fff}
+.tip-actions button.alt{background:var(--line);color:var(--ink)}
+.feed div{display:flex;justify-content:space-between;font-size:13px;padding:9px 0;border-top:1px solid var(--line)}
+.feed div:first-child{border:0}
+.feed .plus{color:var(--good);font-weight:700}.feed .minus{color:var(--muted);font-weight:700}
+.save-bar{height:8px;border-radius:99px;background:var(--line);margin-top:10px;overflow:hidden}
+.save-bar i{display:block;height:100%;background:var(--good);border-radius:99px;transition:width .6s}
+.toggle{width:44px;height:26px;border-radius:99px;background:var(--line);position:relative;transition:.2s;flex:none}
+.toggle::after{content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.toggle.on{background:var(--good)}.toggle.on::after{left:21px}
+
+/* pay */
+.scanner{margin-top:14px;aspect-ratio:1;border-radius:24px;background:#0d0f1f;position:relative;display:grid;place-items:center;overflow:hidden}
+.qr{width:55%;aspect-ratio:1;background:#fff;border-radius:10px;padding:10px;display:grid;grid-template-columns:repeat(11,1fr);gap:2px}
+.qr i{background:#111;border-radius:1px}.qr i.w{background:transparent}
+.scanline{position:absolute;left:12%;right:12%;height:3px;background:var(--accent-2);box-shadow:0 0 18px var(--accent-2);animation:scan 2s ease-in-out infinite}
+@keyframes scan{0%,100%{top:18%}50%{top:80%}}
+.corner{position:absolute;width:38px;height:38px;border:4px solid #fff;border-radius:6px}
+.c1{top:14%;left:14%;border-right:0;border-bottom:0}.c2{top:14%;right:14%;border-left:0;border-bottom:0}.c3{bottom:14%;left:14%;border-right:0;border-top:0}.c4{bottom:14%;right:14%;border-left:0;border-top:0}
+.merchant{display:flex;gap:12px;align-items:center}
+.m-logo{width:46px;height:46px;border-radius:14px;background:var(--gold-soft);display:grid;place-items:center;font-size:22px}
+.amount{font-size:44px;font-weight:800;text-align:center;margin:18px 0 4px;letter-spacing:-.02em}
+.earn-preview{text-align:center;font-size:13px;color:var(--good);font-weight:700}
+.chips{display:flex;gap:8px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+.chips button{padding:8px 12px;border-radius:99px;border:1px solid var(--line);font-size:13px;font-weight:600;background:var(--card)}
+.chips button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.receipt{text-align:center;padding-top:20px}
+.check{width:72px;height:72px;border-radius:50%;background:var(--good);margin:0 auto;display:grid;place-items:center;color:#fff;animation:pop .4s cubic-bezier(.2,1.6,.4,1)}
+@keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+.reward{margin-top:20px;border-radius:22px;padding:20px;background:linear-gradient(135deg,#1b1460,#4a3aff);color:#fff;position:relative;overflow:hidden;animation:rise .5s .25s both}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.reward .big{font-size:30px;font-weight:800;letter-spacing:-.02em;margin:6px 0}
+.reward .small{font-size:13px;opacity:.85}
+.burst{position:absolute;inset:0;pointer-events:none}
+.burst .coin{position:absolute;left:50%;top:50%;width:18px;height:18px;font-size:9px;animation:fly 1.1s ease-out forwards}
+@keyframes fly{from{transform:translate(-50%,-50%) scale(.4);opacity:1}to{transform:translate(var(--x),var(--y)) scale(1);opacity:0}}
+
+/* boost */
+.dial{position:relative;width:240px;height:240px;margin:16px auto 0}
+.dial svg{width:100%;height:100%;transform:rotate(135deg)}
+.dial .val{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.dial .val b{font-size:52px;font-weight:800;letter-spacing:-.03em;display:block;font-variant-numeric:tabular-nums}
+.dial .val span{font-size:13px;color:var(--muted);font-weight:600}
+.gen{display:flex;justify-content:center;gap:8px;margin-top:4px}
+.gen span{font-size:12px;font-weight:800;padding:6px 12px;border-radius:10px;background:var(--line);color:var(--muted);transition:.4s}
+.gen span.on{background:var(--accent);color:#fff}
+.countdown{text-align:center;font-size:13px;color:var(--muted);margin-top:10px}
+.countdown b{color:var(--ink);font-variant-numeric:tabular-nums}
+.opts{display:grid;gap:8px;margin-top:14px}
+.opt{display:flex;justify-content:space-between;align-items:center;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--card);text-align:left}
+.opt.on{border-color:var(--accent);background:var(--accent-soft)}
+.opt b{font-size:14px;display:block}.opt small{font-size:12px;color:var(--muted)}
+.cost{font-weight:800;font-size:14px;display:flex;align-items:center;gap:6px}
+.cost .coin{width:18px;height:18px;font-size:9px}
+
+/* dia chat */
+.chat{display:flex;flex-direction:column;gap:10px;margin-top:12px;padding-bottom:140px}
+.msg{max-width:84%;padding:11px 14px;border-radius:18px;font-size:14px;line-height:1.45;animation:rise .3s both}
+.msg.dia{background:var(--card);border:1px solid var(--line);border-bottom-left-radius:6px;align-self:flex-start}
+.msg.me{background:var(--accent);color:#fff;border-bottom-right-radius:6px;align-self:flex-end}
+.msg .acts{display:flex;gap:8px;margin-top:10px}
+.msg .acts button{font-size:12px;font-weight:700;padding:7px 12px;border-radius:10px;background:var(--accent);color:#fff}
+.msg .acts button.alt{background:var(--line);color:var(--ink)}
+.composer{position:absolute;left:0;right:0;bottom:0;padding:10px 14px 14px;background:linear-gradient(transparent,var(--screen) 22%)}
+.composer .chips{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;margin:0 0 8px}
+.composer .chips::-webkit-scrollbar{display:none}
+.composer .chips button{white-space:nowrap;font-size:12px}
+.inbar{display:flex;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:6px 6px 6px 14px}
+.inbar input{flex:1;border:0;background:none;font:inherit;font-size:14px;color:var(--ink);outline:none;min-width:0}
+.inbar button{width:38px;height:38px;border-radius:12px;background:var(--accent);color:#fff;display:grid;place-items:center}
+
+/* arenas */
+.map{margin-top:14px;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:var(--card)}
+.map svg{display:block;width:100%}
+.zone{cursor:pointer}
+.zone circle.pulse{animation:pulse 2.2s ease-out infinite;transform-origin:center;transform-box:fill-box}
+@keyframes pulse{from{transform:scale(.6);opacity:.7}to{transform:scale(1.6);opacity:0}}
+.stat{display:flex;gap:10px;margin-top:14px}
+.stat .card{flex:1;margin:0;padding:12px}
+.stat b{font-size:22px;display:block;letter-spacing:-.02em}
+.stat span{font-size:12px;color:var(--muted)}
+
+/* together */
+.match-head{display:flex;justify-content:space-between;align-items:center}
+.score{font-size:13px;font-weight:700}
+.live{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;color:#e5484d}
+.live::before{content:"";width:7px;height:7px;border-radius:50%;background:#e5484d;animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.2}}
+.prog{height:14px;border-radius:99px;background:var(--line);margin-top:12px;overflow:hidden}
+.prog i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--accent),#c44dff);transition:width .5s}
+.prog.done i{background:var(--good)}
+.lb{margin-top:6px}
+.lb div{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:13px}
+.lb div:first-child{border:0}
+.lb .rk{width:22px;font-weight:800;color:var(--muted)}
+.lb .nm{flex:1;font-weight:600}
+.lb .nm small{display:block;font-weight:500;color:var(--muted);font-size:11px}
+.lb .mini{width:70px;height:6px;border-radius:99px;background:var(--line);overflow:hidden}
+.lb .mini i{display:block;height:100%;background:var(--gold)}
+.lb .me .nm{color:var(--accent)}
+.homes{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin-top:12px}
+.homes i{aspect-ratio:1;border-radius:5px;background:var(--line);transition:.4s}
+.homes i.lit{background:var(--gold);box-shadow:0 0 10px var(--gold)}
+.homes i.you{outline:2px solid var(--accent);outline-offset:1px}
+
+.toast{position:absolute;left:16px;right:16px;top:52px;background:var(--ink);color:var(--screen);padding:12px 14px;border-radius:14px;font-size:13px;font-weight:600;transform:translateY(-220%);opacity:0;transition:.35s cubic-bezier(.2,1.2,.4,1);z-index:9;display:flex;gap:10px;align-items:center}
+.toast.show{transform:none;opacity:1}
+
+/* ---------- v2 ---------- */
+/* colour rule: gold = DIALOG you earn, violet = network & boosts, green = savings */
+:root{--gold-ink:#a86f00}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--gold-ink:#ffc23d}}
+:root[data-theme="dark"]{--gold-ink:#ffc23d}
+.coin{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3CradialGradient id='g' cx='.35' cy='.3' r='.85'%3E%3Cstop offset='0' stop-color='%23fff0b8'/%3E%3Cstop offset='.55' stop-color='%23f5b400'/%3E%3Cstop offset='1' stop-color='%23c48400'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='12' cy='12' r='11.5' fill='url(%23g)'/%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%237a5200' stroke-opacity='.35'/%3E%3Cpath d='M8.6 7h3.4a5 5 0 0 1 0 10H8.6z' fill='none' stroke='%236b4a00' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M17.6 6.2a8 8 0 0 1 1.6 2.4M19.4 4.6a10.5 10.5 0 0 1 2 3' fill='none' stroke='%236b4a00' stroke-opacity='.55' stroke-width='1.3' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat !important;color:transparent !important;font-size:0 !important}
+.feed .plus,.earn-preview{color:var(--gold-ink)}
+.pill.gold{color:var(--gold-ink)}
+.wallet{background:radial-gradient(120% 90% at 100% 0%,rgba(255,196,61,.32),transparent 55%),linear-gradient(160deg,#1a1545,#2b1e72)}
+.wallet::after{right:-34px;top:-34px;width:140px;height:140px;border-radius:0;background:inherit;opacity:0}
+.wallet .lbl{color:#ffd36b;opacity:1;letter-spacing:.1em}
+.wallet .bal{color:#ffd36b}
+.wallet .bal .coin{width:34px;height:34px;filter:drop-shadow(0 0 10px rgba(255,200,60,.55))}
+
+/* Dia face + voice */
+.dia-av{display:flex;gap:5px;align-items:center;justify-content:center;box-shadow:0 6px 16px -6px #c44dff}
+.dia-av i{width:5px;height:9px;border-radius:3px;background:#fff;animation:eye 4.5s infinite}
+@keyframes eye{0%,90%,100%{transform:scaleY(1)}94%{transform:scaleY(.1)}}
+.inbar .mic{background:var(--accent-soft);color:var(--accent)}
+.inbar.listening .mic{background:#e5484d;color:#fff;animation:blink 1s infinite}
+.wave{display:none;flex:1;align-items:center;gap:3px;font-size:12px;color:var(--muted);font-weight:600}
+.inbar.listening input{display:none}
+.inbar.listening .wave{display:flex}
+.wave i{width:3px;height:18px;border-radius:2px;background:var(--accent);animation:wv .6s ease-in-out infinite alternate}
+.wave i:nth-child(2n){animation-delay:.15s}.wave i:nth-child(3n){animation-delay:.3s}
+@keyframes wv{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+
+/* Earn takeover */
+.earnfx{position:absolute;inset:0;z-index:8;background:radial-gradient(90% 55% at 50% 45%,rgba(255,190,40,.36),transparent 70%),#110d2e;color:#fff;display:flex;flex-direction:column;align-items:center;padding:52px 22px 24px;text-align:center;overflow:hidden}
+.earnfx[hidden]{display:none}
+.ef-chip{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,211,107,.4);padding:7px 16px 7px 7px;border-radius:99px;font-weight:800;font-size:20px;color:#ffd36b;font-variant-numeric:tabular-nums;transition:transform .12s}
+.ef-chip .coin{width:28px;height:28px}
+.ef-chip.bump{transform:scale(1.12)}
+.ef-check{width:54px;height:54px;border-radius:50%;background:var(--good);display:grid;place-items:center;margin-top:40px;animation:pop .4s cubic-bezier(.2,1.6,.4,1)}
+.ef-paid{font-size:14px;opacity:.75;margin-top:10px;animation:rise .4s .1s both}
+.ef-label{margin-top:30px;font-size:12px;font-weight:800;letter-spacing:.16em;color:#ffd36b;animation:rise .4s .35s both}
+.ef-big{font-size:68px;font-weight:800;letter-spacing:-.045em;line-height:1.05;margin-top:6px;animation:zoomIn .6s .45s cubic-bezier(.2,1.4,.4,1) both;background:linear-gradient(180deg,#fff 30%,#ffd36b);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ef-sub{font-size:19px;font-weight:700;margin-top:4px;animation:rise .4s .6s both}
+.ef-gigs{margin-top:16px;font-size:14px;font-weight:700;color:#ffd36b;background:rgba(255,211,107,.12);padding:7px 14px;border-radius:99px;animation:rise .4s .75s both}
+@keyframes zoomIn{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+.ef-actions{margin-top:auto;width:100%;animation:rise .4s 1.7s both}
+.ef-actions .btn.ghost{background:rgba(255,255,255,.1);color:#fff;margin-top:10px}
+.ef-coins{position:absolute;inset:0;pointer-events:none}
+.ef-coin{position:absolute;left:50%;width:26px;height:26px;margin:-13px 0 0 -13px;opacity:0;animation:coinFly 1.05s cubic-bezier(.5,0,.3,1) forwards;filter:drop-shadow(0 0 6px rgba(255,200,60,.85))}
+@keyframes coinFly{0%{opacity:0;transform:translate(0,0) scale(.3)}12%{opacity:1}45%{transform:translate(var(--sx),var(--sy)) scale(1.15)}94%{opacity:1}100%{opacity:0;transform:translate(0,var(--ty)) scale(.45)}}
+
+/* Boost video */
+.vid{position:relative;margin-top:14px;border-radius:18px;overflow:hidden;aspect-ratio:16/9;background:#0a1a10}
+.vscene{position:absolute;inset:0;transition:filter .6s}
+.vscene svg{width:100%;height:100%;display:block}
+.vid.lo .vscene{filter:blur(3px) saturate(.55) contrast(.9)}
+.vid.buf .vscene *{animation-play-state:paused !important}
+.vtop{position:absolute;left:10px;right:10px;top:8px;display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:700;color:#fff}
+.vq{padding:3px 7px;border-radius:6px;background:rgba(0,0,0,.55);transition:.4s}
+.vid:not(.lo) .vq{background:var(--accent)}
+.vspin{position:absolute;left:50%;top:50%;width:40px;height:40px;margin:-20px;border-radius:50%;border:4px solid rgba(255,255,255,.25);border-top-color:#fff;animation:spin .8s linear infinite;opacity:0;transition:opacity .2s}
+.vid.buf .vspin{opacity:1}
+@keyframes spin{to{transform:rotate(360deg)}}
+.vlabel{position:absolute;left:10px;bottom:12px;font-size:11px;font-weight:700;color:#fff;background:rgba(0,0,0,.5);padding:3px 8px;border-radius:6px}
+.vbar{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.2)}
+.vbar i{display:block;height:100%;width:0;background:#e5484d}
+.ball{animation:bowl 1.4s ease-in infinite}
+@keyframes bowl{from{transform:translate(160px,62px) scale(.6)}to{transform:translate(157px,150px) scale(1.5)}}
+.bat{transform-box:view-box;transform-origin:176px 146px;animation:swing 1.4s infinite}
+@keyframes swing{0%,72%,100%{transform:rotate(0)}86%{transform:rotate(-75deg)}}
+.crowd circle{animation:tw 1.6s infinite alternate}
+.crowd circle:nth-child(3n){animation-delay:.5s}.crowd circle:nth-child(4n){animation-delay:1s}
+@keyframes tw{from{opacity:.25}to{opacity:.9}}
+.speedrow{display:flex;justify-content:space-between;align-items:center;margin-top:14px}
+.speedrow b{font-size:36px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.speedrow small{font-size:13px;color:var(--muted);font-weight:600;margin-left:4px}
+.speedrow .gen{margin:0}
+#v-boost .countdown{text-align:left;margin-top:2px}
+
+/* Presenter mode */
+.side .presbtn{display:inline-flex;gap:8px;align-items:center;margin:14px 16px 0 0;padding:10px 14px;border-radius:12px;background:var(--ink);color:var(--bg);font-size:13px;font-weight:700}
+.side .presbtn kbd{font:inherit;font-size:11px;padding:1px 6px;border-radius:5px;background:rgba(127,127,127,.35)}
+.ptimer{position:fixed;top:16px;left:16px;display:none;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);padding:10px 14px;border-radius:14px;z-index:20;font-size:13px;color:var(--muted)}
+.ptimer b{font-size:22px;color:var(--ink);font-variant-numeric:tabular-nums}
+.ptimer .pdots{display:flex;gap:6px}
+.ptimer .pdots i{width:10px;height:10px;border-radius:50%;background:var(--line);transition:.3s}
+.ptimer .pdots i.on{background:var(--good)}
+.ptimer button{font-size:12px;font-weight:700;color:var(--accent)}
+body.presenter .side{display:none}
+body.presenter .ptimer{display:flex}
+body.presenter .stage{padding:12px}
+
+/* ---------- v3 ---------- */
+.lang{display:flex;background:var(--line);border-radius:12px;padding:3px;gap:2px}
+.lang button{font-size:12px;font-weight:700;padding:0 9px;border-radius:9px;color:var(--muted);min-height:34px}
+.lang button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.savestrip{display:flex;align-items:center;gap:12px;padding:12px 14px}
+.savestrip .ss-ic{width:38px;height:38px;border-radius:12px;background:var(--good-soft);display:grid;place-items:center;font-size:18px;flex:none}
+.savestrip .ss-t{flex:1;font-size:13px;color:var(--muted);line-height:1.35}
+.savestrip .ss-t b{color:var(--good);font-size:15px}
+.savestrip .toggle{cursor:pointer}
+.splash{position:absolute;inset:0;z-index:12;background:radial-gradient(70% 45% at 50% 40%,rgba(255,190,40,.35),transparent 70%),#110d2e;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;cursor:pointer;transition:opacity .5s,transform .5s}
+.splash[hidden]{display:none}
+.splash.out{opacity:0;transform:scale(1.06);pointer-events:none}
+.splash .sp-coin{width:112px;height:112px;animation:spIn .9s cubic-bezier(.2,1.4,.4,1) both;filter:drop-shadow(0 0 30px rgba(255,200,60,.6))}
+@keyframes spIn{from{transform:scale(0) rotate(-200deg)}to{transform:none}}
+.sp-name{margin-top:24px;font-size:15px;font-weight:800;letter-spacing:.42em;color:#ffd36b;animation:rise .5s .5s both}
+.sp-line{font-size:40px;font-weight:800;letter-spacing:-.03em;margin-top:10px;line-height:1.05;animation:rise .5s .75s both}
+.sp-sub{font-size:14px;opacity:.75;margin-top:14px;animation:rise .5s 1s both}
+.sp-tap{position:absolute;bottom:40px;font-size:12px;opacity:.55;animation:rise .5s 1.6s both}
+.scoreboard{background:#0d1b2a;color:#fff;border-radius:14px;padding:12px 14px;font-variant-numeric:tabular-nums}
+.sb-top{display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:600}
+.sb-top span:last-child{opacity:.7}
+.sb-row{display:flex;align-items:center;gap:10px;margin-top:8px}
+.sb-row b{font-size:26px;letter-spacing:-.02em}
+.sb-team{display:flex;align-items:center;gap:6px;font-weight:800;width:54px;font-size:14px}
+.sb-team i{width:10px;height:10px;border-radius:50%}
+.sb-ov{margin-left:auto;font-size:12px;opacity:.7}
+.sb-row.dim{opacity:.55;margin-top:2px}.sb-row.dim b{font-size:17px}
+.sb-need{margin-top:8px;font-size:12px;color:#ffd36b;font-weight:700}
+.faces{display:flex;align-items:center;margin-top:12px}
+.faces span{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:10px;font-weight:800;border:2px solid var(--card);margin-left:-9px;flex:none}
+.faces span:first-child{margin-left:0}
+.faces em{font-style:normal;font-size:12px;color:var(--muted);margin-left:8px}
+.celebrate{position:absolute;inset:0;z-index:11;background:rgba(17,13,46,.95);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px;overflow:hidden}
+.celebrate[hidden]{display:none}
+.cel-emoji{font-size:76px;animation:pop .5s cubic-bezier(.2,1.6,.4,1)}
+.cel-title{font-size:32px;font-weight:800;letter-spacing:-.02em;margin-top:12px;animation:rise .4s .2s both}
+.cel-sub{font-size:15px;opacity:.8;margin-top:8px;line-height:1.45;max-width:280px;animation:rise .4s .35s both}
+.celebrate .btn{max-width:240px;margin-top:28px;animation:rise .4s .6s both}
+.confetti{position:absolute;inset:0;pointer-events:none}
+.confetti i{position:absolute;top:-20px;width:8px;height:14px;border-radius:2px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(880px) rotate(720deg)}}
+/* Play tab */
+.nav button{width:54px}
+#v-play{display:flex;flex-direction:column;padding:6px 0 0;overflow:hidden}
+.play-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;padding:0 18px}
+.play-earn{display:flex;align-items:center;gap:6px;background:var(--gold-soft);color:var(--gold-ink);font-weight:800;font-size:14px;padding:6px 10px 6px 6px;border-radius:99px;flex:none;margin-top:8px}
+.play-earn .coin{width:22px;height:22px}
+.play-earn small{font-weight:600;font-size:11px}
+.play-strip{display:flex;justify-content:space-between;margin:10px 18px 10px;padding:9px 12px;border-radius:12px;background:var(--card);border:1px solid var(--line);font-size:12px;color:var(--muted)}
+.play-strip b{color:var(--ink)}
+.play-strip.all{border-color:var(--good);background:var(--good-soft)}
+.play-frame{flex:1;min-height:0;border-top:1px solid var(--line);background:#FBF6EE}
+.play-frame iframe{width:100%;height:100%;border:0;display:block}
+/* bigger tap targets */
+.chips button,.tip-actions button,.msg .acts button{min-height:40px}
+.qa button{min-height:58px}
+/* calmer for people who turn motion off: stop the decorative loops, keep the story */
+@media (prefers-reduced-motion: reduce){
+  .scanline,.zone circle.pulse,.crowd circle,.dia-av i,.live::before,.confetti i{animation:none!important}
+  .confetti{display:none}
+}
+
+@media (max-width:860px){
+  .stage{flex-direction:column;gap:24px;padding:20px 16px 32px}
+  .side{max-width:420px;text-align:left}
+  .side h1{font-size:30px}
+  .steps{grid-template-columns:1fr}
+}
+@media (max-width:430px){
+  .stage{padding:0;gap:0}
+  .side{order:2;padding:24px 16px 32px}
+  .phone{width:100%;height:100svh;border-radius:0;padding:0;box-shadow:none}
+  .screen{border-radius:0}
+}
+</style>
+</head>
+<body>
+<div class="stage">
+  <aside class="side">
+    <span class="tag">Concept prototype</span>
+    <h1>Data you can earn, spend, share and save.</h1>
+    <p class="lede">DIALOG turns mobile data into a currency. Run the loop on the phone and time it. The goal is under a minute.</p>
+    <div class="steps">
+      <div class="step" id="s-pay"><div class="n">1</div><div><b>Pay</b><span>Scan a shop QR and pay Rs 2,500</span></div></div>
+      <div class="step" id="s-earn"><div class="n">2</div><div><b>Earn</b><span>The receipt drops +30 min of 5G</span></div></div>
+      <div class="step" id="s-boost"><div class="n">3</div><div><b>Boost</b><span>Spend it and watch 4G jump to 5G</span></div></div>
+      <div class="step" id="s-share"><div class="n">4</div><div><b>Share</b><span>Ask Dia to “give Amma 20GB”</span></div></div>
+    </div>
+    <div class="timer">Loop time<strong id="timer">0:00</strong></div>
+    <button class="presbtn" id="presBtn">▶ Presenter mode <kbd>P</kbd></button><button class="reset" id="resetBtn">↺ Reset demo</button>
+  </aside>
+  <div class="ptimer"><span class="pdots"><i data-s="pay"></i><i data-s="earn"></i><i data-s="boost"></i><i data-s="share"></i></span><b id="ptime">0:00</b><span>P exit · M sound</span><button id="pexit">✕</button></div>
+
+  <div class="phone"><div class="screen">
+    <div class="status"><span>9:41</span><span class="net"><span class="badge" id="netBadge">4G</span>▮▮▮▯ 82%</span></div>
+    <div class="toast" id="toast"></div>
+    <div class="earnfx" id="earnfx" hidden>
+      <div class="ef-chip" id="efChip"><span class="coin"></span><span id="efBal">2,400</span></div>
+      <div class="ef-check"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></div>
+      <div class="ef-paid" id="efPaid">Paid Rs 2,500 · Nimal Stores</div>
+      <div class="ef-label" data-i18n="earned">YOU EARNED</div>
+      <div class="ef-big" id="efBig">+30 min</div>
+      <div class="ef-sub" data-i18n="ofPriority">of 5G priority</div>
+      <div class="ef-gigs" id="efGigs">+150 DIALOG to your wallet</div>
+      <div class="ef-actions"><button class="btn" id="efUse" data-i18n="useNow">Use it now ⚡</button><button class="btn ghost" id="efDone" data-i18n="done">Done</button></div>
+      <div class="ef-coins" id="efCoins"></div>
+    </div>
+    <div class="celebrate" id="celebrate" hidden><div class="confetti" id="confetti"></div><div class="cel-emoji" id="celEmoji">🏏</div><div class="cel-title" id="celTitle"></div><div class="cel-sub" id="celSub"></div><button class="btn" id="celOk">Brilliant</button></div>
+    <div class="splash" id="splash"><span class="coin sp-coin"></span><div class="sp-name">DIALOG</div><div class="sp-line">Data is<br>money now.</div><div class="sp-sub">Earn it · Spend it · Share it · Save it</div><div class="sp-tap">Tap to start</div></div>
+    <div class="views">
+
+      <!-- HOME -->
+      <section class="view active" id="v-home">
+        <div class="row" style="margin-top:4px">
+          <div><div class="sub" data-i18n="gm">Good morning</div><h2 style="margin:0">Nadeesha</h2></div>
+          <div class="lang" id="lang" aria-label="Language"><button data-l="si">සිං</button><button data-l="ta">தமிழ்</button><button data-l="en" class="on">EN</button></div>
+          <span id="homeNet" hidden>4G</span>
+        </div>
+        <div class="card wallet">
+          <div class="lbl" data-i18n="wallet">DIALOG WALLET</div>
+          <div class="bal"><span class="coin">G</span><span id="bal">2,400</span></div>
+          <div class="eq" id="eq">≈ 24 GB · or 8 hours of boosted 5G</div>
+          <div class="qa">
+            <button data-go="pay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v7h-7"/></svg><span data-i18n="pay">Pay</span></button>
+            <button data-go="boost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><span data-i18n="boost">Boost</span></button>
+            <button data-go="dia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg><span data-i18n="share">Share</span></button>
+            <button data-scroll="saveCard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0 0 4h14v4M3 5v14a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg><span data-i18n="save">Save</span></button>
+          </div>
+        </div>
+
+        <div class="card dia-tip">
+          <div class="dia-av"><i></i><i></i></div>
+          <div>
+            <b style="font-size:14px" data-i18n="spotted">Dia spotted something</b>
+            <p class="sub" style="margin-top:2px" data-i18n="tip">Your bus reaches a busy cell near Kollupitiya in about 4 min. YouTube will likely buffer. Boost now?</p>
+            <div class="tip-actions"><button data-go="boost" data-i18n="tipBoost">Boost for 150 D</button><button class="alt" data-go="dia" data-i18n="askDia">Ask Dia</button></div>
+          </div>
+        </div>
+
+        <div class="card savestrip" id="saveCard">
+          <span class="ss-ic">🏦</span>
+          <span class="ss-t"><b id="saveAmt">Rs 360</b> <span data-i18n="saveLine">goes to DF Savings on 30 Nov</span></span>
+          <span class="toggle on" id="saveToggle" role="switch" aria-checked="true" aria-label="Auto-save leftover DIALOG" tabindex="0"></span>
+        </div>
+
+        <div class="card">
+          <div class="row"><b style="font-size:15px" data-i18n="recent">Recent</b><span class="pill gold">+ earn on every payment</span></div>
+          <div class="feed" id="feed" style="margin-top:8px">
+            <div><span>Fuel · Ceypetco Borella</span><span class="plus">+240 D</span></div>
+            <div><span>Electricity bill · CEB</span><span class="plus">+180 D</span></div>
+            <div><span>Boost · 1 hr 5G</span><span class="minus">−300 D</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PAY -->
+      <section class="view" id="v-pay">
+        <div id="pay-scan">
+          <h2 data-i18n="scanH">Scan to pay</h2>
+          <p class="sub">Point at any Dialog Pay LankaQR. Every payment earns DIALOG.</p>
+          <div class="scanner" id="scanner">
+            <div class="qr" id="qr"></div>
+            <div class="scanline"></div>
+            <div class="corner c1"></div><div class="corner c2"></div><div class="corner c3"></div><div class="corner c4"></div>
+          </div>
+          <button class="btn" id="scanBtn" data-i18n="tapScan">Tap to scan</button>
+        </div>
+        <div id="pay-amount" hidden>
+          <h2>Confirm payment</h2>
+          <div class="card merchant"><div class="m-logo">🛒</div><div><b>Nimal Stores</b><div class="sub">High Level Rd, Nugegoda · verified</div></div></div>
+          <div class="amount" id="amt">Rs 2,500</div>
+          <div class="earn-preview" id="earnPrev">You’ll earn +150 DIALOG (30 min of 5G)</div>
+          <div class="chips" id="amtChips"><button data-a="500">500</button><button data-a="1000">1,000</button><button data-a="2500" class="on">2,500</button><button data-a="5000">5,000</button></div>
+          <div class="card row"><span class="sub">Pay from</span><b style="font-size:14px">Dialog Pay wallet · Rs 18,420</b></div>
+          <button class="btn" id="payBtn">Pay Rs 2,500</button>
+        </div>
+      </section>
+
+      <!-- BOOST -->
+      <section class="view" id="v-boost">
+        <h2 data-i18n="boostH">Boost</h2>
+        <p class="sub">Spend DIALOG to switch to 5G priority. Works anywhere 5G reaches.</p>
+        <div class="vid lo" id="vid">
+          <div class="vscene"><svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+            <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1030"/><stop offset="1" stop-color="#1d2a5a"/></linearGradient><radialGradient id="fld" cx=".5" cy=".25" r=".9"><stop offset="0" stop-color="#46b257"/><stop offset="1" stop-color="#145a27"/></radialGradient><radialGradient id="fl"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>
+            <rect width="320" height="180" fill="url(#sky)"/>
+            <path d="M0 34 Q160 6 320 34 V72 H0Z" fill="#151c40"/>
+            <g class="crowd" id="crowd"></g>
+            <circle cx="22" cy="14" r="18" fill="url(#fl)" opacity=".7"/><circle cx="298" cy="14" r="18" fill="url(#fl)" opacity=".7"/>
+            <ellipse cx="160" cy="160" rx="240" ry="104" fill="url(#fld)"/>
+            <polygon points="150,60 170,60 192,180 128,180" fill="#d9c28e"/>
+            <g stroke="#fff" stroke-width="1.6"><path d="M156 52v9M160 52v9M164 52v9"/></g>
+            <g stroke="#f4ead2" stroke-width="3"><path d="M150 152v24M160 152v24M170 152v24"/></g>
+            <circle cx="180" cy="124" r="6" fill="#f2c9a0"/><rect x="174" y="130" width="12" height="24" rx="4" fill="#1d4ed8"/>
+            <path class="bat" d="M176 146 L162 166" stroke="#e9d5a5" stroke-width="5" stroke-linecap="round"/>
+            <circle class="ball" r="3.5" fill="#fff"/>
+          </svg></div>
+          <div class="vtop"><span class="live">LIVE</span><span>SL vs IND</span><span class="vq" id="vq">240p</span></div>
+          <div class="vspin"></div>
+          <div class="vlabel" id="vlabel">Busy 4G cell · buffering</div>
+          <div class="vbar"><i id="vprog"></i></div>
+        </div>
+        <div class="speedrow"><div><b id="speed">18</b><small>Mbps</small></div><div class="gen"><span id="g4" class="on">4G</span><span id="g5">5G</span></div></div>
+        <div class="countdown" id="countdown">Standard speed</div>
+        <div class="opts" id="opts">
+          <button class="opt on" data-cost="150" data-min="30"><div><b>30 min 5G priority</b><small>Matches what you just earned</small></div><span class="cost"><span class="coin">G</span>150</span></button>
+          <button class="opt" data-cost="300" data-min="60"><div><b>1 hour 5G priority</b><small>Best for a match stream</small></div><span class="cost"><span class="coin">G</span>300</span></button>
+          <button class="opt" data-cost="900" data-min="240"><div><b>Work-from-café pass</b><small>4 hours, hotspot included</small></div><span class="cost"><span class="coin">G</span>900</span></button>
+        </div>
+        <button class="btn" id="boostBtn">Boost for 150 DIALOG</button>
+      </section>
+
+      <!-- DIA -->
+      <section class="view" id="v-dia" style="padding-bottom:0">
+        <div class="row" style="margin-top:4px"><div class="row" style="gap:10px"><div class="dia-av"><i></i><i></i></div><div><b>Dia</b><div class="sub">Your network concierge · සිං · தமிழ் · EN</div></div></div></div>
+        <div class="chat" id="chat"></div>
+        <div class="composer">
+          <div class="chips" id="diaChips">
+            <button>give Amma 20GB</button>
+            <button>අම්මාට 20GB දෙන්න</button>
+            <button>அம்மாவுக்கு 20GB கொடு</button>
+            <button>Will Netflix buffer tonight?</button>
+          </div>
+          <form class="inbar" id="diaForm"><input id="diaIn" placeholder="Type or tap the mic…" autocomplete="off"><div class="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><span style="margin-left:8px">Listening · සිංහල</span></div><button type="button" class="mic" id="micBtn" aria-label="Speak"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button><button type="submit" aria-label="Send"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>
+        </div>
+      </section>
+
+      <!-- ARENAS -->
+      <section class="view" id="v-arenas">
+        <h2 data-i18n="arenasH">5G Arenas</h2>
+        <p class="sub">Walk into a glowing zone and check in to unlock a free boost.</p>
+        <div class="map">
+          <svg viewBox="0 0 340 300" id="mapSvg">
+            <rect width="340" height="300" fill="var(--card)"/>
+            <path d="M0 0h40c10 60 30 120 10 180s-20 90-10 120H0z" fill="var(--accent-soft)" opacity=".9"/>
+            <text x="12" y="150" font-size="10" fill="var(--muted)" transform="rotate(-90 12 150)">Indian Ocean</text>
+            <path d="M44 0c10 60 30 120 10 180s-20 90-10 120" fill="none" stroke="var(--accent)" stroke-opacity=".35" stroke-width="2"/>
+            <g stroke="var(--line)" stroke-width="6" fill="none" stroke-linecap="round">
+              <path d="M50 40 C120 60 200 50 330 30"/><path d="M60 140 C150 130 230 160 330 150"/><path d="M70 250 C150 240 240 260 330 270"/>
+              <path d="M120 0 C130 100 110 200 130 300"/><path d="M240 0 C230 100 260 200 240 300"/>
+            </g>
+            <path d="M146 112q22-16 46-5q18 9 5 23q-17 13-41 5q-20-8-10-23z" fill="var(--accent-soft)"/>
+            <text x="170" y="124" font-size="9" fill="var(--muted)" text-anchor="middle">Beira Lake</text>
+            <g transform="translate(262 112)"><path d="M0 -40 1.6 -6h-3.2z" fill="var(--muted)"/><ellipse cy="-24" rx="7" ry="4" fill="#d16ba5"/><path d="M-5 -24q5-9 10 0" fill="#e58cc0"/><rect x="-4" y="-6" width="8" height="10" rx="2" fill="var(--muted)"/><text y="16" font-size="9" text-anchor="middle" fill="var(--muted)">Lotus Tower</text></g>
+            <g class="zone" data-z="Galle Face Green" data-d="40 m away" data-near="1" transform="translate(82 92)"><circle class="pulse" r="34" fill="var(--accent)" opacity=".3"/><circle r="26" fill="var(--accent)" opacity=".18"/><circle r="7" fill="var(--accent)"/><text y="44" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">Galle Face</text></g>
+            <g class="zone" data-z="Colombo Fort" data-d="1.2 km away" transform="translate(178 58)"><circle r="22" fill="var(--accent)" opacity=".15"/><circle r="6" fill="var(--accent)"/><text y="36" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">Fort</text></g>
+            <g class="zone" data-z="Racecourse Grounds" data-d="2.4 km away" transform="translate(196 172)"><circle r="22" fill="var(--accent)" opacity=".15"/><circle r="6" fill="var(--accent)"/><text y="36" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">Racecourse</text></g>
+            <g class="zone" data-z="Nugegoda Junction" data-d="6.8 km away" transform="translate(286 236)"><circle r="22" fill="var(--accent)" opacity=".15"/><circle r="6" fill="var(--accent)"/><text y="36" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">Nugegoda</text></g>
+            <g transform="translate(104 118)"><circle r="9" fill="#fff" stroke="var(--gold)" stroke-width="3"/><circle r="3.5" fill="var(--gold)"/></g>
+          </svg>
+        </div>
+        <div class="card" id="arenaCard">
+          <div class="row"><div><b id="zName">Galle Face Green</b><div class="sub" id="zDist">40 m away · 312 people checked in today</div></div><span class="pill good" id="zPill">In range</span></div>
+          <button class="btn" id="checkinBtn">Check in · unlock free 30 min</button>
+        </div>
+        <div class="stat">
+          <div class="card"><b>32%</b><span>of the island on 5G today</span></div>
+          <div class="card"><b id="arenaCount">146</b><span>Arenas live nationwide</span></div>
+        </div>
+      </section>
+
+      <!-- TOGETHER -->
+      <section class="view" id="v-together">
+        <h2 data-i18n="togetherH">Together</h2>
+        <p class="sub">Unlock more when you join in with others.</p>
+        <div class="card">
+          <div class="scoreboard">
+            <div class="sb-top"><span class="live">LIVE</span><span>2nd T20I · R. Premadasa Stadium</span></div>
+            <div class="sb-row"><span class="sb-team"><i style="background:#1d4ed8"></i>SL</span><b>142/3</b><span class="sb-ov">16.2 ov</span></div>
+            <div class="sb-row dim"><span class="sb-team"><i style="background:#f97316"></i>IND</span><b>179/6</b><span class="sb-ov">20 ov</span></div>
+            <div class="sb-need">SL need 38 off 22 balls</div>
+          </div>
+          <b style="display:block;margin-top:14px;font-size:17px">Boost the Match</b>
+          <p class="sub">When 100,000 fans boost, everyone watching gets a free hour of 5G.</p>
+          <div class="prog" id="matchProg"><i style="width:78%"></i></div>
+          <div class="row" style="margin-top:8px"><span class="sub"><b id="fans" style="color:var(--ink)">78,412</b> / 100,000 fans</span><span class="sub" id="matchEta">~3 overs to go</span></div>
+          <div class="faces" id="faces"><span style="background:#e11d48">K</span><span style="background:#0891b2">A</span><span style="background:#7c3aed">R</span><span style="background:#ca8a04">S</span><em>Kasun, Amaya and 2 friends are in</em></div>
+          <button class="btn" id="joinMatch">Join the boost · 20 D</button>
+        </div>
+        <div class="card">
+          <div class="row"><b style="font-size:17px">Light Up My Street</b><span class="pill gold">Air Fibre</span></div>
+          <p class="sub">When 25 homes on your street sign up, everyone gets the Air Fibre upgrade.</p>
+          <div class="row" style="margin-top:10px"><b>Temple Rd, Nugegoda</b><span class="sub"><b id="homesN" style="color:var(--ink)">21</b>/25 homes</span></div>
+          <div class="homes" id="homes"></div>
+          <button class="btn" id="joinStreet">Pledge my home</button>
+          <div class="sub" style="margin-top:14px;font-weight:700;color:var(--ink)">Streets going live</div>
+          <div class="lb" id="lb"></div>
+          <div class="sub" style="margin-top:10px">National goal: <b style="color:var(--ink)" id="natHomes">63,880</b> / 100,000 homes</div>
+        </div>
+      </section>
+      <!-- PLAY: Daily Puzzles mini-app -->
+      <section class="view" id="v-play">
+        <div class="play-head">
+          <div><h2 data-i18n="playH">Daily Puzzles</h2><div class="sub" data-i18n="playSub">3 new puzzles a day. Solve to earn.</div></div>
+          <div class="play-earn"><span class="coin"></span><span>+50 <small>each</small></span></div>
+        </div>
+        <div class="play-strip" id="playStrip"><span><b id="playDone">0</b>/3 solved today</span><span>All 3 = <b>+150 D bonus</b></span></div>
+        <div class="play-frame"><iframe id="playFrame" title="Daily Puzzles" loading="lazy"></iframe></div>
+      </section>
+    </div>
+
+    <nav class="nav" id="nav">
+      <button data-go="home" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10l9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span data-i18n="nHome">Home</span></button>
+      <button data-go="arenas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-i18n="nArenas">Arenas</span></button>
+      <button data-go="pay" class="pay" aria-label="Pay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v7h-7"/></svg></button>
+      <button data-go="dia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>Dia</button>
+      <button data-go="together"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M15 14.5a5 5 0 0 1 6.5 4.8"/></svg><span data-i18n="nTogether">Together</span></button>
+      <button data-go="play"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 3v18M3 9h5M14 8h4M16 6v4M14 15.5h.01M18 15.5h.01"/></svg><span data-i18n="nPlay">Play</span></button>
+    </nav>
+  </div></div>
+</div>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const fmt = n => n.toLocaleString('en-US');
+  const S = { bal:2400, earned:false, boosted:false, shared:false, paid:false, t0:null, amount:2500, boostCost:150, boostMin:30, pending:null, checkedIn:false, joinedMatch:false, joinedStreet:false, fans:78412, boostTimer:null, matchTimer:null, homesLit:21 };
+
+  // ---- QR pattern
+  const qr = $('#qr'); const seed=[1,1,1,1,1,1,1,0,1,0,1];
+  for(let i=0;i<121;i++){const r=Math.floor(i/11),c=i%11;const finder=(r<3&&c<3)||(r<3&&c>7)||(r>7&&c<3);const on=finder?!(r%2===1&&c%2===1&&false):((r*7+c*13+r*c)%3!==0);const el=document.createElement('i');if(!on)el.className='w';qr.appendChild(el)}
+
+  // ---- navigation
+  function go(v){
+    document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id==='v-'+v));
+    document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.go===v));
+    const view=$('#v-'+v); if(view) view.scrollTop=0;
+    if(v==='dia' && !$('#chat').children.length) diaIntro();
+  }
+  document.addEventListener('click',e=>{
+    const g=e.target.closest('[data-go]'); if(g){startClock(); go(g.dataset.go)}
+    const s=e.target.closest('[data-scroll]'); if(s){const el=document.getElementById(s.dataset.scroll); el.scrollIntoView({behavior:'smooth',block:'center'})}
+  });
+
+  // ---- wallet
+  function setBal(n, animate=true){
+    const from=S.bal; S.bal=n;
+    const eqTxt=()=>`≈ ${fmt(Math.floor(S.bal/100))} GB · or ${fmt(Math.floor(S.bal/300))} hours of boosted 5G`;
+    if(!animate){$('#bal').textContent=fmt(n);$('#eq').textContent=eqTxt();return}
+    const t0=performance.now(),d=700;
+    (function tick(t){const p=Math.min(1,(t-t0)/d);$('#bal').textContent=fmt(Math.round(from+(n-from)*(1-Math.pow(1-p,3))));if(p<1)requestAnimationFrame(tick)})(t0);
+    $('#eq').textContent=eqTxt();
+    const proj=Math.round(S.bal*0.15); $('#saveAmt').textContent='Rs '+fmt(proj); 
+  }
+  function feed(label, amt){const d=document.createElement('div');d.innerHTML=`<span>${label}</span><span class="${amt>0?'plus':'minus'}">${amt>0?'+':'−'}${fmt(Math.abs(amt))} D</span>`;$('#feed').prepend(d)}
+  let toastT; function toast(msg){const t=$('#toast');t.innerHTML=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600)}
+
+  // ---- demo clock & steps
+  let clockI;
+  function startClock(){ if(S.t0) return; S.t0=Date.now(); clockI=setInterval(()=>{const s=Math.floor((Date.now()-S.t0)/1000);const t=Math.floor(s/60)+':'+String(s%60).padStart(2,'0');$('#timer').textContent=t;$('#ptime').textContent=t},250) }
+  function done(id){ $('#s-'+id).classList.add('done'); document.querySelector(`.pdots i[data-s="${id}"]`).classList.add('on'); if(['pay','earn','boost','share'].every(k=>$('#s-'+k).classList.contains('done'))){clearInterval(clockI);$('#timer').style.color='var(--good)';$('#ptime').style.color='var(--good)'} }
+
+  // ---- pay flow
+  $('#scanBtn').onclick=()=>{startClock();$('#scanBtn').textContent='Scanning…';setTimeout(()=>{$('#pay-scan').hidden=true;$('#pay-amount').hidden=false;$('#scanBtn').textContent=T('tapScan')},700)};
+  const earnFor=a=>Math.round(a*0.06);
+  const minsFor=g=>Math.round(g/5);
+  function setAmt(a){S.amount=a;$('#amt').textContent='Rs '+fmt(a);const g=earnFor(a);$('#earnPrev').textContent=`You’ll earn +${g} DIALOG (${minsFor(g)} min of 5G)`;$('#payBtn').textContent='Pay Rs '+fmt(a);document.querySelectorAll('#amtChips button').forEach(b=>b.classList.toggle('on',+b.dataset.a===a))}
+  $('#amtChips').onclick=e=>{const b=e.target.closest('button');if(b)setAmt(+b.dataset.a)};
+  $('#payBtn').onclick=()=>{
+    $('#payBtn').disabled=true;$('#payBtn').textContent='Processing…';
+    setTimeout(()=>{
+      const g=earnFor(S.amount), before=S.bal;
+      $('#payBtn').disabled=false; setAmt(S.amount);
+      setBal(before+g,false); feed('Nimal Stores · Dialog Pay', g);
+      S.paid=true; done('pay');
+      showEarn(before,g,minsFor(g));
+      setTimeout(resetPay,400);
+    },900);
+  };
+  function resetPay(){$('#pay-amount').hidden=true;$('#pay-scan').hidden=false}
+
+  // ---- sound
+  let AC; S.muted=false;
+  function tone(f,t,d,v,type){if(S.muted)return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();const a=AC,o=a.createOscillator(),g=a.createGain(),n=a.currentTime+t;o.type=type||'sine';o.frequency.value=f;g.gain.setValueAtTime(0,n);g.gain.linearRampToValueAtTime(v,n+.01);g.gain.exponentialRampToValueAtTime(.0001,n+d);o.connect(g).connect(a.destination);o.start(n);o.stop(n+d+.05)}catch(e){}}
+  const chime=()=>[1047,1319,1568,2093].forEach((f,i)=>tone(f,i*.09,.6,.07,'triangle'));
+  const blip=()=>tone(2300+Math.random()*700,0,.07,.02);
+
+  // ---- earn takeover
+  function showEarn(before,g,mins){
+    const fx=$('#earnfx');
+    $('#efBal').textContent=fmt(before); $('#efPaid').textContent=`Paid Rs ${fmt(S.amount)} · Nimal Stores`;
+    $('#efBig').textContent=`+${mins} min`; $('#efGigs').textContent=`+${g} DIALOG to your wallet`;
+    const box=$('#efCoins'); box.innerHTML='';
+    fx.hidden=false;
+    fx.querySelectorAll('*').forEach(el=>{el.style.animation='none';el.offsetHeight;el.style.animation=''});
+    setTimeout(chime,450);
+    setTimeout(()=>{
+      const big=$('#efBig'), chip=$('#efChip');
+      const sy=big.offsetTop+big.offsetHeight/2, ty=(chip.offsetTop+chip.offsetHeight/2)-sy;
+      const n=16;
+      for(let i=0;i<n;i++){const c=document.createElement('span');c.className='coin ef-coin';c.style.top=sy+'px';const a=(i/n)*Math.PI*2+Math.random()*.4,r=70+Math.random()*60;c.style.setProperty('--sx',Math.cos(a)*r+'px');c.style.setProperty('--sy',Math.sin(a)*r*.7+'px');c.style.setProperty('--ty',ty+'px');c.style.animationDelay=(i*.05)+'s';box.appendChild(c);setTimeout(blip,980+i*50)}
+      const t0=performance.now()+950, dur=n*50+150;
+      (function tick(){const p=Math.max(0,Math.min(1,(performance.now()-t0)/dur));$('#efBal').textContent=fmt(Math.round(before+g*p));chip.classList.toggle('bump',p>0&&p<1);if(p<1)setTimeout(tick,30);else done('earn')})();
+    },700);
+  }
+  $('#efUse').onclick=()=>{$('#earnfx').hidden=true;go('boost')};
+  $('#efDone').onclick=()=>{$('#earnfx').hidden=true;go('home')};
+
+  // ---- boost
+  $('#opts').onclick=e=>{const o=e.target.closest('.opt');if(!o||S.boostTimer)return;document.querySelectorAll('.opt').forEach(x=>x.classList.toggle('on',x===o));S.boostCost=+o.dataset.cost;S.boostMin=+o.dataset.min;$('#boostBtn').textContent=`Boost for ${S.boostCost} DIALOG`};
+  function animSpeed(to){const el=$('#speed');const from=+el.textContent;const t0=performance.now();(function tick(){const p=Math.min(1,(performance.now()-t0)/1600);el.textContent=Math.round(from+(to-from)*(1-Math.pow(1-p,3)));if(p<1)setTimeout(tick,30)})()}
+  function setNet(five){S.five=five;$('#g4').classList.toggle('on',!five);$('#g5').classList.toggle('on',five);['#netBadge','#homeNet'].forEach(s=>{$(s).textContent=five?'5G ⚡':'4G'});$('#netBadge').classList.toggle('on',five)}
+  function startBoost(mins, label){
+    clearInterval(S.boostTimer); let left=mins*60;
+    setNet(true); animSpeed(420);
+    $('#boostBtn').textContent='Boost active'; $('#boostBtn').disabled=true;
+    const upd=()=>{$('#countdown').innerHTML=`${label} · <b>${Math.floor(left/60)}:${String(left%60).padStart(2,'0')}</b> left`};upd();
+    S.boostTimer=setInterval(()=>{left--;upd();if(left<=0){clearInterval(S.boostTimer);S.boostTimer=null;setNet(false);animSpeed(18);$('#countdown').textContent='Standard speed';$('#boostBtn').disabled=false;$('#boostBtn').textContent=`Boost for ${S.boostCost} DIALOG`}},1000);
+  }
+  $('#boostBtn').onclick=()=>{
+    startClock();
+    if(S.bal<S.boostCost){toast('Not enough DIALOG. Pay at a shop to earn more.');return}
+    setBal(S.bal-S.boostCost); feed(`Boost · ${S.boostMin} min 5G`, -S.boostCost);
+    startBoost(S.boostMin,'5G priority'); toast('⚡ Boosted to 5G. Video will start in HD.'); done('boost');
+  };
+
+  // ---- Dia
+  const chat=$('#chat');
+  function say(who, html, acts){const m=document.createElement('div');m.className='msg '+who;m.innerHTML=html;if(acts){const a=document.createElement('div');a.className='acts';acts.forEach(([t,fn,alt])=>{const b=document.createElement('button');b.textContent=t;if(alt)b.className='alt';b.onclick=()=>{a.remove();fn()};a.appendChild(b)});m.appendChild(a)}chat.appendChild(m);requestAnimationFrame(()=>{$('#v-dia').scrollTop=1e6})}
+  function diaIntro(){say('dia','Hi Nadeesha 👋 I watch the network so you don’t have to. Your bus reaches a busy cell near Kollupitiya in about 4 minutes. Want me to pre-load a 30-minute boost?',[['Boost for 150 D',()=>{say('me','Yes, boost');if(S.bal<150){say('dia','You’re short on DIALOG. Pay at any shop and you’ll earn them back.');return}setBal(S.bal-150);feed('Boost · Dia predicted',-150);startBoost(30,'5G priority');done('boost');say('dia','Done ⚡ You’re on 5G priority for 30 minutes. No buffering on the way.')}],['Not now',()=>say('dia','No problem. Just say “boost” whenever you need it.'),true]])}
+  const names={amma:'Amma','අම්මා':'Amma','අම්මාට':'Amma','அம்மா':'Amma','அம்மாவுக்கு':'Amma',thaththa:'Thaththa',appa:'Appa',malli:'Malli',akka:'Akka',nangi:'Nangi'};
+  function handle(text,voice){
+    say('me',(voice?'🎙 ':'')+text.replace(/</g,'&lt;'));
+    const lang=/[඀-෿]/.test(text)?'si':/[஀-௿]/.test(text)?'ta':'en';
+    const gb=text.match(/(\d+(?:\.\d+)?)\s*gb/i);
+    const low=text.toLowerCase(); let who=null;
+    for(const k in names){if(low.includes(k.toLowerCase())){who=names[k];break}}
+    setTimeout(()=>{
+      if(gb && who){
+        const g=Math.round(parseFloat(gb[1])*100);
+        const head={si:'හරි! ',ta:'சரி! ',en:''}[lang];
+        if(g>S.bal){say('dia',`${head}That needs ${fmt(g)} DIALOG and you have ${fmt(S.bal)}. Send ${fmt(Math.floor(S.bal/100))}GB instead?`);return}
+        say('dia',`${head}Send <b>${gb[1]}GB</b> to <b>${who}</b> (077 ••• 4521)? It costs <b>${fmt(g)} DIALOG</b>.`,[[`Send ${gb[1]}GB`,()=>{setBal(S.bal-g);feed(`Gift · ${gb[1]}GB to ${who}`,-g);done('share');say('dia',`Sent 💜 ${who} got a message: “Nadeesha sent you ${gb[1]}GB.” You have ${fmt(S.bal)} DIALOG left.`);toast(`🎁 ${gb[1]}GB sent to ${who}`)}],['Cancel',()=>say('dia','Cancelled. Nothing was sent.'),true]]);
+      } else if(/buffer|netflix|youtube|stream/i.test(text)){
+        say('dia','Tonight from 8 to 10 pm your home cell is usually 70% busy. I can switch you to 5G priority at 7:55 for 300 DIALOG. Want me to schedule it?',[['Schedule it',()=>{say('dia','Scheduled for 7:55 pm. I’ll only charge if the network actually gets busy.')}],['No thanks',()=>say('dia','Okay. I’ll warn you if it gets bad.'),true]]);
+      } else if(/boost/i.test(text)){
+        go('boost');
+      } else {
+        say('dia','I can boost, share or save data. Try “give Amma 20GB” in Sinhala, Tamil or English.');
+      }
+    },500);
+  }
+  $('#diaChips').onclick=e=>{const b=e.target.closest('button');if(b){startClock();handle(b.textContent)}};
+  $('#diaForm').onsubmit=e=>{e.preventDefault();const v=$('#diaIn').value.trim();if(!v)return;startClock();$('#diaIn').value='';handle(v)};
+
+  // ---- Arenas
+  let selZone=document.querySelector('.zone[data-near]');
+  $('#mapSvg').addEventListener('click',e=>{const z=e.target.closest('.zone');if(!z)return;selZone=z;const near=!!z.dataset.near;$('#zName').textContent=z.dataset.z;$('#zDist').textContent=z.dataset.d+(near?' · 312 people checked in today':' · walk there to check in');$('#zPill').textContent=near?'In range':'Out of range';$('#zPill').className='pill '+(near?'good':'gold');$('#checkinBtn').disabled=!near||S.checkedIn;$('#checkinBtn').textContent=S.checkedIn&&near?'Checked in ✓':near?'Check in · unlock free 30 min':'Get directions'});
+  $('#checkinBtn').onclick=()=>{if(!selZone.dataset.near){toast('Opening directions to '+selZone.dataset.z+'…');return}S.checkedIn=true;$('#checkinBtn').textContent='Checked in ✓';$('#checkinBtn').disabled=true;startBoost(30,'Free Arena boost');toast('📍 Galle Face Arena: free 30 min of 5G unlocked')};
+
+  // ---- Together: match
+  function drawFans(){const p=Math.min(100,S.fans/1000);$('#matchProg i').style.width=p+'%';$('#fans').textContent=fmt(Math.min(S.fans,100000));if(S.fans>=100000){$('#matchProg').classList.add('done');$('#matchEta').textContent='Goal reached!';$('#joinMatch').textContent='🎉 Free hour unlocked for everyone';$('#joinMatch').disabled=true;clearInterval(S.matchTimer);if(!S.matchToast){S.matchToast=true;celebrate('🏏','Free hour unlocked!','100,000 fans boosted together. Everyone watching gets 1 hour of 5G.');startBoost(60,'Match hour (free)')}}}
+  $('#joinMatch').onclick=()=>{if(S.joinedMatch)return;if(S.bal<20){toast('Need 20 DIALOG to join');return}S.joinedMatch=true;$('#faces').insertAdjacentHTML('afterbegin','<span style="background:var(--accent)">You</span>');$('#faces em').textContent='You, Kasun, Amaya and 2 friends';setBal(S.bal-20);feed('Boost the Match',-20);$('#joinMatch').textContent='You’re in. Fans are piling on…';$('#joinMatch').disabled=true;S.matchTimer=setInterval(()=>{S.fans+=Math.round(900+Math.random()*900);drawFans()},350)};
+
+  // ---- Together: street
+  const homes=$('#homes');for(let i=0;i<25;i++){const h=document.createElement('i');if(i<S.homesLit)h.className='lit';homes.appendChild(h)}
+  homes.style.gridTemplateColumns='repeat(13,1fr)';
+  const streets=[['Temple Rd','Nugegoda',21],['Station Rd','Kandy',25],['Lake Dr','Kurunegala',24],['Hospital Rd','Jaffna',22],['Beach Rd','Matara',19]];
+  function drawLb(){const sorted=[...streets].sort((a,b)=>b[2]-a[2]);$('#lb').innerHTML=sorted.map((s,i)=>`<div class="${s[0]==='Temple Rd'?'me':''}"><span class="rk">${i+1}</span><span class="nm">${s[0]}<small>${s[1]}${s[2]>=25?' · LIVE ✨':''}</small></span><span class="mini"><i style="width:${s[2]/25*100}%"></i></span><span style="width:38px;text-align:right;font-weight:700">${s[2]}/25</span></div>`).join('')}
+  drawLb();
+  $('#joinStreet').onclick=()=>{
+    if(S.joinedStreet)return;S.joinedStreet=true;$('#joinStreet').disabled=true;
+    const kids=homes.children;kids[S.homesLit].classList.add('lit','you');S.homesLit++;streets[0][2]=S.homesLit;$('#homesN').textContent=S.homesLit;drawLb();
+    $('#joinStreet').textContent='Pledged. Telling the neighbours…';
+    let nat=63880;$('#natHomes').textContent=fmt(++nat);
+    const iv=setInterval(()=>{if(S.homesLit>=25){clearInterval(iv);$('#joinStreet').textContent='✨ Temple Rd is live on Air Fibre';celebrate('🏠','Temple Rd is live!','25 of 25 homes signed up. Air Fibre installs start this week.');return}kids[S.homesLit].classList.add('lit');S.homesLit++;streets[0][2]=S.homesLit;$('#homesN').textContent=S.homesLit;$('#natHomes').textContent=fmt(++nat);drawLb()},700);
+  };
+
+  // ---- savings toggle
+  $('#saveToggle').onclick=e=>{e.currentTarget.classList.toggle('on');toast(e.currentTarget.classList.contains('on')?'Leftover DIALOG will go to DF Savings on 30 Nov':'Auto-save paused')};
+
+  // ---- voice
+  $('#micBtn').onclick=()=>{startClock();const f=$('#diaForm');if(f.classList.contains('listening'))return;f.classList.add('listening');tone(880,0,.12,.05);setTimeout(()=>{f.classList.remove('listening');handle('අම්මාට 20GB දෙන්න',true)},1900)};
+
+  // ---- boost video: stalls on 4G, smooth on 5G
+  const crowd=$('#crowd');let ch='';for(let i=0;i<70;i++){const x=(i*37)%320,y=30+((i*53)%36);ch+=`<circle cx="${x}" cy="${y}" r="1.4" fill="${i%5?'#ffd36b':'#8fb3ff'}"/>`}crowd.innerHTML=ch;
+  let vp=0,vt=0;
+  setInterval(()=>{const v=$('#vid');vt+=100;const five=!!S.five;const playing=five||(vt%3200)<1100;
+    v.classList.toggle('buf',!playing);v.classList.toggle('lo',!five);
+    $('#vq').textContent=five?'1080p HD':'240p';$('#vlabel').textContent=five?'5G priority · no stalls':'Busy 4G cell · buffering';
+    if(playing){vp=(vp+(five?.45:.3))%100;$('#vprog').style.width=vp+'%'}},100);
+
+  // ---- fit to screen + presenter mode
+  function fit(){const ph=$('.phone');if(innerWidth<=430){ph.style.zoom='';return}
+    const pres=document.body.classList.contains('presenter');
+    let s=Math.min((innerHeight-(pres?24:40))/800,pres?1.6:1);
+    if(innerWidth<=860||pres)s=Math.min(s,(innerWidth-32)/390);
+    ph.style.zoom=Math.max(.5,s).toFixed(3)}
+  function setPresenter(on){document.body.classList.toggle('presenter',on);fit()}
+  addEventListener('resize',fit);fit();
+  $('#presBtn').onclick=()=>setPresenter(true);
+  $('#pexit').onclick=()=>setPresenter(false);
+  document.addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;const k=e.key.toLowerCase();
+    if(k==='p')setPresenter(!document.body.classList.contains('presenter'));
+    if(k==='m'){S.muted=!S.muted;toast(S.muted?'🔇 Sound off':'🔊 Sound on')}});
+
+  // ---- language: Sinhala / Tamil / English
+  const I18N={
+    si:{gm:'සුබ උදෑසනක්',wallet:'DIALOG පසුම්බිය',pay:'ගෙවන්න',boost:'බූස්ට්',share:'බෙදන්න',save:'ඉතිරි කරන්න',spotted:'Dia යමක් දුටුවා',tip:'ඔබේ බස් රථය මිනිත්තු 4කින් කොල්ලුපිටිය අසල කාර්යබහුල ප්‍රදේශයකට ළඟා වෙයි. වීඩියෝව නතර විය හැක. දැන් බූස්ට් කරන්නද?',tipBoost:'150 D කට බූස්ට්',askDia:'Dia ගෙන් අහන්න',saveLine:'නොවැ. 30 DF ඉතුරුම් ගිණුමට',recent:'මෑත ගනුදෙනු',nHome:'මුල් පිටුව',nArenas:'කලාප',nTogether:'එකට',scanH:'ගෙවීමට ස්කෑන් කරන්න',tapScan:'ස්කෑන් කිරීමට තට්ටු කරන්න',boostH:'බූස්ට්',earned:'ඔබ උපයා ගත්තා',ofPriority:'5G ප්‍රමුඛතාව',useNow:'දැන්ම භාවිතා කරන්න ⚡',done:'හරි',togetherH:'එකට',arenasH:'5G කලාප',nPlay:'ක්‍රීඩා',playH:'දෛනික ප්‍රහේලිකා',playSub:'දිනකට නව ප්‍රහේලිකා 3ක්. විසඳා උපයන්න.'},
+    ta:{gm:'காலை வணக்கம்',wallet:'DIALOG பணப்பை',pay:'செலுத்து',boost:'பூஸ்ட்',share:'பகிர்',save:'சேமி',spotted:'Dia ஒன்றைக் கவனித்தது',tip:'உங்கள் பஸ் 4 நிமிடத்தில் கொள்ளுப்பிட்டி அருகே நெரிசலான பகுதியை அடையும். வீடியோ தடைபடலாம். இப்போது பூஸ்ட் செய்யவா?',tipBoost:'150 D-க்கு பூஸ்ட்',askDia:'Dia-விடம் கேள்',saveLine:'நவ. 30 அன்று DF சேமிப்புக்கு',recent:'சமீபத்தியவை',nHome:'முகப்பு',nArenas:'மண்டலம்',nTogether:'ஒன்றாக',scanH:'செலுத்த ஸ்கேன் செய்யவும்',tapScan:'ஸ்கேன் செய்ய தட்டவும்',boostH:'பூஸ்ட்',earned:'நீங்கள் பெற்றது',ofPriority:'5G முன்னுரிமை',useNow:'இப்போதே பயன்படுத்து ⚡',done:'முடிந்தது',togetherH:'ஒன்றாக',arenasH:'5G மண்டலங்கள்',nPlay:'விளையாடு',playH:'தினசரி புதிர்கள்',playSub:'தினமும் 3 புதிய புதிர்கள். தீர்த்து சம்பாதியுங்கள்.'}
+  };
+  const EN={};document.querySelectorAll('[data-i18n]').forEach(el=>EN[el.dataset.i18n]=el.textContent);
+  let LANG='en';
+  function T(k){return (I18N[LANG]&&I18N[LANG][k])||EN[k]}
+  function setLang(l){LANG=l;document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=T(el.dataset.i18n));document.querySelectorAll('#lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));document.documentElement.lang=l==='en'?'en':l}
+  $('#lang').onclick=e=>{const b=e.target.closest('button');if(b)setLang(b.dataset.l)};
+
+  // ---- celebrations
+  function celebrate(emoji,title,sub){
+    $('#celEmoji').textContent=emoji;$('#celTitle').textContent=title;$('#celSub').textContent=sub;
+    const c=$('#confetti');c.innerHTML='';const cols=['#ffd36b','#8b7fff','#3fd39a','#ff6b8b','#4fc3ff'];
+    for(let i=0;i<70;i++){const p=document.createElement('i');p.style.left=Math.random()*100+'%';p.style.background=cols[i%cols.length];p.style.animationDuration=(1.8+Math.random()*1.8)+'s';p.style.animationDelay=(Math.random()*.6)+'s';p.style.transform=`rotate(${Math.random()*180}deg)`;c.appendChild(p)}
+    const el=$('#celebrate');el.hidden=false;el.querySelectorAll('.cel-emoji,.cel-title,.cel-sub,.btn').forEach(x=>{x.style.animation='none';x.offsetHeight;x.style.animation=''});
+    chime();
+  }
+  $('#celOk').onclick=()=>{$('#celebrate').hidden=true};
+
+  // ---- savings switch (keyboard too)
+  const st=$('#saveToggle');st.onclick=null;
+  const flip=()=>{st.classList.toggle('on');const on=st.classList.contains('on');st.setAttribute('aria-checked',on);toast(on?'Leftover DIALOG goes to DF Savings on 30 Nov':'Auto-save paused')};
+  st.addEventListener('click',flip);st.addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();flip()}});
+
+  // ---- opening splash (doesn't start the loop timer)
+  const sp=$('#splash');let spT=setTimeout(hideSplash,3200);
+  function hideSplash(){clearTimeout(spT);sp.classList.add('out');setTimeout(()=>sp.hidden=true,500)}
+  sp.addEventListener('click',e=>{e.stopPropagation();hideSplash()});
+
+  // ---- Play tab: Daily Puzzles mini-app, rewards paid in DIALOG
+  const PLAY_NAMES={rush:'Tuk-Tuk Rush',mines:'Pothole Patrol',olinda:'Olinda'};
+  const frame=$('#playFrame');let playLoaded=false;
+  const lsGet=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+  const lsSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+  function puzzleDay(){return Math.floor((Date.now()+5.5*3600e3-Date.UTC(2026,0,1))/864e5)}
+  function updatePlayStrip(){const d=puzzleDay();const n=['rush','mines','olinda'].filter(g=>lsGet(`dp:res:${g}:${d}`)).length;$('#playDone').textContent=n;$('#playStrip').classList.toggle('all',n===3)}
+  function loadPlay(){updatePlayStrip();if(playLoaded)return;playLoaded=true;lsSet('dp:lang',LANG);frame.src='puzzles/index.html'}
+  document.addEventListener('click',e=>{if(e.target.closest('[data-go="play"]'))loadPlay()});
+  addEventListener('message',e=>{
+    if(!frame.contentWindow||e.source!==frame.contentWindow)return;
+    let m;try{m=typeof e.data==='string'?JSON.parse(e.data):e.data}catch(_){return}
+    if(!m||m.source!=='daily-puzzles')return;
+    const p=m.payload||{};
+    if(m.event==='puzzle_complete'){
+      const name=PLAY_NAMES[p.game]||'Puzzle';
+      if(p.result&&p.result.won){setBal(S.bal+50);feed(`${name} solved`,50);toast(`🧩 ${name} solved · +50 DIALOG`);chime()}
+      else toast(`${name} done. Solve it yourself next time for +50 D`);
+      updatePlayStrip();
+    }
+    if(m.event==='daily_set_complete')setTimeout(()=>{setBal(S.bal+150);feed('Daily Puzzles · all 3',150);celebrate('🧩','All 3 solved!',`+150 DIALOG bonus. Day ${p.metaStreak||1} of 7: keep the streak for a free 1 GB.`)},2400);
+    if(m.event==='streak_milestone')setTimeout(()=>celebrate('🔥',`${p.days}-day streak!`,'You unlocked a free 1 GB data reward.'),5200);
+  });
+  // keep the game's language in step with the app's switch
+  $('#lang').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;lsSet('dp:lang',b.dataset.l);
+    if(playLoaded){try{const w=frame.contentWindow;w.DP.setLang(b.dataset.l);w.dispatchEvent(new HashChangeEvent('hashchange'))}catch(_){}}});
+
+  // ---- reset (also clears today's puzzle progress so the demo can be re-run)
+  $('#resetBtn').onclick=()=>{try{Object.keys(localStorage).filter(k=>k.startsWith('dp:')&&k!=='dp:lang').forEach(k=>localStorage.removeItem(k))}catch(e){}location.reload()};
+  setBal(2400,false);
+})();
+</script>
+</body>
+</html>
