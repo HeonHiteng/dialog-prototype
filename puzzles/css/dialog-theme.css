@@ -1,0 +1,101 @@
+/* DIALOG skin: applied when the mini-app runs inside the DIALOG prototype's Play tab
+   (puzzles/index.html?skin=dialog). Every rule is scoped to html.dialog, so the
+   standalone Daily Puzzles look in styles.css is untouched.
+   Tokens mirror gigs-prototype.html: violet = actions & network, gold = DIALOG earned, green = done. */
+
+html.dialog {
+  --accent: #4a3aff; --accent-soft: #ecebff;
+  --gold: #f2a900; --gold-soft: #fff4d6; --gold-ink: #a86f00;
+  --good: #13a36b; --good-soft: #e1f6ec;
+  --bg: #f7f8fc; --card: #ffffff; --ink: #12142b; --muted: #5d6280; --line: #e2e5ef;
+  --maroon: var(--accent); --maroon-d: #2b1e72; --green: var(--good);
+  --radius: 20px; --shadow: none;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  html.dialog:not([data-theme="light"]) {
+    --accent: #8b7fff; --accent-soft: #232048;
+    --gold: #ffc23d; --gold-soft: #33290f; --gold-ink: #ffc23d;
+    --good: #3fd39a; --good-soft: #123326;
+    --bg: #101225; --card: #1a1d36; --ink: #eef0ff; --muted: #9aa0c3; --line: #262a45;
+    color-scheme: dark;
+  }
+}
+html.dialog[data-theme="dark"] {
+  --accent: #8b7fff; --accent-soft: #232048;
+  --gold: #ffc23d; --gold-soft: #33290f; --gold-ink: #ffc23d;
+  --good: #3fd39a; --good-soft: #123326;
+  --bg: #101225; --card: #1a1d36; --ink: #eef0ff; --muted: #9aa0c3; --line: #262a45;
+  color-scheme: dark;
+}
+
+html.dialog, html.dialog body {
+  font-family: "Plus Jakarta Sans", "Noto Sans Sinhala", "Noto Sans Tamil", system-ui, sans-serif;
+  font-size: 15px;
+}
+html.dialog #app { padding: 0 18px 24px; }
+html.dialog h1, html.dialog h2, html.dialog h3 { letter-spacing: -.01em; }
+html.dialog::-webkit-scrollbar, html.dialog body::-webkit-scrollbar { display: none; }
+html.dialog body { scrollbar-width: none; }
+
+/* buttons: same shapes as the host (.btn 14px radius, small actions 10px) */
+html.dialog .btn { border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 14px; font-weight: 700; font-size: 15px; }
+html.dialog .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+html.dialog .btn.ghost { background: var(--accent-soft); border-color: transparent; color: var(--accent); }
+html.dialog .btn.small { border-radius: 10px; font-size: 12px; padding: 7px 14px; min-height: 36px; }
+html.dialog .icon-btn { border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 12px; font-size: 1.2rem; }
+
+/* hub: the host already shows the title, tagline and language switch above the frame */
+html.dialog .hub-head { text-align: left; padding: 14px 0 10px; }
+html.dialog .hub-head .langs, html.dialog .hub-head h1, html.dialog .hub-head .muted { display: none; }
+html.dialog .hub-head .date { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+html.dialog .hub { gap: 10px; }
+html.dialog .card { border-radius: 20px; padding: 14px; box-shadow: none; border: 1px solid var(--line); background: var(--card); }
+html.dialog .game-card { gap: 12px; }
+html.dialog .card-art { width: 52px; height: 52px; border-radius: 14px; font-size: 1.6rem; }
+html.dialog .rush .card-art { background: var(--accent-soft); }
+html.dialog .mines .card-art { background: var(--gold-soft); }
+html.dialog .olinda .card-art { background: var(--good-soft); }
+html.dialog .card-body h3 { font-size: 14px; font-weight: 700; }
+html.dialog .card-body p { font-size: 12px; line-height: 1.4; margin: 2px 0 6px; }
+html.dialog .badge { font-size: 11px; font-weight: 700; padding: 3px 8px; background: var(--accent-soft); color: var(--accent); }
+html.dialog .badge.done { background: var(--good-soft); color: var(--good); }
+
+/* 7-day streak card: same look as the host's DIALOG wallet */
+html.dialog .reward { background: radial-gradient(120% 90% at 100% 0%, rgba(255,196,61,.32), transparent 55%), linear-gradient(160deg, #1a1545, #2b1e72); color: #fff; border: 0; }
+html.dialog .reward h3 { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #ffd36b; }
+html.dialog .reward p { font-size: 13px; line-height: 1.45; opacity: .85; }
+html.dialog .reward .muted { color: #fff; opacity: .7; }
+html.dialog .dots i { height: 8px; border-radius: 99px; background: rgba(255,255,255,.14); }
+html.dialog .dots i.on { background: #ffd36b; box-shadow: 0 0 8px rgba(255,200,60,.55); }
+html.dialog .all-done { color: var(--good); font-size: 13px; font-weight: 700; }
+html.dialog .countdown { font-size: 13px; color: var(--muted); }
+
+/* game chrome */
+html.dialog .game-head { padding: 12px 0; }
+html.dialog .game-head h1 { font-size: 17px; font-weight: 800; }
+html.dialog .game-head p { font-size: 12px; }
+html.dialog .hud { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 10px 4px; }
+html.dialog .hud span { font-size: 11px; font-weight: 600; }
+html.dialog .hud b { font-size: 18px; font-weight: 800; letter-spacing: -.02em; }
+html.dialog .seg { background: var(--line); border: 0; border-radius: 12px; padding: 3px; gap: 2px; }
+html.dialog .seg button { border-radius: 9px; padding: 8px 16px; font-size: 13px; font-weight: 700; color: var(--muted); }
+html.dialog .seg button.on { background: var(--card); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.15); }
+html.dialog .goal b { color: var(--accent); }
+html.dialog .progress-dots i { border-color: var(--line); color: var(--muted); }
+html.dialog .progress-dots i.on { border-color: var(--good); background: var(--good); color: #fff; }
+html.dialog .msg { font-size: 14px; } html.dialog .msg.good { color: var(--good); } html.dialog .msg.bad { color: #e5484d; }
+html.dialog .row-label.bottom { color: var(--muted); }
+
+/* modals + toast */
+html.dialog .modal-bg { background: rgba(17,13,46,.6); }
+html.dialog .modal { background: var(--card); color: var(--ink); border-radius: 24px 24px 0 0; }
+html.dialog .modal h2 { font-size: 22px; font-weight: 800; }
+html.dialog .modal h3 { font-size: 12px; font-weight: 700; letter-spacing: .08em; }
+html.dialog .modal-x { color: var(--muted); }
+html.dialog .howto li { font-size: 14px; line-height: 1.45; }
+html.dialog .stat { background: var(--bg); border: 1px solid var(--line); border-radius: 14px; }
+html.dialog .stat b { font-weight: 800; letter-spacing: -.02em; }
+html.dialog .share-preview { background: var(--bg); border: 1px solid var(--line); border-radius: 14px; color: var(--ink); }
+html.dialog .toast { background: var(--ink); color: var(--bg); border-radius: 14px; font-size: 13px; }
+@media (min-width: 560px) { html.dialog .modal { border-radius: 24px; } }

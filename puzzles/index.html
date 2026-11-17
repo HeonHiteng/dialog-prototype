@@ -6,6 +6,19 @@
   <meta name="theme-color" content="#7B1E3A">
   <title>Daily Puzzles</title>
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/dialog-theme.css">
+  <script>
+    // ?skin=dialog: match the DIALOG app this runs inside (fonts, colours, light/dark)
+    (function () {
+      var q = new URLSearchParams(location.search), r = document.documentElement;
+      if (q.get('skin') !== 'dialog') return;
+      r.classList.add('dialog');
+      if (q.get('theme') === 'light' || q.get('theme') === 'dark') r.dataset.theme = q.get('theme');
+      var f = document.createElement('link'); f.rel = 'stylesheet';
+      f.href = 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Sinhala:wght@500&family=Noto+Sans+Tamil:wght@500&display=swap';
+      document.head.appendChild(f);
+    })();
+  </script>
 </head>
 <body>
   <div id="app"></div>
