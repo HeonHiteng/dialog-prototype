@@ -20,11 +20,8 @@ All names, numbers and scores are placeholders. The Sinhala and Tamil text needs
 python -m http.server 8765
 ```
 
-Open http://localhost:8765/gigs-prototype.html
+Open http://localhost:8765
 
 ## Deploy
 
-```bash
-mkdir -p deploy && cp gigs-prototype.html deploy/index.html && cp -r puzzles deploy/
-cd deploy && npx vercel deploy --prod
-```
+The Vercel project is connected to this repo: every push to `main` deploys to https://gigs-prototype.vercel.app automatically. Pushes to other branches get their own preview link.

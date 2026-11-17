@@ -1,3 +1,6 @@
 # Vercel build copy and project link (rebuilt from the files below on each deploy)
 deploy/
 .vercel/
+
+.vercel
+.env*
