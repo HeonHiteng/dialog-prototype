@@ -134,26 +134,12 @@ h2{font-size:22px;letter-spacing:-.01em;margin:6px 0 4px}
 .prog{height:14px;border-radius:99px;background:var(--line);margin-top:12px;overflow:hidden}
 .prog i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--accent),#c44dff);transition:width .5s}
 .prog.done i{background:var(--good)}
-.lb{margin-top:6px}
-.lb div{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:13px}
-.lb div:first-child{border:0}
-.lb .rk{width:22px;font-weight:800;color:var(--muted)}
-.lb .nm{flex:1;font-weight:600}
-.lb .nm small{display:block;font-weight:500;color:var(--muted);font-size:11px}
-.lb .mini{width:70px;height:6px;border-radius:99px;background:var(--line);overflow:hidden}
-.lb .mini i{display:block;height:100%;background:var(--gold)}
-.lb .me .nm{color:var(--accent)}
-.homes{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin-top:12px}
-.homes i{aspect-ratio:1;border-radius:5px;background:var(--line);transition:.4s}
-.homes i.lit{background:var(--gold);box-shadow:0 0 10px var(--gold)}
-.homes i.you{outline:2px solid var(--accent);outline-offset:1px}
-
 .toast{position:absolute;left:16px;right:16px;top:52px;background:var(--ink);color:var(--screen);padding:12px 14px;border-radius:14px;font-size:13px;font-weight:600;transform:translateY(-220%);opacity:0;transition:.35s cubic-bezier(.2,1.2,.4,1);z-index:9;display:flex;gap:10px;align-items:center}
 .toast.show{transform:none;opacity:1}
 
 /* ---------- v2 ---------- */
-/* colour rule: gold = DIALOG you earn, violet = network & boosts, green = savings */
-.coin{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3CradialGradient id='g' cx='.35' cy='.3' r='.85'%3E%3Cstop offset='0' stop-color='%23fff0b8'/%3E%3Cstop offset='.55' stop-color='%23f5b400'/%3E%3Cstop offset='1' stop-color='%23c48400'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='12' cy='12' r='11.5' fill='url(%23g)'/%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%237a5200' stroke-opacity='.35'/%3E%3Cpath d='M8.6 7h3.4a5 5 0 0 1 0 10H8.6z' fill='none' stroke='%236b4a00' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M17.6 6.2a8 8 0 0 1 1.6 2.4M19.4 4.6a10.5 10.5 0 0 1 2 3' fill='none' stroke='%236b4a00' stroke-opacity='.55' stroke-width='1.3' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat !important;color:transparent !important;font-size:0 !important}
+/* colour rule: gold = GIGS you earn, violet = network & boosts, green = savings */
+.coin{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3CradialGradient id='g' cx='.35' cy='.3' r='.85'%3E%3Cstop offset='0' stop-color='%23fff0b8'/%3E%3Cstop offset='.55' stop-color='%23f5b400'/%3E%3Cstop offset='1' stop-color='%23c48400'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='12' cy='12' r='11.5' fill='url(%23g)'/%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%237a5200' stroke-opacity='.35'/%3E%3Cpath d='M15.9 8.3A5 5 0 1 0 16.9 12.4h-4.4' fill='none' stroke='%236b4a00' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat !important;color:transparent !important;font-size:0 !important}
 .earn-preview{color:var(--gold-ink)}
 .pill.gold{color:var(--gold-ink)}
 
@@ -520,7 +506,7 @@ h2{font-weight:600;letter-spacing:0}
 /* DIA tip, puzzles, share, shop */
 .tip-actions button.bt{background:var(--crimson)}
 .tip-actions{flex-wrap:wrap}
-.tip-actions button{font-size:11px;padding:8px 10px}
+.tip-actions button{font-size:12px;padding:8px 10px;text-transform:none!important;letter-spacing:0!important}
 .pz{background:#fff;border:0}
 .pz-ic{background:var(--gold-soft);box-shadow:none}
 .pz-dots i.on{background:var(--orange)}
@@ -559,6 +545,44 @@ h2{font-weight:600;letter-spacing:0}
 .sh-rows{border:0;box-shadow:var(--shadow)}
 .pick{border-color:transparent;box-shadow:var(--shadow)}
 .sh-p h3{font-weight:600}
+
+/* ---------- v6: Community, GIGS expiry ---------- */
+.ctabs{grid-template-columns:1fr 1fr}
+.cpane[hidden]{display:none}
+.cpane .map{border:0;border-radius:14px;box-shadow:var(--shadow)}
+.az-reward{display:flex;align-items:center;gap:12px;margin-top:12px;padding:10px;border-radius:12px;background:#f7f3f8}
+.az-reward .inv-tile{width:50px;height:50px}
+.az-reward .inv-tile b{font-size:12px}
+.az-reward small{display:block;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--orange)}
+.az-reward b{display:block;font-size:14px}
+.az-reward span{font-size:12px;color:var(--muted)}
+#matchJoin .btn.ghost{margin-top:10px}
+.mhow div{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--muted);margin-top:10px;line-height:1.45}
+.mhow span{width:22px;height:22px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:11px;font-weight:700;color:#fff;background:var(--plum)}
+.gx{display:flex;align-items:center;gap:10px;width:100%;margin-top:12px;padding:10px 12px;border-radius:12px;background:#fff3ea;color:var(--ink);font-size:12.5px;text-align:left;box-shadow:inset 0 0 0 1px #fbd3b6}
+.gx[hidden]{display:none}
+.gx-ic{font-size:16px}
+.gx>span:nth-child(2){flex:1}
+.gx b{color:#c2410c}
+.gx-go{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--crimson);white-space:nowrap}
+.wl-hero{display:flex;align-items:center;gap:12px}
+.wl-hero .coin{width:44px;height:44px}
+.wl-hero b{font-size:30px;font-weight:700;letter-spacing:-.02em;display:block;line-height:1.1}
+.wl-hero small{font-size:12px;color:var(--muted)}
+.wl-warn{margin-top:12px;padding:10px 12px;border-radius:12px;background:#fff3ea;font-size:12.5px;line-height:1.45;box-shadow:inset 0 0 0 1px #fbd3b6}
+.wl-warn b{color:#c2410c}
+.wl-h{font-size:13px;font-weight:600;margin-top:16px}
+.wl-rows{margin-top:8px}
+.wl-rows span small{display:block;font-size:11px;color:var(--muted)}
+.wl-rows span{color:var(--ink)!important}
+.wl-rows .soon b,.wl-rows .soon small{color:#c2410c}
+.wl-rows b.plus{color:var(--good)}.wl-rows b.minus{color:var(--muted)}
+.wl-note{font-size:11.5px;margin-top:8px}
+.pz-rank{display:inline-block;margin-top:8px;font-size:11px;white-space:nowrap;font-weight:600;color:var(--plum);background:var(--accent-soft);padding:3px 9px;border-radius:99px}
+/* DIA: keep the message bar pinned while the chat scrolls */
+#v-dia{display:flex;flex-direction:column}
+#v-dia .chat{flex:1;padding-bottom:12px}
+.composer{position:sticky;bottom:0;margin:0 -18px;padding-top:24px}
 /* calmer for people who turn motion off: stop the decorative loops, keep the story */
 @media (prefers-reduced-motion: reduce){
   .scanline,.zone circle.pulse,.crowd circle,.dia-av i,.live::before,.confetti i{animation:none!important}
@@ -584,10 +608,10 @@ h2{font-weight:600;letter-spacing:0}
   <aside class="side">
     <span class="tag">Concept prototype</span>
     <h1>5G boosters you can earn, buy, use and share.</h1>
-    <p class="lede">Pick the 5G you need: Scroll for social, Clutch for games, Binge for streaming. Earn DIALOG to unlock them, or buy bigger ones. Run the loop on the phone and time it. The goal is under a minute.</p>
+    <p class="lede">Pick the 5G you need: Scroll for social, Clutch for games, Binge for streaming. Earn GIGS to unlock them (they expire, so use them), collect free ones at 5G Arenas, or buy bigger ones. Run the loop on the phone and time it. The goal is under a minute.</p>
     <div class="steps">
       <div class="step" id="s-pay"><div class="n">1</div><div><b>Pay</b><span>Scan a shop QR and pay Rs 2,500</span></div></div>
-      <div class="step" id="s-earn"><div class="n">2</div><div><b>Earn</b><span>The receipt drops +150 DIALOG</span></div></div>
+      <div class="step" id="s-earn"><div class="n">2</div><div><b>Earn</b><span>The receipt drops +150 GIGS</span></div></div>
       <div class="step" id="s-boost"><div class="n">3</div><div><b>Boost</b><span>Activate a booster and jump to 5G</span></div></div>
       <div class="step" id="s-share"><div class="n">4</div><div><b>Share</b><span>Gift a booster to Amma</span></div></div>
     </div>
@@ -597,6 +621,7 @@ h2{font-weight:600;letter-spacing:0}
       <span>Preview states</span>
       <div><b>Booster</b><button data-pv="none" class="on">None</button><button data-pv="scroll">Scroll</button><button data-pv="clutch">Clutch</button><button data-pv="binge">Binge</button></div>
       <div><b>Puzzles</b><button data-pz="live" class="on">Live</button><button data-pz="0">To do</button><button data-pz="3">Done</button></div>
+      <div><b>GIGS</b><button data-gx="expire">Expire oldest batch now</button></div>
     </div>
   </aside>
   <div class="ptimer"><span class="pdots"><i data-s="pay"></i><i data-s="earn"></i><i data-s="boost"></i><i data-s="share"></i></span><b id="ptime">0:00</b><span>P exit · M sound</span><button id="pexit">✕</button></div>
@@ -612,12 +637,12 @@ h2{font-weight:600;letter-spacing:0}
       <div class="ef-label" data-i18n="earned">YOU EARNED</div>
       <div class="ef-big" id="efBig">+30 min</div>
       <div class="ef-sub" data-i18n="ofPriority">of 5G priority</div>
-      <div class="ef-gigs" id="efGigs">+150 DIALOG to your wallet</div>
+      <div class="ef-gigs" id="efGigs">+150 GIGS to your wallet</div>
       <div class="ef-actions"><button class="btn" id="efUse" data-i18n="useNow">Use it now ⚡</button><button class="btn ghost" id="efDone" data-i18n="done">Done</button></div>
       <div class="ef-coins" id="efCoins"></div>
     </div>
     <div class="celebrate" id="celebrate" hidden><div class="confetti" id="confetti"></div><div class="cel-emoji" id="celEmoji">🏏</div><div class="cel-title" id="celTitle"></div><div class="cel-sub" id="celSub"></div><button class="btn" id="celOk">Brilliant</button></div>
-    <div class="splash" id="splash"><span class="coin sp-coin"></span><div class="sp-name">DIALOG</div><div class="sp-line">Data is<br>money now.</div><div class="sp-sub">Earn it · Spend it · Share it · Save it</div><div class="sp-tap">Tap to start</div></div>
+    <div class="splash" id="splash"><span class="coin sp-coin"></span><div class="sp-name">5G BOOSTERS</div><div class="sp-line">Earn it.<br>Boost it.<br>Share it.</div><div class="sp-sub">Earn it · Spend it · Share it · Save it</div><div class="sp-tap">Tap to start</div></div>
     <div class="sheet" id="sheet" hidden><div class="sh-bg" id="shBg"></div><div class="sh-p" role="dialog" aria-modal="true"><div class="sh-grab"></div><div id="shBody"></div><div class="sh-acts" id="shActs"></div></div></div>
     <div class="views">
 
@@ -627,9 +652,11 @@ h2{font-weight:600;letter-spacing:0}
           <div><div class="sub" data-i18n="gm">Good morning</div><h2 style="margin:0">Nadeesha</h2></div>
           <div class="hdr-r">
             <button class="langbtn" id="lang" aria-label="Change language">EN</button>
-            <button class="curr" data-go="play" aria-label="DIALOG balance. Tap to earn more"><span class="coin"></span><b class="balv">2,400</b><i>+</i></button>
+            <button class="curr" data-wallet aria-label="GIGS balance and expiry"><span class="coin"></span><b class="balv">2,400</b><i>+</i></button>
           </div>
         </div>
+
+        <button class="gx" id="gx" data-wallet hidden></button>
 
         <!-- booster status + one activate button per booster -->
         <div class="bz">
@@ -663,7 +690,7 @@ h2{font-weight:600;letter-spacing:0}
       <section class="view" id="v-pay">
         <div id="pay-scan">
           <h2 data-i18n="scanH">Scan to pay</h2>
-          <p class="sub">Point at any Dialog Pay LankaQR. Every payment earns DIALOG.</p>
+          <p class="sub">Point at any Dialog Pay LankaQR. Every payment earns GIGS.</p>
           <div class="scanner" id="scanner">
             <div class="qr" id="qr"></div>
             <div class="scanline"></div>
@@ -675,7 +702,7 @@ h2{font-weight:600;letter-spacing:0}
           <h2>Confirm payment</h2>
           <div class="card merchant"><div class="m-logo">🛒</div><div><b>Nimal Stores</b><div class="sub">High Level Rd, Nugegoda · verified</div></div></div>
           <div class="amount" id="amt">Rs 2,500</div>
-          <div class="earn-preview" id="earnPrev">You’ll earn +150 DIALOG (30 min of 5G)</div>
+          <div class="earn-preview" id="earnPrev">You’ll earn +150 GIGS (30 min of 5G)</div>
           <div class="chips" id="amtChips"><button data-a="500">500</button><button data-a="1000">1,000</button><button data-a="2500" class="on">2,500</button><button data-a="5000">5,000</button></div>
           <div class="card row"><span class="sub">Pay from</span><b style="font-size:14px">Dialog Pay wallet · Rs 18,420</b></div>
           <button class="btn" id="payBtn">Pay Rs 2,500</button>
@@ -685,13 +712,13 @@ h2{font-weight:600;letter-spacing:0}
       <!-- BOOSTERS: inventory + buy -->
       <section class="view" id="v-boost">
         <div class="bs-head"><div class="btabs" id="btabs" role="tablist"></div></div>
-        <div class="bs-bal"><span class="sub">Your balance</span><button class="curr sm" data-go="play" aria-label="DIALOG balance"><span class="coin"></span><b class="balv">2,400</b><i>+</i></button></div>
+        <div class="bs-bal"><span class="sub">Your balance</span><button class="curr sm" data-wallet aria-label="GIGS balance and expiry"><span class="coin"></span><b class="balv">2,400</b><i>+</i></button></div>
         <div class="bhero" id="bhero"></div>
         <div class="sec-h"><b>Your inventory</b><span class="sub" id="invCount"></span></div>
         <div id="inv"></div>
         <div class="sec-h" id="buyH"><b id="buyTitle">Get more</b><span class="sub">swipe →</span></div>
         <div class="buyrow" id="buyrow"></div>
-        <p class="bs-note">1-hour boosters come only from Dialog gifts and campaigns. Boosters from gifts, campaigns and DIALOG coins last <b>7 days</b>. Boosters bought with cash last <b>30 days</b>. Prices exclude taxes.</p>
+        <p class="bs-note">1-hour boosters come only from Dialog gifts and campaigns. Boosters from gifts, campaigns and GIGS coins last <b>7 days</b>. Boosters bought with cash last <b>30 days</b>. Prices exclude taxes.</p>
       </section>
 
       <!-- DIA -->
@@ -700,7 +727,7 @@ h2{font-weight:600;letter-spacing:0}
         <div class="chat" id="chat"></div>
         <div class="composer">
           <div class="chips" id="diaChips">
-            <button>give Amma 20GB</button>
+            <button>send Amma a Binge Booster</button>
             <button>අම්මාට 20GB දෙන්න</button>
             <button>அம்மாவுக்கு 20GB கொடு</button>
             <button>Will Netflix buffer tonight?</button>
@@ -709,67 +736,64 @@ h2{font-weight:600;letter-spacing:0}
         </div>
       </section>
 
-      <!-- ARENAS -->
-      <section class="view" id="v-arenas">
-        <h2 data-i18n="arenasH">5G Arenas</h2>
-        <p class="sub">Walk into a glowing zone and check in to unlock a free boost.</p>
-        <div class="map">
-          <svg viewBox="0 0 340 300" id="mapSvg">
-            <rect width="340" height="300" fill="var(--card)"/>
-            <path d="M0 0h40c10 60 30 120 10 180s-20 90-10 120H0z" fill="var(--accent-soft)" opacity=".9"/>
-            <text x="12" y="150" font-size="10" fill="var(--muted)" transform="rotate(-90 12 150)">Indian Ocean</text>
-            <path d="M44 0c10 60 30 120 10 180s-20 90-10 120" fill="none" stroke="var(--accent)" stroke-opacity=".35" stroke-width="2"/>
-            <g stroke="var(--line)" stroke-width="6" fill="none" stroke-linecap="round">
-              <path d="M50 40 C120 60 200 50 330 30"/><path d="M60 140 C150 130 230 160 330 150"/><path d="M70 250 C150 240 240 260 330 270"/>
-              <path d="M120 0 C130 100 110 200 130 300"/><path d="M240 0 C230 100 260 200 240 300"/>
-            </g>
-            <path d="M146 112q22-16 46-5q18 9 5 23q-17 13-41 5q-20-8-10-23z" fill="var(--accent-soft)"/>
-            <text x="170" y="124" font-size="9" fill="var(--muted)" text-anchor="middle">Beira Lake</text>
-            <g transform="translate(262 112)"><path d="M0 -40 1.6 -6h-3.2z" fill="var(--muted)"/><ellipse cy="-24" rx="7" ry="4" fill="#d16ba5"/><path d="M-5 -24q5-9 10 0" fill="#e58cc0"/><rect x="-4" y="-6" width="8" height="10" rx="2" fill="var(--muted)"/><text y="16" font-size="9" text-anchor="middle" fill="var(--muted)">Lotus Tower</text></g>
-            <g class="zone" data-z="Galle Face Green" data-d="40 m away" data-near="1" transform="translate(82 92)"><circle class="pulse" r="34" fill="var(--accent)" opacity=".3"/><circle r="26" fill="var(--accent)" opacity=".18"/><circle r="7" fill="var(--accent)"/><text y="44" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">Galle Face</text></g>
-            <g class="zone" data-z="Colombo Fort" data-d="1.2 km away" transform="translate(178 58)"><circle r="22" fill="var(--accent)" opacity=".15"/><circle r="6" fill="var(--accent)"/><text y="36" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">Fort</text></g>
-            <g class="zone" data-z="Racecourse Grounds" data-d="2.4 km away" transform="translate(196 172)"><circle r="22" fill="var(--accent)" opacity=".15"/><circle r="6" fill="var(--accent)"/><text y="36" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">Racecourse</text></g>
-            <g class="zone" data-z="Nugegoda Junction" data-d="6.8 km away" transform="translate(286 236)"><circle r="22" fill="var(--accent)" opacity=".15"/><circle r="6" fill="var(--accent)"/><text y="36" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">Nugegoda</text></g>
-            <g transform="translate(104 118)"><circle r="9" fill="#fff" stroke="var(--gold)" stroke-width="3"/><circle r="3.5" fill="var(--gold)"/></g>
-          </svg>
-        </div>
-        <div class="card" id="arenaCard">
-          <div class="row"><div><b id="zName">Galle Face Green</b><div class="sub" id="zDist">40 m away · 312 people checked in today</div></div><span class="pill good" id="zPill">In range</span></div>
-          <button class="btn" id="checkinBtn">Check in · unlock free 30 min</button>
-        </div>
-        <div class="stat">
-          <div class="card"><b>32%</b><span>of the island on 5G today</span></div>
-          <div class="card"><b id="arenaCount">146</b><span>Arenas live nationwide</span></div>
-        </div>
-      </section>
+      <!-- COMMUNITY: 5G Arenas + Match Day -->
+      <section class="view" id="v-community">
+        <div class="bs-head"><div class="btabs ctabs" id="ctabs" role="tablist"><button role="tab" data-ct="arenas" class="on">📍 5G Arenas</button><button role="tab" data-ct="match">🏏 Match Day</button></div></div>
 
-      <!-- TOGETHER -->
-      <section class="view" id="v-together">
-        <h2 data-i18n="togetherH">Together</h2>
-        <p class="sub">Unlock more when you join in with others.</p>
-        <div class="card">
-          <div class="scoreboard">
-            <div class="sb-top"><span class="live">LIVE</span><span>2nd T20I · R. Premadasa Stadium</span></div>
-            <div class="sb-row"><span class="sb-team"><i style="background:#1d4ed8"></i>SL</span><b>142/3</b><span class="sb-ov">16.2 ov</span></div>
-            <div class="sb-row dim"><span class="sb-team"><i style="background:#f97316"></i>IND</span><b>179/6</b><span class="sb-ov">20 ov</span></div>
-            <div class="sb-need">SL need 38 off 22 balls</div>
+        <div class="cpane" id="cp-arenas">
+          <p class="sub" style="margin-top:12px">Check in at a 5G Arena to collect a free booster. Every Arena drops a different one.</p>
+          <div class="map">
+            <svg viewBox="0 0 340 300" id="mapSvg">
+              <rect width="340" height="300" fill="var(--card)"/>
+              <path d="M0 0h40c10 60 30 120 10 180s-20 90-10 120H0z" fill="var(--accent-soft)" opacity=".9"/>
+              <text x="12" y="150" font-size="10" fill="var(--muted)" transform="rotate(-90 12 150)">Indian Ocean</text>
+              <path d="M44 0c10 60 30 120 10 180s-20 90-10 120" fill="none" stroke="var(--accent)" stroke-opacity=".35" stroke-width="2"/>
+              <g stroke="var(--line)" stroke-width="6" fill="none" stroke-linecap="round">
+                <path d="M50 40 C120 60 200 50 330 30"/><path d="M60 140 C150 130 230 160 330 150"/><path d="M70 250 C150 240 240 260 330 270"/>
+                <path d="M120 0 C130 100 110 200 130 300"/><path d="M240 0 C230 100 260 200 240 300"/>
+              </g>
+              <path d="M146 112q22-16 46-5q18 9 5 23q-17 13-41 5q-20-8-10-23z" fill="var(--accent-soft)"/>
+              <text x="170" y="124" font-size="9" fill="var(--muted)" text-anchor="middle">Beira Lake</text>
+              <g transform="translate(262 112)"><path d="M0 -40 1.6 -6h-3.2z" fill="var(--muted)"/><ellipse cy="-24" rx="7" ry="4" fill="#d16ba5"/><path d="M-5 -24q5-9 10 0" fill="#e58cc0"/><rect x="-4" y="-6" width="8" height="10" rx="2" fill="var(--muted)"/><text y="16" font-size="9" text-anchor="middle" fill="var(--muted)">Lotus Tower</text></g>
+              <g class="zone" data-z="Galle Face Green" data-d="40 m away" data-near="1" data-bt="scroll" data-tier="m30" transform="translate(82 92)"><circle class="pulse" r="34" fill="#d6247f" opacity=".3"/><circle r="26" fill="#d6247f" opacity=".18"/><circle r="7" fill="#d6247f"/><text y="44" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">Galle Face</text></g>
+              <g class="zone" data-z="Colombo Fort" data-d="1.2 km away" data-bt="clutch" data-tier="m30" transform="translate(178 58)"><circle r="22" fill="#2a8fe0" opacity=".15"/><circle r="6" fill="#2a8fe0"/><text y="36" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">Fort</text></g>
+              <g class="zone" data-z="Racecourse Grounds" data-d="2.4 km away" data-bt="binge" data-tier="h1" data-feat="1" transform="translate(196 172)"><circle r="22" fill="#f7941e" opacity=".18"/><circle r="6" fill="#f7941e"/><text y="36" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">Racecourse ★</text></g>
+              <g class="zone" data-z="Nugegoda Junction" data-d="6.8 km away" data-bt="clutch" data-tier="m30" transform="translate(286 236)"><circle r="22" fill="#2a8fe0" opacity=".15"/><circle r="6" fill="#2a8fe0"/><text y="36" text-anchor="middle" font-size="11" font-weight="700" fill="var(--ink)">Nugegoda</text></g>
+              <g transform="translate(104 118)"><circle r="9" fill="#fff" stroke="var(--gold)" stroke-width="3"/><circle r="3.5" fill="var(--gold)"/></g>
+            </svg>
           </div>
-          <b style="display:block;margin-top:14px;font-size:17px">Boost the Match</b>
-          <p class="sub">When 100,000 fans boost, everyone watching gets a free hour of 5G.</p>
-          <div class="prog" id="matchProg"><i style="width:78%"></i></div>
-          <div class="row" style="margin-top:8px"><span class="sub"><b id="fans" style="color:var(--ink)">78,412</b> / 100,000 fans</span><span class="sub" id="matchEta">~3 overs to go</span></div>
-          <div class="faces" id="faces"><span style="background:#e11d48">K</span><span style="background:#0891b2">A</span><span style="background:#7c3aed">R</span><span style="background:#ca8a04">S</span><em>Kasun, Amaya and 2 friends are in</em></div>
-          <button class="btn" id="joinMatch">Join the boost · 20 D</button>
+          <div class="card" id="arenaCard">
+            <div class="row"><div><b id="zName">Galle Face Green</b><div class="sub" id="zDist">40 m away · 312 people checked in today</div></div><span class="pill good" id="zPill">In range</span></div>
+            <div class="az-reward" id="zReward"></div>
+            <button class="btn" id="checkinBtn">Check in</button>
+          </div>
+          <div class="stat">
+            <div class="card"><b>32%</b><span>of the island on 5G today</span></div>
+            <div class="card"><b id="arenaCount">146</b><span>Arenas live nationwide</span></div>
+          </div>
         </div>
-        <div class="card">
-          <div class="row"><b style="font-size:17px">Light Up My Street</b><span class="pill gold">Air Fibre</span></div>
-          <p class="sub">When 25 homes on your street sign up, everyone gets the Air Fibre upgrade.</p>
-          <div class="row" style="margin-top:10px"><b>Temple Rd, Nugegoda</b><span class="sub"><b id="homesN" style="color:var(--ink)">21</b>/25 homes</span></div>
-          <div class="homes" id="homes"></div>
-          <button class="btn" id="joinStreet">Pledge my home</button>
-          <div class="sub" style="margin-top:14px;font-weight:700;color:var(--ink)">Streets going live</div>
-          <div class="lb" id="lb"></div>
-          <div class="sub" style="margin-top:10px">National goal: <b style="color:var(--ink)" id="natHomes">63,880</b> / 100,000 homes</div>
+
+        <div class="cpane" id="cp-match" hidden>
+          <div class="card">
+            <div class="scoreboard">
+              <div class="sb-top"><span class="live">LIVE</span><span>2nd T20I · R. Premadasa Stadium</span></div>
+              <div class="sb-row"><span class="sb-team"><i style="background:#1d4ed8"></i>SL</span><b>142/3</b><span class="sb-ov">16.2 ov</span></div>
+              <div class="sb-row dim"><span class="sb-team"><i style="background:#f97316"></i>IND</span><b>179/6</b><span class="sb-ov">20 ov</span></div>
+              <div class="sb-need">SL need 38 off 22 balls</div>
+            </div>
+            <div class="row" style="margin-top:14px"><b style="font-size:17px">Boost the Match</b><span class="pill" style="--c1:#f7941e">🍿 Binge Boosters</span></div>
+            <p class="sub">Watch with a Binge Booster during the match. When 100,000 fans join, everyone who joined gets <b style="color:var(--ink)">+1 GB of bonus 5G data</b>.</p>
+            <div class="prog" id="matchProg"><i style="width:78%"></i></div>
+            <div class="row" style="margin-top:8px"><span class="sub"><b id="fans" style="color:var(--ink)">78,412</b> / 100,000 fans</span><span class="sub" id="matchEta">~3 overs to go</span></div>
+            <div class="faces" id="faces"><span style="background:#e11d48">K</span><span style="background:#0891b2">A</span><span style="background:#7c3aed">R</span><span style="background:#ca8a04">S</span><em>Kasun, Amaya and 2 friends are in</em></div>
+            <div id="matchJoin"></div>
+          </div>
+          <div class="card mhow">
+            <b style="font-size:14px">How Match Day works</b>
+            <div><span>1</span>Activate a Binge Booster you own, or buy one for the match.</div>
+            <div><span>2</span>Watch on YouTube, Dialog Play or any streaming app in HD.</div>
+            <div><span>3</span>Hit the fan goal and +1 GB lands on your Binge Booster.</div>
+          </div>
         </div>
       </section>
       <!-- PLAY: Daily Puzzles mini-app -->
@@ -778,17 +802,16 @@ h2{font-weight:600;letter-spacing:0}
           <div><h2 data-i18n="playH">Daily Puzzles</h2><div class="sub" data-i18n="playSub">3 new puzzles a day. Solve to earn.</div></div>
           <div class="play-earn"><span class="coin"></span><span>+50 <small>each</small></span></div>
         </div>
-        <div class="play-strip" id="playStrip"><span><b id="playDone">0</b>/3 solved today</span><span>All 3 = <b>+150 D bonus</b></span></div>
+        <div class="play-strip" id="playStrip"><span><b id="playDone">0</b>/3 solved today</span><span>All 3 = <b>+150 GIGS bonus</b></span></div>
         <div class="play-frame"><iframe id="playFrame" title="Daily Puzzles" loading="lazy"></iframe></div>
       </section>
     </div>
 
     <nav class="nav" id="nav">
       <button data-go="home" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10l9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span data-i18n="nHome">Home</span></button>
-      <button data-go="arenas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-i18n="nArenas">Arenas</span></button>
+      <button data-go="community"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M15 14.5a5 5 0 0 1 6.5 4.8"/></svg><span data-i18n="nCommunity">Community</span></button>
       <button data-go="pay" class="pay" aria-label="Pay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v7h-7"/></svg></button>
       <button data-go="dia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>DIA</button>
-      <button data-go="together"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M15 14.5a5 5 0 0 1 6.5 4.8"/></svg><span data-i18n="nTogether">Together</span></button>
       <button data-go="play"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 3v18M3 9h5M14 8h4M16 6v4M14 15.5h.01M18 15.5h.01"/></svg><span data-i18n="nPlay">Play</span></button>
     </nav>
   </div></div>
@@ -811,22 +834,72 @@ h2{font-weight:600;letter-spacing:0}
     const view=$('#v-'+v); if(view) view.scrollTop=0;
     if(v==='dia' && !$('#chat').children.length) diaIntro();
     $('#mpTitle').textContent=TITLES[v]||'5G Boosters'; S.view=v;
+    if(v==='home'&&typeof renderPz==='function')renderPz();
   }
-  const TITLES={home:'5G Boosters',boost:'My boosters',pay:'Scan & Pay',dia:'Ask DIA',arenas:'5G Arenas',together:'Together',play:'Daily Puzzles'};
+  const TITLES={home:'5G Boosters',boost:'My boosters',pay:'Scan & Pay',dia:'Ask DIA',community:'Community',play:'Daily Puzzles'};
   document.addEventListener('click',e=>{
     const g=e.target.closest('[data-go]'); if(g){startClock(); go(g.dataset.go)}
+    if(e.target.closest('[data-wallet]')){openWallet();return}
     const bb=e.target.closest('[data-boost]'); if(bb){startClock(); openBoost(bb.dataset.boost, bb.dataset.to)}
   });
 
-  // ---- DIALOG balance, shown as a coin chip top-right
+  // ---- GIGS balance, shown as a coin chip top-right
   function setBal(n, animate=true){
     const from=S.bal; S.bal=n; const els=document.querySelectorAll('.balv');
-    if(!animate){els.forEach(e=>e.textContent=fmt(n));return}
+    if(!animate){S.balTok=(S.balTok||0)+1;els.forEach(e=>e.textContent=fmt(n));return}
     document.querySelectorAll('.curr').forEach(c=>{c.classList.remove('bump');c.offsetWidth;c.classList.add('bump')});
     const t0=performance.now(),d=700;
-    (function tick(t){const p=Math.min(1,(t-t0)/d);els.forEach(e=>e.textContent=fmt(Math.round(from+(n-from)*(1-Math.pow(1-p,3)))));if(p<1)requestAnimationFrame(tick)})(t0);
+    const tok=S.balTok=(S.balTok||0)+1; // a newer change cancels this count-up
+    (function tick(t){if(tok!==S.balTok)return;const p=Math.min(1,(t-t0)/d);els.forEach(e=>e.textContent=fmt(Math.round(from+(n-from)*(1-Math.pow(1-p,3)))));if(p<1)setTimeout(()=>tick(performance.now()),30)})(t0);
   }
-  S.ledger=[]; function feed(label, amt){S.ledger.unshift([label,amt])}
+  S.ledger=[['Scroll Booster · 30 min',-150],['Electricity bill · CEB',180],['Fuel · Ceypetco Borella',240]];
+  function feed(label, amt){S.ledger.unshift([label,amt])}
+
+  // ---- GIGS expiry, like card or eWallet points:
+  // each month's GIGS expire at the end of the 3rd month after you earn them, and spending always uses the oldest first.
+  const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const expOf=d=>new Date(d.getFullYear(),d.getMonth()+4,0,23,59,59);
+  const dShort=d=>`${d.getDate()} ${MON[d.getMonth()]}`;
+  const dLong=d=>`${d.getDate()} ${MON[d.getMonth()]} ${d.getFullYear()}`;
+  const monthsAgo=(n,day)=>{const d=new Date();return new Date(d.getFullYear(),d.getMonth()-n,day,10)};
+  S.gigs=[[3,14,320,'Dialog Pay purchases'],[2,9,480,'Bill payments'],[1,21,900,'Dialog Pay purchases'],[0,6,700,'Daily Puzzles and payments']]
+    .map(([n,day,amt,label])=>{const earned=monthsAgo(n,n?day:Math.min(day,new Date().getDate()));return {amt,earned,exp:expOf(earned),label}});
+  const sumG=()=>S.gigs.reduce((t,b)=>t+b.amt,0);
+  function earn(amt,label,anim=true){const now=new Date();S.gigs.push({amt,earned:now,exp:expOf(now),label});feed(label,amt);setBal(sumG(),anim);renderGx()}
+  function spend(amt,label){
+    if(sumG()<amt)return false;
+    let left=amt;S.gigs.sort((a,b)=>a.exp-b.exp);
+    for(const b of S.gigs){const t=Math.min(b.amt,left);b.amt-=t;left-=t;if(!left)break}
+    S.gigs=S.gigs.filter(b=>b.amt>0);feed(label,-amt);setBal(sumG());renderGx();return true;
+  }
+  // batches that share an expiry date are shown as one line
+  function buckets(){const m={};S.gigs.forEach(b=>{const k=+b.exp;(m[k]=m[k]||{exp:b.exp,earned:b.earned,amt:0}).amt+=b.amt});return Object.values(m).sort((a,b)=>a.exp-b.exp)}
+  function expireDue(force){
+    const now=Date.now();let gone=S.gigs.filter(b=>b.exp<=now);
+    if(force&&!gone.length&&S.gigs.length){const first=buckets()[0].exp;gone=S.gigs.filter(b=>+b.exp===+first)}
+    if(!gone.length)return;
+    const amt=gone.reduce((t,b)=>t+b.amt,0),from=MON[gone[0].earned.getMonth()];
+    S.gigs=S.gigs.filter(b=>!gone.includes(b));feed(`Expired · earned in ${from}`,-amt);setBal(sumG());renderGx();
+    toast(`⏳ ${fmt(amt)} GIGS earned in ${from} have expired`);
+    if(!$('#sheet').hidden&&$('#shBody .wl-hero'))openWallet();
+  }
+  function renderGx(){
+    const el=$('#gx'),n=buckets()[0];if(!el)return;
+    const days=n?Math.ceil((n.exp-Date.now())/864e5):99;
+    el.hidden=!n||days>31;
+    if(n)el.innerHTML=`<span class="gx-ic">⏳</span><span><b>${fmt(n.amt)} GIGS</b> expire on ${dShort(n.exp)}${days<=31?` · ${days} day${days>1?'s':''} left`:''}</span><span class="gx-go">Use them</span>`;
+  }
+  function openWallet(){
+    const bs=buckets(),n=bs[0],days=n?Math.ceil((n.exp-Date.now())/864e5):0,boosters=n?Math.floor(n.amt/150):0;
+    sheet(`<div class="wl-hero"><span class="coin"></span><div><b>${fmt(sumG())}</b><small>GIGS balance</small></div></div>
+      ${n?`<div class="wl-warn">⏳ <b>${fmt(n.amt)} GIGS</b> expire on ${dLong(n.exp)} (${days} day${days>1?'s':''})${boosters?`. Enough for ${boosters} × 30-min booster${boosters>1?'s':''}.`:'.'}</div>`:''}
+      <div class="wl-h">Expiry schedule</div>
+      <div class="sh-rows wl-rows">${bs.map((b,i)=>`<div class="${i?'':'soon'}"><span>Earned in ${MON[b.earned.getMonth()]}<small>expires ${dLong(b.exp)}</small></span><b>${fmt(b.amt)}</b></div>`).join('')||'<div><span>No GIGS yet</span><b>0</b></div>'}</div>
+      <p class="sub wl-note">GIGS expire at the end of the 3rd month after the month you earn them. We always spend your oldest GIGS first, so nothing goes to waste if you keep using them.</p>
+      <div class="wl-h">Recent activity</div>
+      <div class="sh-rows wl-rows">${S.ledger.slice(0,5).map(([l,a])=>`<div><span>${l}</span><b class="${a>0?'plus':'minus'}">${a>0?'+':'−'}${fmt(Math.abs(a))}</b></div>`).join('')||'<div><span>Nothing yet. Pay with Dialog Pay or solve a puzzle.</span><b></b></div>'}</div>`,
+      [['Use GIGS on a booster',()=>openBoost(S.bt,'buy')],['Earn more GIGS',()=>{go('play');loadPlay()},'ghost']]);
+  }
   let toastT; function toast(msg){const t=$('#toast');t.innerHTML=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600)}
 
   // ---- demo clock & steps
@@ -838,14 +911,14 @@ h2{font-weight:600;letter-spacing:0}
   $('#scanBtn').onclick=()=>{startClock();$('#scanBtn').textContent='Scanning…';setTimeout(()=>{$('#pay-scan').hidden=true;$('#pay-amount').hidden=false;$('#scanBtn').textContent=T('tapScan')},700)};
   const earnFor=a=>Math.round(a*0.06);
   const minsFor=g=>Math.round(g/5);
-  function setAmt(a){S.amount=a;$('#amt').textContent='Rs '+fmt(a);const g=earnFor(a);$('#earnPrev').textContent=`You’ll earn +${g} DIALOG (${minsFor(g)} min of 5G)`;$('#payBtn').textContent='Pay Rs '+fmt(a);document.querySelectorAll('#amtChips button').forEach(b=>b.classList.toggle('on',+b.dataset.a===a))}
+  function setAmt(a){S.amount=a;$('#amt').textContent='Rs '+fmt(a);const g=earnFor(a);$('#earnPrev').textContent=`You’ll earn +${g} GIGS (${minsFor(g)} min of 5G)`;$('#payBtn').textContent='Pay Rs '+fmt(a);document.querySelectorAll('#amtChips button').forEach(b=>b.classList.toggle('on',+b.dataset.a===a))}
   $('#amtChips').onclick=e=>{const b=e.target.closest('button');if(b)setAmt(+b.dataset.a)};
   $('#payBtn').onclick=()=>{
     $('#payBtn').disabled=true;$('#payBtn').textContent='Processing…';
     setTimeout(()=>{
       const g=earnFor(S.amount), before=S.bal;
       $('#payBtn').disabled=false; setAmt(S.amount);
-      setBal(before+g,false); feed('Nimal Stores · Dialog Pay', g);
+      earn(g,'Nimal Stores · Dialog Pay',false);
       S.paid=true; done('pay');
       showEarn(before,g,minsFor(g));
       setTimeout(resetPay,400);
@@ -863,7 +936,7 @@ h2{font-weight:600;letter-spacing:0}
   function showEarn(before,g,mins){
     const fx=$('#earnfx');
     $('#efBal').textContent=fmt(before); $('#efPaid').textContent=`Paid Rs ${fmt(S.amount)} · Nimal Stores`;
-    $('#efBig').textContent=`+${mins} min`; $('#efGigs').textContent=`+${g} DIALOG to your wallet`;
+    $('#efBig').textContent=`+${mins} min`; $('#efGigs').textContent=`+${g} GIGS · valid until ${dShort(expOf(new Date()))}`;
     const box=$('#efCoins'); box.innerHTML='';
     fx.hidden=false;
     fx.querySelectorAll('*').forEach(el=>{el.style.animation='none';el.offsetHeight;el.style.animation=''});
@@ -890,7 +963,7 @@ h2{font-weight:600;letter-spacing:0}
     binge:{name:'Binge Booster',short:'Binge',word:'BINGE',cat:'Watch',ic:'🍿',tag:'HD streams with zero buffering',c1:'#f7941e',c2:'#e2382a',
       apps:[['YouTube','#e00','▶'],['Netflix','#b20710','N'],['Dialog Play','#6a3dff','D'],['Twitch','#9146ff','T']]}
   };
-  // 30 min: DIALOG coins only. 1 hr: Dialog gifts/campaigns only. 3/6/12 hr: cash.
+  // 30 min: GIGS coins only. 1 hr: Dialog gifts/campaigns only. 3/6/12 hr: cash.
   const TIERS={
     m30:{min:30,mb:500,label:'30 min',data:'500 MB',coin:150},
     h1:{min:60,mb:1024,label:'1 hour',data:'1 GB'},
@@ -898,7 +971,7 @@ h2{font-weight:600;letter-spacing:0}
     h6:{min:360,mb:6144,label:'6 hours',data:'6 GB',price:249,tag:'Popular',save:'Save 16%'},
     h12:{min:720,mb:12288,label:'12 hours',data:'12 GB',price:399,tag:'Best value',save:'Save 33%'}
   };
-  const SRC={gift:'Gift from Dialog',campaign:'Campaign',coins:'Bought with DIALOG',paid:'Purchased'};
+  const SRC={gift:'Gift from Dialog',campaign:'Campaign',coins:'Bought with GIGS',paid:'Purchased'};
   const DAY=864e5, HR=36e5, tc=t=>`--c1:${BT[t].c1};--c2:${BT[t].c2}`;
   let uid=0;
   const mk=(type,tier,src,days,note)=>({id:++uid,type,tier,src,note,exp:Date.now()+days*DAY-2*HR});
@@ -968,11 +1041,11 @@ h2{font-weight:600;letter-spacing:0}
     const gs=groups(t), same=a&&a.type===t;
     $('#invCount').textContent=`${count(t)} ${b.short} · ${count()} total`;
     $('#inv').innerHTML=gs.length?gs.map(g=>{const ms=g.exp-Date.now();return `<div class="inv-i${ms<3*DAY?' soon':''}">${tile(t,g.tier)}<div class="inv-m"><b>${b.name}</b>${g.ids.length>1?`<span class="qty">×${g.ids.length}</span>`:''}<div><span class="src src-${g.src}">${SRC[g.src]}${g.note?' · '+g.note:''}</span></div><div class="inv-exp">Use within ${expTxt(ms)}</div></div><button class="inv-go" data-act="${g.ids[0]}">${same?'Add time':'Activate'}</button></div>`}).join('')
-      :`<div class="inv-empty">No ${b.name}s yet.<br>Buy one below, or solve the Daily Puzzles to earn DIALOG.</div>`;
+      :`<div class="inv-empty">No ${b.name}s yet.<br>Buy one below, or solve the Daily Puzzles to earn GIGS.</div>`;
     $('#buyTitle').textContent=`Get more ${b.short} boosters`;
-    // cash options first; the DIALOG-coin option sits last, on the right
+    // cash options first; the GIGS-coin option sits last, on the right
     $('#buyrow').innerHTML=['h3','h6','h12'].map(k=>{const T=TIERS[k];return `<button class="buy${k==='h6'?' hot':''}" data-buy="${k}">${T.tag?`<span class="buy-tag">${T.tag}</span>`:''}<b class="buy-h">${T.label}</b><span class="buy-d">${T.data} 5G data</span><span class="buy-p">Rs ${T.price}</span><span class="buy-x">${T.save||''}</span><span class="buy-v">Valid 30 days</span><span class="buy-cta">Buy</span></button>`}).join('')
-      +`<button class="buy coin-opt" data-buy="m30"><span class="buy-tag">Use your coins</span><b class="buy-h">30 min</b><span class="buy-d">500 MB 5G data</span><span class="buy-p"><span class="coin"></span>150</span><span class="buy-x" style="color:var(--muted)">You have ${fmt(S.bal)}</span><span class="buy-v">Valid 7 days</span><span class="buy-cta">Get with DIALOG</span></button>`;
+      +`<button class="buy coin-opt" data-buy="m30"><span class="buy-tag">Use your coins</span><b class="buy-h">30 min</b><span class="buy-d">500 MB 5G data</span><span class="buy-p"><span class="coin"></span>150</span><span class="buy-x" style="color:var(--muted)">You have ${fmt(S.bal)}</span><span class="buy-v">Valid 7 days</span><span class="buy-cta">Get with GIGS</span></button>`;
     tickInd();
   }
   $('#btabs').onclick=e=>{const b=e.target.closest('[data-bt]');if(b){S.bt=b.dataset.bt;renderBoost()}};
@@ -1010,15 +1083,14 @@ h2{font-weight:600;letter-spacing:0}
   function buy(tier){
     const t=S.bt,b=BT[t],T=TIERS[tier],coin=!T.price;
     const rows=coin
-      ?`<div><span>Price</span><b>150 DIALOG</b></div><div><span>Your balance</span><b>${fmt(S.bal)} → ${fmt(S.bal-150)}</b></div><div><span>Use within</span><b>7 days</b></div>`
+      ?`<div><span>Price</span><b>150 GIGS</b></div><div><span>Your balance</span><b>${fmt(S.bal)} → ${fmt(S.bal-150)}</b></div><div><span>Use within</span><b>7 days</b></div>`
       :`<div><span>Price</span><b>Rs ${T.price} + tax</b></div><div><span>Pay with</span><b>Add to Dialog bill · 077 ••• 1904</b></div><div><span>Use within</span><b>30 days</b></div>`;
     sheet(`${banner(t)}<h3>${b.name} · ${T.label}</h3><p class="sub" style="margin-top:2px">${T.data} of 5G priority on ${b.apps.map(x=>x[0]).join(', ')}.</p><div class="sh-rows">${rows}</div>`,
-      [[coin?'Get for 150 DIALOG':`Pay Rs ${T.price}`,()=>doBuy(tier,false)],['Buy and activate now',()=>doBuy(tier,true),'ghost']],t);
+      [[coin?'Get for 150 GIGS':`Pay Rs ${T.price}`,()=>doBuy(tier,false)],['Buy and activate now',()=>doBuy(tier,true),'ghost']],t);
   }
   function doBuy(tier,now){
     const t=S.bt,T=TIERS[tier],coin=!T.price;
-    if(coin&&S.bal<T.coin){toast('Not enough DIALOG. Solve the Daily Puzzles or pay at a shop to earn more.');return}
-    if(coin){setBal(S.bal-T.coin);feed(`${BT[t].name} · 30 min`,-T.coin)}
+    if(coin&&!spend(T.coin,`${BT[t].name} · 30 min`)){toast('Not enough GIGS. Solve the Daily Puzzles or pay at a shop to earn more.');return}
     const it=mk(t,tier,coin?'coins':'paid',coin?7:30);S.inv.push(it);
     if(now)activate(it.id);else{toast(`🛍️ ${BT[t].name} · ${T.label} added to your inventory`);renderAll()}
   }
@@ -1028,7 +1100,7 @@ h2{font-weight:600;letter-spacing:0}
   $('#ppl').innerHTML=PPL.map((p,i)=>`<button data-to="${i}"><span style="background:${p[1]}">${p[0][0]}</span>${p[0]}</button>`).join('')+`<button class="add" id="pplAdd"><span>+</span>Contact</button>`;
   $('#ppl').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(b.id==='pplAdd'){toast('Opening your contacts…');return}shareTo(+b.dataset.to)};
   function shareTo(pi){
-    const p=PPL[pi],gs=groups();
+    const p=typeof pi==='number'?PPL[pi]:[pi,'#8f2a7d','saved contact'],gs=groups();
     if(!gs.length){toast('No boosters to share. Buy one in the Booster shop.');return}
     sheet(`<h3>Gift a booster to ${p[0]}</h3><p class="sub" style="margin-top:2px">${p[2]} · they get it instantly, with the same expiry date.</p>
       <div style="margin-top:6px">${gs.map((g,i)=>`<label class="pick" style="${tc(g.type)}"><input type="radio" name="pk" value="${g.ids[0]}"${i?'':' checked'}>${tile(g.type,g.tier)}<span><b>${BT[g.type].name}</b>${g.ids.length>1?` <span class="qty">×${g.ids.length}</span>`:''}<small>${SRC[g.src]} · use within ${expTxt(g.exp-Date.now())}</small></span></label>`).join('')}</div>`,
@@ -1050,7 +1122,7 @@ h2{font-weight:600;letter-spacing:0}
   function diaActivate(){const g=soonest('binge');if(!g){openBoost('binge','buy');return null}activate(g.id,true);return g}
   $('#tipAct').onclick=()=>{startClock();diaActivate()};
 
-  function renderAll(){renderInd();renderActs();renderShare();if($('#v-boost').classList.contains('active'))renderBoost()}
+  function renderAll(){renderInd();renderActs();renderShare();renderMatch();if($('#v-boost').classList.contains('active'))renderBoost()}
 
   // ---- 1s tick: count down, use data, end when time or data runs out
   setInterval(()=>{
@@ -1060,60 +1132,113 @@ h2{font-weight:600;letter-spacing:0}
       if(a.end<=Date.now()||a.mbLeft<=0){const b=BT[a.type];S.active=null;setNet(false);toast(`${b.ic} ${b.name} finished. Back on 4G.`);renderAll()}
       else tickInd();
     }
-    tickPz();
+    tickPz(); expireDue();
   },1000);
 
   // ---- Dia
   const chat=$('#chat');
   function say(who, html, acts){const m=document.createElement('div');m.className='msg '+who;m.innerHTML=html;if(acts){const a=document.createElement('div');a.className='acts';acts.forEach(([t,fn,alt])=>{const b=document.createElement('button');b.textContent=t;if(alt)b.className='alt';b.onclick=()=>{a.remove();fn()};a.appendChild(b)});m.appendChild(a)}chat.appendChild(m);requestAnimationFrame(()=>{$('#v-dia').scrollTop=1e6})}
   function diaIntro(){say('dia','Hi Nadeesha 👋 I watch the network so you don’t have to. Your bus reaches a busy cell near Kollupitiya in about 4 minutes. Want me to switch on a Binge Booster?',[['Activate Binge Booster',()=>{say('me','Yes, activate it');const g=diaActivate();if(!g){say('dia','You’re out of Binge Boosters. I opened the shop for you.');return}say('dia',`Done ⚡ I used your ${TIERS[g.tier].label} Binge Booster that expires first. YouTube stays in HD on the way.`)}],['Not now',()=>say('dia','No problem. Just say “boost” whenever you need it.'),true]])}
-  const names={amma:'Amma','අම්මා':'Amma','අම්මාට':'Amma','அம்மா':'Amma','அம்மாவுக்கு':'Amma',thaththa:'Thaththa',appa:'Appa',malli:'Malli',akka:'Akka',nangi:'Nangi'};
+  const names={amma:'Amma','අම්මා':'Amma','අම්මාට':'Amma','அம்மா':'Amma','அம்மாவுக்கு':'Amma',thaththa:'Thaththa',appa:'Appa',malli:'Malli',akka:'Akka',nangi:'Nangi',kasun:'Kasun'};
+  const TYPE_WORDS=[['binge',/binge|watch|youtube|netflix|stream|video|movie|cricket|match/i],['scroll',/scroll|social|tiktok|facebook|whatsapp|insta/i],['clutch',/clutch|gam(e|ing)|pubg|roblox|legends|cod\b/i]];
+  // DIA sends boosters from your inventory. Raw data gifts are gone: a GB request becomes a booster offer.
+  function offerBooster(who,type,gbAsked,lang){
+    const head={si:'හරි! ',ta:'சரி! ',en:''}[lang];
+    const pref=type||(who==='Amma'?'binge':null);
+    const c=(pref&&soonest(pref))||S.inv.slice().sort((a,b)=>a.exp-b.exp)[0];
+    const intro=gbAsked?`${head}Data gifts now go as 5G boosters. `:head;
+    if(!c){say('dia',`${intro}You have no boosters to send right now. Want to get one?`,[['Open the shop',()=>openBoost(pref||S.bt,'buy')],['Not now',()=>say('dia','Okay. Nothing was sent.'),true]]);return}
+    const b=BT[c.type],T=TIERS[c.tier],why=!type&&pref?` ${who} streams a lot, so a Binge Booster fits.`:'';
+    say('dia',`${intro}Send <b>${who}</b> your <b>${b.name} · ${T.label}</b> (${T.data} of 5G, use within ${expTxt(c.exp-Date.now())})?${why}`,
+      [[`Send ${b.short}`,()=>{send(c.id,who);say('dia',`Sent 💜 ${who} got a message: “Nadeesha sent you a ${b.name}: ${T.label} of 5G.” You have ${count()} boosters left.`)}],
+       ['Pick another',()=>{const pi=PPL.findIndex(p=>p[0]===who);shareTo(pi>=0?pi:who)},true],
+       ['Cancel',()=>say('dia','Cancelled. Nothing was sent.'),true]]);
+  }
   function handle(text,voice){
     say('me',(voice?'🎙 ':'')+text.replace(/</g,'&lt;'));
     const lang=/[඀-෿]/.test(text)?'si':/[஀-௿]/.test(text)?'ta':'en';
-    const gb=text.match(/(\d+(?:\.\d+)?)\s*gb/i);
+    const gb=/(\d+(?:\.\d+)?)\s*gb/i.test(text);
     const low=text.toLowerCase(); let who=null;
     for(const k in names){if(low.includes(k.toLowerCase())){who=names[k];break}}
+    const tw=TYPE_WORDS.find(([,re])=>re.test(text)), type=tw&&tw[0];
     setTimeout(()=>{
-      if(gb && who){
-        const g=Math.round(parseFloat(gb[1])*100);
-        const head={si:'හරි! ',ta:'சரி! ',en:''}[lang];
-        if(g>S.bal){say('dia',`${head}That needs ${fmt(g)} DIALOG and you have ${fmt(S.bal)}. Send ${fmt(Math.floor(S.bal/100))}GB instead?`);return}
-        say('dia',`${head}Send <b>${gb[1]}GB</b> to <b>${who}</b> (077 ••• 4521)? It costs <b>${fmt(g)} DIALOG</b>.`,[[`Send ${gb[1]}GB`,()=>{setBal(S.bal-g);feed(`Gift · ${gb[1]}GB to ${who}`,-g);done('share');say('dia',`Sent 💜 ${who} got a message: “Nadeesha sent you ${gb[1]}GB.” You have ${fmt(S.bal)} DIALOG left.`);toast(`🎁 ${gb[1]}GB sent to ${who}`)}],['Cancel',()=>say('dia','Cancelled. Nothing was sent.'),true]]);
+      if(who&&(gb||/send|give|gift|share|booster/i.test(text)||lang!=='en')){
+        offerBooster(who,type,gb,lang);
       } else if(/buffer|netflix|youtube|stream/i.test(text)){
-        say('dia','Tonight from 8 to 10 pm your home cell is usually 70% busy. I can switch you to 5G priority at 7:55 for 300 DIALOG. Want me to schedule it?',[['Schedule it',()=>{say('dia','Scheduled for 7:55 pm. I’ll only charge if the network actually gets busy.')}],['No thanks',()=>say('dia','Okay. I’ll warn you if it gets bad.'),true]]);
+        const g=soonest('binge');
+        say('dia',g?`Tonight from 8 to 10 pm your home cell is usually 70% busy. I can switch on your ${TIERS[g.tier].label} Binge Booster at 7:55 pm. Schedule it?`:'Tonight from 8 to 10 pm your home cell is usually 70% busy. You have no Binge Boosters left. Want one for tonight?',
+          g?[['Schedule it',()=>say('dia','Scheduled for 7:55 pm. I’ll only use it if the network actually gets busy.')],['No thanks',()=>say('dia','Okay. I’ll warn you if it gets bad.'),true]]
+           :[['Open the shop',()=>openBoost('binge','buy')],['No thanks',()=>say('dia','Okay. I’ll warn you if it gets bad.'),true]]);
       } else if(/boost/i.test(text)){
-        openBoost(S.bt);
+        openBoost(type||S.bt);
       } else {
-        say('dia','I can boost, share or save data. Try “give Amma 20GB” in Sinhala, Tamil or English.');
+        say('dia','I can switch on boosters or send them to family. Try “send Amma a Binge Booster” in Sinhala, Tamil or English.');
       }
     },500);
   }
   $('#diaChips').onclick=e=>{const b=e.target.closest('button');if(b){startClock();handle(b.textContent)}};
   $('#diaForm').onsubmit=e=>{e.preventDefault();const v=$('#diaIn').value.trim();if(!v)return;startClock();$('#diaIn').value='';handle(v)};
 
-  // ---- Arenas
+  // ---- Community tabs
+  function setCt(k){document.querySelectorAll('#ctabs button').forEach(b=>b.classList.toggle('on',b.dataset.ct===k));$('#cp-arenas').hidden=k!=='arenas';$('#cp-match').hidden=k!=='match';$('#v-community').scrollTop=0}
+  $('#ctabs').onclick=e=>{const b=e.target.closest('[data-ct]');if(b)setCt(b.dataset.ct)};
+
+  // ---- 5G Arenas: check in to collect a free booster (goes to your inventory)
+  S.checked={};
   let selZone=document.querySelector('.zone[data-near]');
-  $('#mapSvg').addEventListener('click',e=>{const z=e.target.closest('.zone');if(!z)return;selZone=z;const near=!!z.dataset.near;$('#zName').textContent=z.dataset.z;$('#zDist').textContent=z.dataset.d+(near?' · 312 people checked in today':' · walk there to check in');$('#zPill').textContent=near?'In range':'Out of range';$('#zPill').className='pill '+(near?'good':'gold');$('#checkinBtn').disabled=!near||S.checkedIn;$('#checkinBtn').textContent=S.checkedIn&&near?'Checked in ✓':near?'Check in · unlock free 30 min':'Get directions'});
-  $('#checkinBtn').onclick=()=>{if(!selZone.dataset.near){toast('Opening directions to '+selZone.dataset.z+'…');return}S.checkedIn=true;$('#checkinBtn').textContent='Checked in ✓';$('#checkinBtn').disabled=true;startFree('scroll','m30','Galle Face Arena');toast('📍 Galle Face Arena: free 30-min Scroll Booster unlocked')};
-
-  // ---- Together: match
-  function drawFans(){const p=Math.min(100,S.fans/1000);$('#matchProg i').style.width=p+'%';$('#fans').textContent=fmt(Math.min(S.fans,100000));if(S.fans>=100000){$('#matchProg').classList.add('done');$('#matchEta').textContent='Goal reached!';$('#joinMatch').textContent='🎉 Free hour unlocked for everyone';$('#joinMatch').disabled=true;clearInterval(S.matchTimer);if(!S.matchToast){S.matchToast=true;celebrate('🏏','Free hour unlocked!','100,000 fans boosted together. Everyone watching gets 1 hour of 5G.');startFree('binge','h1','Boost the Match')}}}
-  $('#joinMatch').onclick=()=>{if(S.joinedMatch)return;if(S.bal<20){toast('Need 20 DIALOG to join');return}S.joinedMatch=true;$('#faces').insertAdjacentHTML('afterbegin','<span style="background:var(--accent)">You</span>');$('#faces em').textContent='You, Kasun, Amaya and 2 friends';setBal(S.bal-20);feed('Boost the Match',-20);$('#joinMatch').textContent='You’re in. Fans are piling on…';$('#joinMatch').disabled=true;S.matchTimer=setInterval(()=>{S.fans+=Math.round(900+Math.random()*900);drawFans()},350)};
-
-  // ---- Together: street
-  const homes=$('#homes');for(let i=0;i<25;i++){const h=document.createElement('i');if(i<S.homesLit)h.className='lit';homes.appendChild(h)}
-  homes.style.gridTemplateColumns='repeat(13,1fr)';
-  const streets=[['Temple Rd','Nugegoda',21],['Station Rd','Kandy',25],['Lake Dr','Kurunegala',24],['Hospital Rd','Jaffna',22],['Beach Rd','Matara',19]];
-  function drawLb(){const sorted=[...streets].sort((a,b)=>b[2]-a[2]);$('#lb').innerHTML=sorted.map((s,i)=>`<div class="${s[0]==='Temple Rd'?'me':''}"><span class="rk">${i+1}</span><span class="nm">${s[0]}<small>${s[1]}${s[2]>=25?' · LIVE ✨':''}</small></span><span class="mini"><i style="width:${s[2]/25*100}%"></i></span><span style="width:38px;text-align:right;font-weight:700">${s[2]}/25</span></div>`).join('')}
-  drawLb();
-  $('#joinStreet').onclick=()=>{
-    if(S.joinedStreet)return;S.joinedStreet=true;$('#joinStreet').disabled=true;
-    const kids=homes.children;kids[S.homesLit].classList.add('lit','you');S.homesLit++;streets[0][2]=S.homesLit;$('#homesN').textContent=S.homesLit;drawLb();
-    $('#joinStreet').textContent='Pledged. Telling the neighbours…';
-    let nat=63880;$('#natHomes').textContent=fmt(++nat);
-    const iv=setInterval(()=>{if(S.homesLit>=25){clearInterval(iv);$('#joinStreet').textContent='✨ Temple Rd is live on Air Fibre';celebrate('🏠','Temple Rd is live!','25 of 25 homes signed up. Air Fibre installs start this week.');return}kids[S.homesLit].classList.add('lit');S.homesLit++;streets[0][2]=S.homesLit;$('#homesN').textContent=S.homesLit;$('#natHomes').textContent=fmt(++nat);drawLb()},700);
+  function drawZone(){
+    const z=selZone,near=!!z.dataset.near,t=z.dataset.bt,T=TIERS[z.dataset.tier],got=S.checked[z.dataset.z];
+    $('#zName').textContent=z.dataset.z;
+    $('#zDist').textContent=z.dataset.d+(near?' · 312 people checked in today':' · walk there to check in');
+    $('#zPill').textContent=near?'In range':'Out of range';$('#zPill').className='pill '+(near?'good':'gold');
+    $('#zReward').innerHTML=`${tile(t,z.dataset.tier)}<div><small>${z.dataset.feat?'★ Featured Arena this week':'Arena reward'}</small><b>Free ${BT[t].name}</b><span>${T.label} + ${T.data} · use within 7 days</span></div>`;
+    const btn=$('#checkinBtn');btn.disabled=false;
+    if(got){const live=S.inv.some(i=>i.id===got);btn.textContent=live?`Activate ${BT[t].name} now`:'Collected ✓';btn.disabled=!live}
+    else btn.textContent=near?`Check in · collect ${BT[t].short} Booster`:'Get directions';
+  }
+  $('#mapSvg').addEventListener('click',e=>{const z=e.target.closest('.zone');if(!z)return;selZone=z;drawZone()});
+  $('#checkinBtn').onclick=()=>{
+    const z=selZone,t=z.dataset.bt,got=S.checked[z.dataset.z];
+    if(got){activate(got);drawZone();return}
+    if(!z.dataset.near){toast('Opening directions to '+z.dataset.z+'…');return}
+    const it=mk(t,z.dataset.tier,'campaign',7,z.dataset.z.split(' ')[0]+' '+z.dataset.z.split(' ')[1]+' Arena');S.inv.push(it);S.checked[z.dataset.z]=it.id;
+    startClock();chime();toast(`📍 ${z.dataset.z}: free ${BT[t].name} added to your inventory`);renderAll();drawZone();
   };
+  drawZone();
+
+  // ---- Match Day: watch with a Binge Booster, hit the fan goal, earn +1 GB
+  function renderMatch(){
+    const el=$('#matchJoin');if(!el)return;
+    if(S.matchDone){el.innerHTML=`<button class="btn" disabled>🎉 Goal reached · +1 GB added</button>`;return}
+    if(S.joinedMatch){el.innerHTML=`<button class="btn" disabled>You’re in with your Binge Booster. Fans are piling on…</button>`;return}
+    const g=soonest('binge'),on=S.active&&S.active.type==='binge';
+    el.innerHTML=on?`<button class="btn" data-mj="on">Join with my active Binge Booster</button><button class="btn ghost" data-mj="buy">Top up · Binge 3 hours · Rs 149</button>`
+      :g?`<button class="btn" data-mj="use">Join · activate my ${TIERS[g.tier].label} Binge Booster</button><button class="btn ghost" data-mj="buy">Buy Binge 3 hours · Rs 149</button>`
+      :`<button class="btn" data-mj="buy">Join · buy Binge 3 hours · Rs 149</button>`;
+  }
+  $('#matchJoin').onclick=e=>{
+    const b=e.target.closest('[data-mj]');if(!b)return;const m=b.dataset.mj;
+    if(m==='on'){joinMatch();return}
+    if(m==='use'){const g=soonest('binge');if(g){activate(g.id,true);joinMatch()}return}
+    S.bt='binge';
+    sheet(`${banner('binge')}<h3>Join the match with a Binge Booster</h3><p class="sub" style="margin-top:2px">3 hours + 3 GB of 5G on YouTube, Netflix, Dialog Play and Twitch. Covers the rest of the match.</p><div class="sh-rows"><div><span>Price</span><b>Rs 149 + tax</b></div><div><span>Pay with</span><b>Add to Dialog bill · 077 ••• 1904</b></div><div><span>Match bonus</span><b>+1 GB when the fan goal is hit</b></div></div>`,
+      [['Pay Rs 149 and join',()=>{const it=mk('binge','h3','paid',30);S.inv.push(it);activate(it.id,true);joinMatch()}],['Cancel',null,'ghost']],'binge');
+  };
+  function joinMatch(){
+    if(S.joinedMatch)return;S.joinedMatch=true;startClock();
+    $('#faces').insertAdjacentHTML('afterbegin','<span style="background:var(--crimson)">You</span>');$('#faces em').textContent='You, Kasun, Amaya and 2 friends';
+    renderMatch();toast('🏏 You’re in. Every fan watching with a Binge Booster counts.');
+    S.matchTimer=setInterval(()=>{S.fans+=Math.round(900+Math.random()*900);drawFans()},350);
+  }
+  function drawFans(){
+    const p=Math.min(100,S.fans/1000);$('#matchProg i').style.width=p+'%';$('#fans').textContent=fmt(Math.min(S.fans,100000));
+    if(S.fans<100000||S.matchDone)return;
+    S.matchDone=true;clearInterval(S.matchTimer);$('#matchProg').classList.add('done');$('#matchEta').textContent='Goal reached!';
+    const a=S.active;let where;
+    if(a&&a.type==='binge'){a.mbTotal+=1024;a.mbLeft+=1024;where='added to your running Binge Booster'}
+    else{S.inv.push(mk('binge','h1','campaign',7,'Match Day bonus'));where='added to your inventory as a 1-hour Binge Booster'}
+    renderAll();celebrate('🏏','Match goal reached!',`100,000 fans watched with Binge Boosters. +1 GB of bonus 5G data ${where}.`);
+  }
 
   // ---- voice
   $('#micBtn').onclick=()=>{startClock();const f=$('#diaForm');if(f.classList.contains('listening'))return;f.classList.add('listening');tone(880,0,.12,.05);setTimeout(()=>{f.classList.remove('listening');handle('අම්මාට 20GB දෙන්න',true)},1900)};
@@ -1134,8 +1259,8 @@ h2{font-weight:600;letter-spacing:0}
 
   // ---- language: Sinhala / Tamil / English
   const I18N={
-    si:{gm:'සුබ උදෑසනක්',wallet:'DIALOG පසුම්බිය',pay:'ගෙවන්න',boost:'බූස්ට්',share:'බෙදන්න',save:'ඉතිරි කරන්න',spotted:'Dia යමක් දුටුවා',tip:'ඔබේ බස් රථය මිනිත්තු 4කින් කොල්ලුපිටිය අසල කාර්යබහුල ප්‍රදේශයකට ළඟා වෙයි. වීඩියෝව නතර විය හැක. දැන් බූස්ට් කරන්නද?',tipBoost:'150 D කට බූස්ට්',askDia:'Dia ගෙන් අහන්න',saveLine:'නොවැ. 30 DF ඉතුරුම් ගිණුමට',recent:'මෑත ගනුදෙනු',nHome:'මුල් පිටුව',nArenas:'කලාප',nTogether:'එකට',scanH:'ගෙවීමට ස්කෑන් කරන්න',tapScan:'ස්කෑන් කිරීමට තට්ටු කරන්න',boostH:'බූස්ට්',earned:'ඔබ උපයා ගත්තා',ofPriority:'5G ප්‍රමුඛතාව',useNow:'දැන්ම භාවිතා කරන්න ⚡',done:'හරි',togetherH:'එකට',arenasH:'5G කලාප',nPlay:'ක්‍රීඩා',playH:'දෛනික ප්‍රහේලිකා',playSub:'දිනකට නව ප්‍රහේලිකා 3ක්. විසඳා උපයන්න.'},
-    ta:{gm:'காலை வணக்கம்',wallet:'DIALOG பணப்பை',pay:'செலுத்து',boost:'பூஸ்ட்',share:'பகிர்',save:'சேமி',spotted:'Dia ஒன்றைக் கவனித்தது',tip:'உங்கள் பஸ் 4 நிமிடத்தில் கொள்ளுப்பிட்டி அருகே நெரிசலான பகுதியை அடையும். வீடியோ தடைபடலாம். இப்போது பூஸ்ட் செய்யவா?',tipBoost:'150 D-க்கு பூஸ்ட்',askDia:'Dia-விடம் கேள்',saveLine:'நவ. 30 அன்று DF சேமிப்புக்கு',recent:'சமீபத்தியவை',nHome:'முகப்பு',nArenas:'மண்டலம்',nTogether:'ஒன்றாக',scanH:'செலுத்த ஸ்கேன் செய்யவும்',tapScan:'ஸ்கேன் செய்ய தட்டவும்',boostH:'பூஸ்ட்',earned:'நீங்கள் பெற்றது',ofPriority:'5G முன்னுரிமை',useNow:'இப்போதே பயன்படுத்து ⚡',done:'முடிந்தது',togetherH:'ஒன்றாக',arenasH:'5G மண்டலங்கள்',nPlay:'விளையாடு',playH:'தினசரி புதிர்கள்',playSub:'தினமும் 3 புதிய புதிர்கள். தீர்த்து சம்பாதியுங்கள்.'}
+    si:{gm:'සුබ උදෑසනක්',wallet:'GIGS පසුම්බිය',pay:'ගෙවන්න',boost:'බූස්ට්',share:'බෙදන්න',save:'ඉතිරි කරන්න',spotted:'Dia යමක් දුටුවා',tip:'ඔබේ බස් රථය මිනිත්තු 4කින් කොල්ලුපිටිය අසල කාර්යබහුල ප්‍රදේශයකට ළඟා වෙයි. වීඩියෝව නතර විය හැක. දැන් බූස්ට් කරන්නද?',tipBoost:'150 D කට බූස්ට්',askDia:'Dia ගෙන් අහන්න',saveLine:'නොවැ. 30 DF ඉතුරුම් ගිණුමට',recent:'මෑත ගනුදෙනු',nHome:'මුල් පිටුව',nArenas:'කලාප',nTogether:'එකට',scanH:'ගෙවීමට ස්කෑන් කරන්න',tapScan:'ස්කෑන් කිරීමට තට්ටු කරන්න',boostH:'බූස්ට්',earned:'ඔබ උපයා ගත්තා',ofPriority:'5G ප්‍රමුඛතාව',useNow:'දැන්ම භාවිතා කරන්න ⚡',done:'හරි',togetherH:'එකට',arenasH:'5G කලාප',nPlay:'ක්‍රීඩා',playH:'දෛනික ප්‍රහේලිකා',playSub:'දිනකට නව ප්‍රහේලිකා 3ක්. විසඳා උපයන්න.'},
+    ta:{gm:'காலை வணக்கம்',wallet:'GIGS பணப்பை',pay:'செலுத்து',boost:'பூஸ்ட்',share:'பகிர்',save:'சேமி',spotted:'Dia ஒன்றைக் கவனித்தது',tip:'உங்கள் பஸ் 4 நிமிடத்தில் கொள்ளுப்பிட்டி அருகே நெரிசலான பகுதியை அடையும். வீடியோ தடைபடலாம். இப்போது பூஸ்ட் செய்யவா?',tipBoost:'150 D-க்கு பூஸ்ட்',askDia:'Dia-விடம் கேள்',saveLine:'நவ. 30 அன்று DF சேமிப்புக்கு',recent:'சமீபத்தியவை',nHome:'முகப்பு',nArenas:'மண்டலம்',nTogether:'ஒன்றாக',scanH:'செலுத்த ஸ்கேன் செய்யவும்',tapScan:'ஸ்கேன் செய்ய தட்டவும்',boostH:'பூஸ்ட்',earned:'நீங்கள் பெற்றது',ofPriority:'5G முன்னுரிமை',useNow:'இப்போதே பயன்படுத்து ⚡',done:'முடிந்தது',togetherH:'ஒன்றாக',arenasH:'5G மண்டலங்கள்',nPlay:'விளையாடு',playH:'தினசரி புதிர்கள்',playSub:'தினமும் 3 புதிய புதிர்கள். தீர்த்து சம்பாதியுங்கள்.'}
   };
   const EN={};document.querySelectorAll('[data-i18n]').forEach(el=>EN[el.dataset.i18n]=el.textContent);
   let LANG='en';
@@ -1157,7 +1282,7 @@ h2{font-weight:600;letter-spacing:0}
   function hideSplash(){clearTimeout(spT);sp.classList.add('out');setTimeout(()=>sp.hidden=true,500)}
   sp.addEventListener('click',e=>{e.stopPropagation();hideSplash()});
 
-  // ---- Play tab: Daily Puzzles mini-app, rewards paid in DIALOG
+  // ---- Play tab: Daily Puzzles mini-app, rewards paid in GIGS
   const PLAY_NAMES={rush:'Tuk-Tuk Rush',mines:'Pothole Patrol',olinda:'Olinda'};
   const frame=$('#playFrame');let playLoaded=false;
   const lsGet=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
@@ -1170,10 +1295,12 @@ h2{font-weight:600;letter-spacing:0}
   let pzDay=puzzleDay();
   function renderPz(){
     const n=S.pzOverride!=null?S.pzOverride:solvedToday(),el=$('#pzCard'),dots=[0,1,2].map(i=>`<i class="${i<n?'on':''}"></i>`).join('');
+    let rk=null;try{rk=JSON.parse(lsGet(`dp:rank:${puzzleDay()}`))}catch(_){}
+    const rkTxt=rk?`<div class="pz-rank">🏆 #${rk.fRank} of ${rk.fTotal} friends · Top ${rk.top}%${rk.all?' overall':''}</div>`:'';
     el.classList.toggle('done',n>=3);
     el.innerHTML=n>=3
-      ?`<div class="pz-ic">✅</div><div class="pz-t"><b>All 3 puzzles solved · +300 D</b><div class="sub">New puzzles in</div><div class="pz-timer"><span id="pzTimer">${clock(resetIn()/1000)}</span><small>resets at midnight</small></div></div>`
-      :`<div class="pz-ic">🧩</div><div class="pz-t"><b>${n?`${n} of 3 solved. Keep going!`:'Daily Puzzles are ready'}</b><div class="sub">Play to earn <b>+${(3-n)*50+150} D</b>${n?' more':''} for boosters</div><div class="pz-dots">${dots}</div></div><button class="pz-btn" data-go="play">Play</button>`;
+      ?`<div class="pz-ic">✅</div><div class="pz-t"><b>All 3 puzzles solved · +300 GIGS</b><div class="sub">New puzzles in</div><div class="pz-timer"><span id="pzTimer">${clock(resetIn()/1000)}</span><small>resets at midnight</small></div>${rkTxt}</div>`
+      :`<div class="pz-ic">🧩</div><div class="pz-t"><b>${n?`${n} of 3 solved. Keep going!`:'Daily Puzzles are ready'}</b><div class="sub">Play to earn <b>+${(3-n)*50+150} GIGS</b>${n?' more':''} for boosters</div><div class="pz-dots">${dots}</div>${rkTxt}</div><button class="pz-btn" data-go="play">Play</button>`;
   }
   function tickPz(){if(puzzleDay()!==pzDay){pzDay=puzzleDay();renderPz()}const t=$('#pzTimer');if(t)t.textContent=clock(resetIn()/1000)}
   function loadPlay(){updatePlayStrip();if(playLoaded)return;playLoaded=true;lsSet('dp:lang',LANG);const th=document.documentElement.dataset.theme;frame.src='puzzles/index.html?skin=dialog'+(th?'&theme='+th:'')}
@@ -1185,11 +1312,11 @@ h2{font-weight:600;letter-spacing:0}
     const p=m.payload||{};
     if(m.event==='puzzle_complete'){
       const name=PLAY_NAMES[p.game]||'Puzzle';
-      if(p.result&&p.result.won){setBal(S.bal+50);feed(`${name} solved`,50);toast(`🧩 ${name} solved · +50 DIALOG`);chime()}
-      else toast(`${name} done. Solve it yourself next time for +50 D`);
+      if(p.result&&p.result.won){earn(50,`${name} solved`);toast(`🧩 ${name} solved · +50 GIGS`);chime()}
+      else toast(`${name} done. Solve it yourself next time for +50 GIGS`);
       updatePlayStrip();
     }
-    if(m.event==='daily_set_complete')setTimeout(()=>{setBal(S.bal+150);feed('Daily Puzzles · all 3',150);celebrate('🧩','All 3 solved!',`+150 DIALOG bonus. Day ${p.metaStreak||1} of 7: keep the streak for a free 1 GB.`)},2400);
+    if(m.event==='daily_set_complete')setTimeout(()=>{earn(150,'Daily Puzzles · all 3');celebrate('🧩','All 3 solved!',`+150 GIGS bonus. Day ${p.metaStreak||1} of 7: keep the streak for a free 1 GB.`)},2400);
     if(m.event==='streak_milestone')setTimeout(()=>celebrate('🔥',`${p.days}-day streak!`,'You unlocked a free 1 GB data reward.'),5200);
   });
   // keep the game's language in step with the app's switch
@@ -1212,9 +1339,10 @@ h2{font-weight:600;letter-spacing:0}
       else{S.active={type:t,end:Date.now()+(38*60+12)*1000,mbTotal:1024,mbLeft:612,rate:0};S.preview=true;setNet(true)}
       renderAll()}
     if(b.dataset.pz){S.pzOverride=b.dataset.pz==='live'?null:+b.dataset.pz;renderPz()}
+    if(b.dataset.gx){b.classList.remove('on');expireDue(true)}
   };
 
-  setBal(2400,false); renderAll(); renderPz();
+  setBal(sumG(),false); renderAll(); renderPz(); renderGx();
 })();
 </script>
 </body>

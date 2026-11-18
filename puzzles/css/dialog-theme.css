@@ -84,3 +84,11 @@ html.dialog .stat b { font-weight: 800; letter-spacing: -.02em; }
 html.dialog .share-preview { background: var(--bg); border: 1px solid var(--line); border-radius: 14px; color: var(--ink); }
 html.dialog .toast { background: var(--ink); color: var(--bg); border-radius: 14px; font-size: 13px; }
 @media (min-width: 560px) { html.dialog .modal { border-radius: 24px; } }
+
+/* ranking tracker in the MyDialog skin */
+html.dialog .rank, html.dialog .lb-facts div { background: #f7f3f8; }
+html.dialog .rank-top b, html.dialog .lb-big b { color: var(--accent); }
+html.dialog .lb-row.you { background: var(--accent-soft); }
+html.dialog .lb-tabs a { border-color: var(--line); }
+html.dialog .lb-tabs a.on { background: var(--accent); border-color: var(--accent); }
+html.dialog .lb-card .card-art { background: var(--gold-soft); }

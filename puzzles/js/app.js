@@ -120,6 +120,7 @@
   /** Shared end-of-game modal. lines = [[label, value], ...] */
   DP.resultModal = function (game, d, o) {
     var s = DP.stats(game), g = DP.GAMES[game];
+    if (DP.rankShareLine) o.share += DP.rankShareLine(game, d);
     var html = '<div class="result"><div class="result-icon">' + (o.icon || g.icon) + '</div><h2>' + DP.esc(o.title) + '</h2>' +
       (o.sub ? '<p class="muted">' + DP.esc(o.sub) + '</p>' : '') +
       '<div class="stat-row">' + o.lines.map(function (l) { return '<div class="stat"><b>' + DP.esc(l[1]) + '</b><span>' + DP.esc(l[0]) + '</span></div>'; }).join('') + '</div>' +
@@ -127,6 +128,7 @@
       '<div class="stat"><b>' + s.played + '</b><span>' + t('played') + '</span></div>' +
       '<div class="stat"><b>🔥 ' + s.streak + '</b><span>' + t('streak') + '</span></div>' +
       '<div class="stat"><b>' + s.best + '</b><span>' + t('best') + '</span></div></div>' +
+      (DP.rankBlock ? DP.rankBlock(game, d) : '') +
       '<pre class="share-preview">' + DP.esc(o.share) + '</pre>' +
       '<div class="btn-row"><button class="btn primary" data-act="share">' + t('share') + '</button>' +
       '<button class="btn wa" data-act="wa">' + t('whatsapp') + '</button></div>' +
@@ -174,7 +176,7 @@
     var dots = ''; for (var i = 0; i < REWARD_DAYS; i++) dots += '<i class="' + (i < shown ? 'on' : '') + '"></i>';
     app.innerHTML = '<header class="hub-head"><div class="langs">' + langs + '</div><h1>' + t('appTitle') + '</h1>' +
       '<p class="date">' + DP.esc(DP.dateLabel(d)) + ' · ' + t('puzzleNo', { n: d + 1 }) + '</p><p class="muted">' + t('tagline') + '</p></header>' +
-      '<main class="hub">' + cards +
+      '<main class="hub">' + cards + (DP.rankCard ? DP.rankCard(d) : '') +
       '<section class="card reward"><div><h3>🎁 ' + t('rewardTitle') + ' · 🔥 ' + meta + '</h3><p>' + t('rewardBody', { n: REWARD_DAYS }) + '</p>' +
       '<div class="dots">' + dots + '</div><p class="muted small">' + t('rewardDays', { d: shown, n: REWARD_DAYS }) + '</p></div></section>' +
       (allDone ? '<p class="all-done">' + t('allDone') + '</p>' : '') +
@@ -203,9 +205,10 @@
     if (current && current.destroy) current.destroy();
     current = null;
     document.querySelectorAll('.modal-bg').forEach(function (m) { m.remove(); });
-    var id = (location.hash.match(/^#\/(\w+)/) || [])[1];
-    document.body.dataset.view = DP.GAMES[id] ? id : 'hub';
+    var m = location.hash.match(/^#\/(\w+)(?:\/(\w+))?/) || [], id = m[1];
     window.scrollTo(0, 0);
+    if (id === 'leaderboard' && DP.renderLeaderboard) { document.body.dataset.view = 'leaderboard'; DP.renderLeaderboard(app, m[2]); return; }
+    document.body.dataset.view = DP.GAMES[id] ? id : 'hub';
     if (DP.GAMES[id]) renderGame(id); else renderHub();
   }
 
