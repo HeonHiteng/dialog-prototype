@@ -1,36 +1,21 @@
 /* DIALOG skin: applied when the mini-app runs inside the DIALOG prototype's Play tab
    (puzzles/index.html?skin=dialog). Every rule is scoped to html.dialog, so the
    standalone Daily Puzzles look in styles.css is untouched.
-   Tokens mirror gigs-prototype.html: violet = actions & network, gold = DIALOG earned, green = done. */
+   Tokens mirror gigs-prototype.html (MyDialog skin): plum = brand, crimson = actions, gold = DIALOG earned, green = done. */
 
 html.dialog {
-  --accent: #4a3aff; --accent-soft: #ecebff;
-  --gold: #f2a900; --gold-soft: #fff4d6; --gold-ink: #a86f00;
-  --good: #13a36b; --good-soft: #e1f6ec;
-  --bg: #f7f8fc; --card: #ffffff; --ink: #12142b; --muted: #5d6280; --line: #e2e5ef;
-  --maroon: var(--accent); --maroon-d: #2b1e72; --green: var(--good);
-  --radius: 20px; --shadow: none;
+  /* MyDialog palette: plum = brand, crimson = actions, orange = highlights */
+  --accent: #6d1b5f; --accent-soft: #f6e8f3;
+  --gold: #f5a800; --gold-soft: #fff3d9; --gold-ink: #a86a00;
+  --good: #14995f; --good-soft: #e2f5ea;
+  --bg: #f4f1f5; --card: #ffffff; --ink: #24182a; --muted: #6f6577; --line: #ebe4ee;
+  --maroon: #e1195b; --maroon-d: #6d1b5f; --green: var(--good);
+  --radius: 14px; --shadow: 0 2px 10px rgba(70,20,60,.07);
   color-scheme: light;
-}
-@media (prefers-color-scheme: dark) {
-  html.dialog:not([data-theme="light"]) {
-    --accent: #8b7fff; --accent-soft: #232048;
-    --gold: #ffc23d; --gold-soft: #33290f; --gold-ink: #ffc23d;
-    --good: #3fd39a; --good-soft: #123326;
-    --bg: #101225; --card: #1a1d36; --ink: #eef0ff; --muted: #9aa0c3; --line: #262a45;
-    color-scheme: dark;
-  }
-}
-html.dialog[data-theme="dark"] {
-  --accent: #8b7fff; --accent-soft: #232048;
-  --gold: #ffc23d; --gold-soft: #33290f; --gold-ink: #ffc23d;
-  --good: #3fd39a; --good-soft: #123326;
-  --bg: #101225; --card: #1a1d36; --ink: #eef0ff; --muted: #9aa0c3; --line: #262a45;
-  color-scheme: dark;
 }
 
 html.dialog, html.dialog body {
-  font-family: "Plus Jakarta Sans", "Noto Sans Sinhala", "Noto Sans Tamil", system-ui, sans-serif;
+  font-family: "Poppins", "Noto Sans Sinhala", "Noto Sans Tamil", system-ui, sans-serif;
   font-size: 15px;
 }
 html.dialog #app { padding: 0 18px 24px; }
@@ -40,7 +25,7 @@ html.dialog body { scrollbar-width: none; }
 
 /* buttons: same shapes as the host (.btn 14px radius, small actions 10px) */
 html.dialog .btn { border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 14px; font-weight: 700; font-size: 15px; }
-html.dialog .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+html.dialog .btn.primary { background: var(--maroon); border-color: var(--maroon); color: #fff; text-transform: uppercase; letter-spacing: .04em; }
 html.dialog .btn.ghost { background: var(--accent-soft); border-color: transparent; color: var(--accent); }
 html.dialog .btn.small { border-radius: 10px; font-size: 12px; padding: 7px 14px; min-height: 36px; }
 html.dialog .icon-btn { border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 12px; font-size: 1.2rem; }
@@ -62,7 +47,7 @@ html.dialog .badge { font-size: 11px; font-weight: 700; padding: 3px 8px; backgr
 html.dialog .badge.done { background: var(--good-soft); color: var(--good); }
 
 /* 7-day streak card: same look as the host's DIALOG wallet */
-html.dialog .reward { background: radial-gradient(120% 90% at 100% 0%, rgba(255,196,61,.32), transparent 55%), linear-gradient(160deg, #1a1545, #2b1e72); color: #fff; border: 0; }
+html.dialog .reward { background: radial-gradient(120% 90% at 100% 0%, rgba(255,196,61,.32), transparent 55%), linear-gradient(160deg, #4a1240, #7b1f6e); color: #fff; border: 0; }
 html.dialog .reward h3 { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #ffd36b; }
 html.dialog .reward p { font-size: 13px; line-height: 1.45; opacity: .85; }
 html.dialog .reward .muted { color: #fff; opacity: .7; }

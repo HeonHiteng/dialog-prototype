@@ -1,34 +1,24 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DIALOG Prototype</title>
+<title>5G Boosters · MyDialog mini program</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Sinhala:wght@500&family=Noto+Sans+Tamil:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Noto+Sans+Sinhala:wght@500&family=Noto+Sans+Tamil:wght@500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#eef0f6; --panel:#ffffff; --ink:#12142b; --muted:#5d6280; --line:#e2e5ef;
-  --accent:#4a3aff; --accent-2:#7b6dff; --accent-soft:#ecebff;
-  --gold:#f2a900; --gold-soft:#fff4d6; --good:#13a36b; --good-soft:#e1f6ec;
-  --screen:#f7f8fc; --card:#ffffff; --frame:#14152a;
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --bg:#0b0c18; --panel:#14162a; --ink:#eef0ff; --muted:#9aa0c3; --line:#262a45;
-    --accent:#8b7fff; --accent-2:#a69cff; --accent-soft:#232048;
-    --gold:#ffc23d; --gold-soft:#33290f; --good:#3fd39a; --good-soft:#123326;
-    --screen:#101225; --card:#1a1d36; --frame:#000;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#0b0c18; --panel:#14162a; --ink:#eef0ff; --muted:#9aa0c3; --line:#262a45;
-  --accent:#8b7fff; --accent-2:#a69cff; --accent-soft:#232048;
-  --gold:#ffc23d; --gold-soft:#33290f; --good:#3fd39a; --good-soft:#123326;
-  --screen:#101225; --card:#1a1d36; --frame:#000;
+  /* MyDialog palette: plum app bar, crimson actions, orange highlights, Axiata prism gold */
+  --bg:#efeaf0; --panel:#ffffff; --ink:#24182a; --muted:#6f6577; --line:#ebe4ee;
+  --accent:#6d1b5f; --accent-2:#8f2a7d; --accent-soft:#f6e8f3;
+  --plum:#6d1b5f; --plum-2:#8f2a7d; --crimson:#e1195b; --orange:#f37021;
+  --gold:#f5a800; --gold-soft:#fff3d9; --gold-ink:#a86a00; --good:#14995f; --good-soft:#e2f5ea;
+  --screen:#f4f1f5; --card:#ffffff; --frame:#1d1a20;
+  --shadow:0 2px 10px rgba(70,20,60,.07);
+  --tri:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='104' viewBox='0 0 120 104'%3E%3Cg fill='none' stroke='%23fff' stroke-opacity='.2' stroke-width='1.3'%3E%3Cpath d='M1 103 60 1l59 102z'/%3E%3Cpath d='M30.5 52h59L60 103z'/%3E%3C/g%3E%3C/svg%3E");
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--ink);font-family:"Plus Jakarta Sans","Noto Sans Sinhala","Noto Sans Tamil",system-ui,sans-serif;min-height:100vh}
+body{background:var(--bg);color:var(--ink);font-family:"Poppins","Noto Sans Sinhala","Noto Sans Tamil",system-ui,sans-serif;min-height:100vh}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
 .stage{display:flex;gap:56px;align-items:center;justify-content:center;min-height:100vh;padding:32px 16px}
 .side{max-width:360px}
@@ -74,29 +64,12 @@ h2{font-size:22px;letter-spacing:-.01em;margin:6px 0 4px}
 .pill.gold{background:var(--gold-soft);color:var(--gold)}
 .pill.good{background:var(--good-soft);color:var(--good)}
 
-/* wallet */
-.wallet{background:linear-gradient(135deg,#2a1fd6,#6a3dff 60%,#a145ff);color:#fff;border:0;position:relative;overflow:hidden}
-.wallet::after{content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.08)}
-.wallet .lbl{font-size:12px;opacity:.8;font-weight:600}
-.wallet .bal{font-size:42px;font-weight:800;letter-spacing:-.02em;margin:4px 0 2px;font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:8px}
 .coin{width:28px;height:28px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ffe08a,#f2a900 70%);display:inline-grid;place-items:center;font-size:13px;font-weight:800;color:#6b4a00;flex:none}
-.wallet .eq{font-size:13px;opacity:.85}
-.qa{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px}
-.qa button{background:rgba(255,255,255,.14);border-radius:14px;padding:10px 0;font-size:12px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:4px}
-.qa svg{width:20px;height:20px}
 .dia-tip{display:flex;gap:12px;align-items:flex-start}
 .dia-av{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#c44dff);display:grid;place-items:center;color:#fff;font-weight:800;flex:none}
 .tip-actions{display:flex;gap:8px;margin-top:10px}
 .tip-actions button{font-size:12px;font-weight:700;padding:8px 12px;border-radius:10px;background:var(--accent);color:#fff}
 .tip-actions button.alt{background:var(--line);color:var(--ink)}
-.feed div{display:flex;justify-content:space-between;font-size:13px;padding:9px 0;border-top:1px solid var(--line)}
-.feed div:first-child{border:0}
-.feed .plus{color:var(--good);font-weight:700}.feed .minus{color:var(--muted);font-weight:700}
-.save-bar{height:8px;border-radius:99px;background:var(--line);margin-top:10px;overflow:hidden}
-.save-bar i{display:block;height:100%;background:var(--good);border-radius:99px;transition:width .6s}
-.toggle{width:44px;height:26px;border-radius:99px;background:var(--line);position:relative;transition:.2s;flex:none}
-.toggle::after{content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
-.toggle.on{background:var(--good)}.toggle.on::after{left:21px}
 
 /* pay */
 .scanner{margin-top:14px;aspect-ratio:1;border-radius:24px;background:#0d0f1f;position:relative;display:grid;place-items:center;overflow:hidden}
@@ -124,23 +97,6 @@ h2{font-size:22px;letter-spacing:-.01em;margin:6px 0 4px}
 .burst .coin{position:absolute;left:50%;top:50%;width:18px;height:18px;font-size:9px;animation:fly 1.1s ease-out forwards}
 @keyframes fly{from{transform:translate(-50%,-50%) scale(.4);opacity:1}to{transform:translate(var(--x),var(--y)) scale(1);opacity:0}}
 
-/* boost */
-.dial{position:relative;width:240px;height:240px;margin:16px auto 0}
-.dial svg{width:100%;height:100%;transform:rotate(135deg)}
-.dial .val{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
-.dial .val b{font-size:52px;font-weight:800;letter-spacing:-.03em;display:block;font-variant-numeric:tabular-nums}
-.dial .val span{font-size:13px;color:var(--muted);font-weight:600}
-.gen{display:flex;justify-content:center;gap:8px;margin-top:4px}
-.gen span{font-size:12px;font-weight:800;padding:6px 12px;border-radius:10px;background:var(--line);color:var(--muted);transition:.4s}
-.gen span.on{background:var(--accent);color:#fff}
-.countdown{text-align:center;font-size:13px;color:var(--muted);margin-top:10px}
-.countdown b{color:var(--ink);font-variant-numeric:tabular-nums}
-.opts{display:grid;gap:8px;margin-top:14px}
-.opt{display:flex;justify-content:space-between;align-items:center;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--card);text-align:left}
-.opt.on{border-color:var(--accent);background:var(--accent-soft)}
-.opt b{font-size:14px;display:block}.opt small{font-size:12px;color:var(--muted)}
-.cost{font-weight:800;font-size:14px;display:flex;align-items:center;gap:6px}
-.cost .coin{width:18px;height:18px;font-size:9px}
 
 /* dia chat */
 .chat{display:flex;flex-direction:column;gap:10px;margin-top:12px;padding-bottom:140px}
@@ -197,17 +153,9 @@ h2{font-size:22px;letter-spacing:-.01em;margin:6px 0 4px}
 
 /* ---------- v2 ---------- */
 /* colour rule: gold = DIALOG you earn, violet = network & boosts, green = savings */
-:root{--gold-ink:#a86f00}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--gold-ink:#ffc23d}}
-:root[data-theme="dark"]{--gold-ink:#ffc23d}
 .coin{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cdefs%3E%3CradialGradient id='g' cx='.35' cy='.3' r='.85'%3E%3Cstop offset='0' stop-color='%23fff0b8'/%3E%3Cstop offset='.55' stop-color='%23f5b400'/%3E%3Cstop offset='1' stop-color='%23c48400'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='12' cy='12' r='11.5' fill='url(%23g)'/%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='%237a5200' stroke-opacity='.35'/%3E%3Cpath d='M8.6 7h3.4a5 5 0 0 1 0 10H8.6z' fill='none' stroke='%236b4a00' stroke-width='2.4' stroke-linecap='round'/%3E%3Cpath d='M17.6 6.2a8 8 0 0 1 1.6 2.4M19.4 4.6a10.5 10.5 0 0 1 2 3' fill='none' stroke='%236b4a00' stroke-opacity='.55' stroke-width='1.3' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat !important;color:transparent !important;font-size:0 !important}
-.feed .plus,.earn-preview{color:var(--gold-ink)}
+.earn-preview{color:var(--gold-ink)}
 .pill.gold{color:var(--gold-ink)}
-.wallet{background:radial-gradient(120% 90% at 100% 0%,rgba(255,196,61,.32),transparent 55%),linear-gradient(160deg,#1a1545,#2b1e72)}
-.wallet::after{right:-34px;top:-34px;width:140px;height:140px;border-radius:0;background:inherit;opacity:0}
-.wallet .lbl{color:#ffd36b;opacity:1;letter-spacing:.1em}
-.wallet .bal{color:#ffd36b}
-.wallet .bal .coin{width:34px;height:34px;filter:drop-shadow(0 0 10px rgba(255,200,60,.55))}
 
 /* Dia face + voice */
 .dia-av{display:flex;gap:5px;align-items:center;justify-content:center;box-shadow:0 6px 16px -6px #c44dff}
@@ -241,33 +189,6 @@ h2{font-size:22px;letter-spacing:-.01em;margin:6px 0 4px}
 .ef-coin{position:absolute;left:50%;width:26px;height:26px;margin:-13px 0 0 -13px;opacity:0;animation:coinFly 1.05s cubic-bezier(.5,0,.3,1) forwards;filter:drop-shadow(0 0 6px rgba(255,200,60,.85))}
 @keyframes coinFly{0%{opacity:0;transform:translate(0,0) scale(.3)}12%{opacity:1}45%{transform:translate(var(--sx),var(--sy)) scale(1.15)}94%{opacity:1}100%{opacity:0;transform:translate(0,var(--ty)) scale(.45)}}
 
-/* Boost video */
-.vid{position:relative;margin-top:14px;border-radius:18px;overflow:hidden;aspect-ratio:16/9;background:#0a1a10}
-.vscene{position:absolute;inset:0;transition:filter .6s}
-.vscene svg{width:100%;height:100%;display:block}
-.vid.lo .vscene{filter:blur(3px) saturate(.55) contrast(.9)}
-.vid.buf .vscene *{animation-play-state:paused !important}
-.vtop{position:absolute;left:10px;right:10px;top:8px;display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:700;color:#fff}
-.vq{padding:3px 7px;border-radius:6px;background:rgba(0,0,0,.55);transition:.4s}
-.vid:not(.lo) .vq{background:var(--accent)}
-.vspin{position:absolute;left:50%;top:50%;width:40px;height:40px;margin:-20px;border-radius:50%;border:4px solid rgba(255,255,255,.25);border-top-color:#fff;animation:spin .8s linear infinite;opacity:0;transition:opacity .2s}
-.vid.buf .vspin{opacity:1}
-@keyframes spin{to{transform:rotate(360deg)}}
-.vlabel{position:absolute;left:10px;bottom:12px;font-size:11px;font-weight:700;color:#fff;background:rgba(0,0,0,.5);padding:3px 8px;border-radius:6px}
-.vbar{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.2)}
-.vbar i{display:block;height:100%;width:0;background:#e5484d}
-.ball{animation:bowl 1.4s ease-in infinite}
-@keyframes bowl{from{transform:translate(160px,62px) scale(.6)}to{transform:translate(157px,150px) scale(1.5)}}
-.bat{transform-box:view-box;transform-origin:176px 146px;animation:swing 1.4s infinite}
-@keyframes swing{0%,72%,100%{transform:rotate(0)}86%{transform:rotate(-75deg)}}
-.crowd circle{animation:tw 1.6s infinite alternate}
-.crowd circle:nth-child(3n){animation-delay:.5s}.crowd circle:nth-child(4n){animation-delay:1s}
-@keyframes tw{from{opacity:.25}to{opacity:.9}}
-.speedrow{display:flex;justify-content:space-between;align-items:center;margin-top:14px}
-.speedrow b{font-size:36px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.speedrow small{font-size:13px;color:var(--muted);font-weight:600;margin-left:4px}
-.speedrow .gen{margin:0}
-#v-boost .countdown{text-align:left;margin-top:2px}
 
 /* Presenter mode */
 .side .presbtn{display:inline-flex;gap:8px;align-items:center;margin:14px 16px 0 0;padding:10px 14px;border-radius:12px;background:var(--ink);color:var(--bg);font-size:13px;font-weight:700}
@@ -286,11 +207,6 @@ body.presenter .stage{padding:12px}
 .lang{display:flex;background:var(--line);border-radius:12px;padding:3px;gap:2px}
 .lang button{font-size:12px;font-weight:700;padding:0 9px;border-radius:9px;color:var(--muted);min-height:34px}
 .lang button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.15)}
-.savestrip{display:flex;align-items:center;gap:12px;padding:12px 14px}
-.savestrip .ss-ic{width:38px;height:38px;border-radius:12px;background:var(--good-soft);display:grid;place-items:center;font-size:18px;flex:none}
-.savestrip .ss-t{flex:1;font-size:13px;color:var(--muted);line-height:1.35}
-.savestrip .ss-t b{color:var(--good);font-size:15px}
-.savestrip .toggle{cursor:pointer}
 .splash{position:absolute;inset:0;z-index:12;background:radial-gradient(70% 45% at 50% 40%,rgba(255,190,40,.35),transparent 70%),#110d2e;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;cursor:pointer;transition:opacity .5s,transform .5s}
 .splash[hidden]{display:none}
 .splash.out{opacity:0;transform:scale(1.06);pointer-events:none}
@@ -337,7 +253,312 @@ body.presenter .stage{padding:12px}
 .play-frame iframe{width:100%;height:100%;border:0;display:block}
 /* bigger tap targets */
 .chips button,.tip-actions button,.msg .acts button{min-height:40px}
-.qa button{min-height:58px}
+
+/* ---------- v4: booster-first home ---------- */
+/* each booster carries its own pair of colours in --c1/--c2 */
+.toast{z-index:14}
+.hdr{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:4px}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.langbtn{min-height:34px;min-width:40px;padding:0 9px;border-radius:10px;background:var(--line);font-size:12px;font-weight:700;color:var(--muted)}
+.curr{display:flex;align-items:center;gap:6px;height:34px;padding:0 4px 0 3px;border-radius:99px;background:linear-gradient(180deg,#2c2266,#17123d);border:1px solid rgba(255,211,107,.5);color:#ffd36b;font-weight:800;font-size:15px;font-variant-numeric:tabular-nums;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 6px 14px -8px rgba(255,190,40,.7)}
+.curr .coin{width:27px;height:27px;filter:drop-shadow(0 0 6px rgba(255,200,60,.5))}
+.curr i{font-style:normal;width:24px;height:24px;border-radius:50%;background:linear-gradient(180deg,#ffd76a,#f2a900);color:#3a2700;display:grid;place-items:center;font-size:16px;font-weight:800;line-height:1}
+.curr.sm{height:30px;font-size:13px}.curr.sm .coin{width:23px;height:23px}
+.curr.bump{animation:bump .35s}
+@keyframes bump{50%{transform:scale(1.12)}}
+
+.bz{display:grid;grid-template-columns:1fr 144px;gap:10px;margin-top:14px}
+.bind{border-radius:20px;padding:12px 13px;position:relative;overflow:hidden;min-height:180px;display:flex;flex-direction:column;cursor:pointer}
+.bind.none{background:var(--card);border:1.5px dashed var(--line)}
+.bind.on{color:#fff;background:radial-gradient(120% 80% at 100% 0%,color-mix(in srgb,var(--c1) 60%,transparent),transparent 62%),radial-gradient(100% 70% at 0% 100%,color-mix(in srgb,var(--c2) 55%,transparent),transparent 65%),#14112e;box-shadow:0 14px 30px -16px var(--c1);animation:rise .35s both}
+.bi-lbl{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center;gap:6px;position:relative}
+.bind.none .bi-lbl{color:var(--muted)}
+.bi-live{display:inline-flex;align-items:center;gap:4px;padding:2px 6px;border-radius:6px;background:rgba(255,255,255,.16);font-size:10px}
+.bi-live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--c1);box-shadow:0 0 6px var(--c1);animation:blink 1.2s infinite}
+.bi-tag{font-size:11px;opacity:.75;margin-top:2px;position:relative}
+.bi-time{font-size:30px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;margin-top:10px;line-height:1;position:relative}
+.bi-s{font-size:11px;opacity:.8;margin-top:3px;position:relative}
+.bi-s b{font-variant-numeric:tabular-nums}
+.bi-bar{height:6px;border-radius:99px;background:rgba(255,255,255,.18);margin-top:auto;overflow:hidden;position:relative}
+.bi-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--c1),#fff);transition:width .9s linear}
+.bi-art{position:absolute;right:-10px;bottom:-16px;font-size:72px;opacity:.14;transform:rotate(-12deg);pointer-events:none}
+.bi-4g{margin-top:12px;font-size:34px;font-weight:800;letter-spacing:-.03em;color:var(--muted);line-height:1}
+.bi-4g small{font-size:12px;font-weight:700;letter-spacing:0;margin-left:4px}
+.bi-ready{margin-top:auto;font-size:12px;color:var(--muted);line-height:1.4}
+.bi-ready b{color:var(--ink)}
+.bi-dots{display:flex;gap:4px;margin-top:6px}
+.bi-dots span{font-size:11px;font-weight:700;padding:2px 6px;border-radius:7px;background:color-mix(in srgb,var(--c1) 18%,transparent);color:var(--ink)}
+.apps{display:flex;gap:4px;margin-top:8px;position:relative}
+.apps i{width:20px;height:20px;border-radius:6px;display:grid;place-items:center;font-style:normal;font-size:9px;font-weight:800;color:#fff;box-shadow:0 0 0 1.5px rgba(255,255,255,.22)}
+.bacts{display:grid;gap:8px}
+.bact{display:flex;align-items:center;gap:8px;padding:0 8px 0 10px;border-radius:16px;text-align:left;position:relative;background:linear-gradient(135deg,color-mix(in srgb,var(--c1) 24%,var(--card)),color-mix(in srgb,var(--c2) 12%,var(--card)));border:1px solid color-mix(in srgb,var(--c1) 50%,transparent);transition:transform .15s}
+.bact:active{transform:scale(.97)}
+.ba-ic{font-size:18px;flex:none}
+.ba-l small{display:block;font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.ba-l b{font-size:12.5px;white-space:nowrap}
+.ba-n{position:absolute;top:-6px;right:-5px;min-width:19px;height:19px;border-radius:10px;background:var(--c1);color:#fff;font-size:10px;font-weight:800;font-style:normal;display:grid;place-items:center;padding:0 5px;border:2px solid var(--screen)}
+.ba-n:empty{display:none}
+.bact.on{box-shadow:0 0 0 2px var(--c1),0 8px 18px -10px var(--c1)}
+.bact.on small{color:var(--c1)}
+
+/* neon banner, after the 5G Mode cards */
+.bnr{position:relative;height:92px;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:radial-gradient(70% 100% at 50% 130%,color-mix(in srgb,var(--c1) 55%,transparent),transparent 70%),linear-gradient(160deg,#0b0a1d,#1a1338)}
+.bnr::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,transparent 0 26px,rgba(255,255,255,.045) 26px 29px)}
+.bnr::after{content:"";position:absolute;left:-10%;right:-10%;top:18%;height:2px;background:linear-gradient(90deg,transparent,var(--c1),transparent);opacity:.6;transform:rotate(-6deg)}
+.bnr-t{position:relative;display:flex;align-items:center;gap:6px;font-style:italic;font-weight:800;font-size:22px;letter-spacing:-.01em;color:#eaff4a;text-shadow:0 0 12px rgba(234,255,74,.55),0 2px 0 #000}
+.bnr-t em{font-style:italic;color:#fff;padding:1px 10px 2px;border-radius:8px;background:linear-gradient(135deg,var(--c1),var(--c2));border:2px solid #fff;transform:skew(-10deg);text-shadow:0 2px 0 rgba(0,0,0,.35);box-shadow:0 0 16px color-mix(in srgb,var(--c1) 70%,transparent)}
+.bnr .apps{margin:0}
+.shopc .bnr-t{font-size:17px;gap:5px}.shopc .bnr-t em{padding:1px 8px 2px}
+
+.sec-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin:22px 2px 0}
+.sec-h b{font-size:16px}
+.sec-h .sub{font-size:12px}
+
+/* Dia tip, booster flavour */
+.tip-actions button.bt{background:linear-gradient(135deg,var(--c1),var(--c2));white-space:nowrap;padding:8px 11px}
+.tip-actions button.bt:disabled{opacity:.75}
+.tip-actions button.alt{white-space:nowrap}
+
+/* Daily Puzzles card */
+.pz{display:flex;gap:12px;align-items:center;background:linear-gradient(135deg,var(--gold-soft),var(--card) 70%);border-color:color-mix(in srgb,var(--gold) 45%,var(--line))}
+.pz-ic{width:44px;height:44px;border-radius:14px;background:var(--card);display:grid;place-items:center;font-size:22px;flex:none;box-shadow:0 4px 12px -6px var(--gold)}
+.pz-t{flex:1;min-width:0}
+.pz-t>b{font-size:14px;display:block}
+.pz-t .sub{margin-top:2px}
+.pz-t .sub b{color:var(--gold-ink)}
+.pz-dots{display:flex;gap:4px;margin-top:8px}
+.pz-dots i{width:22px;height:6px;border-radius:99px;background:var(--line)}
+.pz-dots i.on{background:var(--gold)}
+.pz-btn{padding:10px 16px;min-height:40px;border-radius:12px;background:var(--gold);color:#3a2700;font-weight:800;font-size:13px;flex:none}
+.pz.done{background:var(--card);border-color:var(--line)}
+.pz.done .pz-ic{box-shadow:none;background:var(--good-soft)}
+.pz-timer{font-size:22px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:2px}
+.pz-timer small{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:0;margin-left:4px}
+
+/* Share a booster */
+.ppl{display:flex;gap:12px;margin-top:12px;overflow-x:auto}
+.ppl::-webkit-scrollbar{display:none}
+.ppl button{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--muted);flex:none;width:56px}
+.ppl button span{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;font-size:15px;position:relative}
+.ppl button span::after{content:"🎁";position:absolute;right:-4px;bottom:-2px;font-size:13px}
+.ppl button.add span{background:var(--line);color:var(--muted);font-size:22px}
+.ppl button.add span::after{display:none}
+.share-log{margin-top:12px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px}
+.share-log:empty{display:none}
+.share-log div{display:flex;justify-content:space-between;padding:3px 0}
+.share-log b{color:var(--ink)}
+
+/* Booster shop carousel */
+.shop{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:12px -18px 0;padding:0 18px 6px;scroll-padding:0 18px}
+.shop::-webkit-scrollbar{display:none}
+.shopc{flex:none;width:226px;scroll-snap-align:start;border-radius:18px;overflow:hidden;background:var(--card);border:1px solid var(--line);display:flex;flex-direction:column}
+.shopc-m{padding:10px 14px;background:color-mix(in srgb,var(--line) 70%,var(--card))}
+.shopc-n{font-size:14px;font-weight:600}
+.shopc-p{font-size:20px;font-weight:800;letter-spacing:-.01em}
+.shopc-p small{font-size:12px;color:var(--muted);font-weight:600}
+.shopc-b{padding:10px 14px 14px;display:flex;flex-direction:column;gap:10px}
+.shopc-d{display:flex;gap:10px;align-items:center}
+.shopc-d .g5{font-size:10px;font-weight:800;padding:4px 5px;border-radius:6px;border:1.5px solid var(--ink)}
+.shopc-d small{display:block;font-size:11px;color:var(--muted)}
+.shopc-d b{font-size:15px}
+.shopc-u{font-size:12px;font-weight:700;text-align:center;padding:8px;border-radius:99px;background:color-mix(in srgb,var(--c1) 12%,var(--card));color:var(--ink)}
+.shopc-cta{padding:11px;border-radius:99px;background:linear-gradient(135deg,var(--c1),var(--c2));color:#fff;font-weight:800;font-size:14px}
+
+/* Booster screen */
+.bs-top{display:flex;align-items:center;gap:10px;margin-top:2px}
+.bs-top h2{flex:1;margin:0}
+.back{width:36px;height:36px;border-radius:12px;background:var(--line);display:grid;place-items:center;font-size:18px;font-weight:700}
+.btabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:14px;background:var(--line);padding:4px;border-radius:14px}
+.btabs button{min-height:38px;border-radius:11px;font-size:13px;font-weight:700;color:var(--muted);display:flex;align-items:center;justify-content:center;gap:5px}
+.btabs button em{font-style:normal;font-size:10px;min-width:17px;height:17px;border-radius:9px;background:var(--screen);display:grid;place-items:center;padding:0 4px}
+.btabs button.on{background:var(--card);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.15),inset 0 -2px 0 var(--c1)}
+.bhero{margin-top:12px;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--card)}
+.bhero .bnr{height:104px}
+.bh-b{padding:12px 14px}
+.bh-apps{font-size:12px;color:var(--muted);line-height:1.4}
+.bh-apps b{color:var(--ink)}
+.bh-stat{margin-top:10px;padding:10px 12px;border-radius:12px;background:var(--screen);font-size:12px;color:var(--muted);display:flex;align-items:center;gap:10px}
+.bh-stat.on{background:color-mix(in srgb,var(--c1) 14%,var(--card));color:var(--ink)}
+.bh-stat b{font-size:18px;font-variant-numeric:tabular-nums;color:var(--ink)}
+.bh-stat .bi-bar{flex:1;margin:0;background:var(--line)}
+.inv-i{display:flex;align-items:center;gap:12px;padding:10px;border-radius:16px;background:var(--card);border:1px solid var(--line);margin-top:8px}
+.inv-tile{width:58px;height:58px;border-radius:14px;flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;background:linear-gradient(145deg,var(--c1),var(--c2));line-height:1.1;text-align:center}
+.inv-tile b{font-size:14px}.inv-tile small{font-size:10px;opacity:.9;font-weight:700}
+.inv-m{flex:1;min-width:0}
+.inv-m>b{font-size:13.5px}
+.qty{font-size:11px;font-weight:800;padding:2px 6px;border-radius:7px;background:var(--line);margin-left:4px}
+.src{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:7px;margin-top:4px}
+.src-gift{background:var(--accent-soft);color:var(--accent)}
+.src-campaign{background:color-mix(in srgb,#ff4fa3 16%,var(--card));color:#e0408d}
+.src-coins{background:var(--gold-soft);color:var(--gold-ink)}
+.src-paid{background:var(--good-soft);color:var(--good)}
+.inv-exp{font-size:11px;color:var(--muted);margin-top:3px}
+.inv-i.soon .inv-exp{color:#e5484d;font-weight:700}
+.inv-go{padding:9px 12px;min-height:38px;border-radius:11px;font-size:12px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--c1),var(--c2));flex:none}
+.inv-empty{margin-top:8px;padding:18px;border-radius:16px;border:1.5px dashed var(--line);text-align:center;font-size:13px;color:var(--muted)}
+.buyrow{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;margin:10px -18px 0;padding:8px 18px 6px;scroll-padding:0 18px}
+.buyrow::-webkit-scrollbar{display:none}
+.buy{flex:none;width:132px;scroll-snap-align:start;position:relative;display:flex;flex-direction:column;align-items:flex-start;text-align:left;padding:14px 12px 12px;border-radius:18px;background:var(--card);border:1.5px solid var(--line);gap:2px}
+.buy.hot{border-color:var(--c1);box-shadow:0 10px 22px -16px var(--c1)}
+.buy-tag{position:absolute;top:-9px;left:10px;font-size:10px;font-weight:800;padding:3px 8px;border-radius:99px;color:#fff;background:linear-gradient(135deg,var(--c1),var(--c2))}
+.buy-h{font-size:17px;letter-spacing:-.01em}
+.buy-d{font-size:12px;color:var(--muted)}
+.buy-p{font-size:20px;font-weight:800;margin-top:8px;display:flex;align-items:center;gap:5px;letter-spacing:-.01em}
+.buy-p .coin{width:20px;height:20px}
+.buy-x{font-size:11px;color:var(--good);font-weight:700;min-height:15px}
+.buy-v{font-size:11px;color:var(--muted)}
+.buy-cta{margin-top:10px;align-self:stretch;text-align:center;padding:9px;border-radius:11px;font-size:13px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--c1),var(--c2))}
+.buy.coin-opt{border-color:color-mix(in srgb,var(--gold) 60%,var(--line));background:linear-gradient(180deg,var(--gold-soft),var(--card) 60%)}
+.buy.coin-opt .buy-tag{background:var(--gold);color:#3a2700}
+.buy.coin-opt .buy-p{color:var(--gold-ink)}
+.buy.coin-opt .buy-cta{background:var(--gold);color:#3a2700}
+.bs-note{font-size:11.5px;color:var(--muted);line-height:1.5;margin-top:12px;padding:10px 12px;border-radius:12px;background:var(--card);border:1px solid var(--line)}
+
+/* bottom sheet */
+.sheet{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;justify-content:flex-end}
+.sheet[hidden]{display:none}
+.sh-bg{position:absolute;inset:0;background:rgba(8,6,24,.55);opacity:0;transition:opacity .25s}
+.sh-p{position:relative;background:var(--screen);border-radius:26px 26px 0 0;padding:10px 18px 22px;transform:translateY(100%);transition:transform .3s cubic-bezier(.2,1,.3,1);max-height:84%;overflow-y:auto}
+.sheet.show .sh-bg{opacity:1}.sheet.show .sh-p{transform:none}
+.sh-grab{width:40px;height:5px;border-radius:3px;background:var(--line);margin:0 auto 12px}
+.sh-p .bnr{border-radius:16px;margin-bottom:12px}
+.sh-p h3{font-size:18px;letter-spacing:-.01em}
+.sh-rows{margin-top:12px;border-radius:14px;background:var(--card);border:1px solid var(--line);padding:2px 12px}
+.sh-rows div{display:flex;justify-content:space-between;gap:10px;padding:10px 0;font-size:13px;border-top:1px solid var(--line)}
+.sh-rows div:first-child{border:0}
+.sh-rows span{color:var(--muted)}
+.sh-rows b{text-align:right}
+.sh-acts .btn{margin-top:10px}
+.sh-acts .btn:first-child{margin-top:14px}
+.pick{display:flex;align-items:center;gap:10px;padding:10px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);margin-top:8px;cursor:pointer}
+.pick:has(input:checked){border-color:var(--c1,var(--accent));background:color-mix(in srgb,var(--c1,var(--accent)) 10%,var(--card))}
+.pick input{accent-color:var(--c1,var(--accent))}
+.pick .inv-tile{width:44px;height:44px;border-radius:12px}
+.pick .inv-tile b{font-size:11px}
+.pick>span:last-of-type{flex:1;font-size:13px}
+.pick>span small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+.sh-p::-webkit-scrollbar{display:none}
+
+/* side panel: preview states */
+.prev{margin-top:18px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--panel);font-size:12px;color:var(--muted);display:grid;gap:8px}
+.prev div{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.prev div b{width:62px;color:var(--ink)}
+.prev button{padding:5px 10px;border-radius:8px;background:var(--line);font-size:12px;font-weight:700}
+.prev button.on{background:var(--accent);color:#fff}
+
+/* ---------- v5: MyDialog skin ----------
+   Synced to the MyDialog app: light grey canvas, white cards, plum app bar,
+   uppercase tabs with an orange underline, crimson CTAs, prism-colour tiles, triangle motif. */
+body{-webkit-font-smoothing:antialiased}
+.status{background:var(--plum);color:#fff}
+.net .badge{background:rgba(255,255,255,.18);color:#fff}
+.net .badge.on{background:var(--orange);color:#fff}
+.mp-bar{flex:none;height:50px;display:flex;align-items:center;gap:6px;padding:0 12px 0 6px;background:var(--plum);color:#fff;position:relative;z-index:2}
+.mp-back{width:38px;height:38px;display:grid;place-items:center;border-radius:10px;color:#fff}
+.mp-bar b{flex:1;font-size:16px;font-weight:600}
+.mp-cap{display:flex;align-items:center;height:30px;border:1px solid rgba(255,255,255,.35);border-radius:99px;background:rgba(0,0,0,.14)}
+.mp-cap button{width:40px;height:28px;display:grid;place-items:center;color:#fff;font-size:11px;letter-spacing:1px}
+.mp-cap i{width:1px;height:16px;background:rgba(255,255,255,.35)}
+.view{padding-top:12px}
+h2{font-weight:600;letter-spacing:0}
+.sub{line-height:1.5}
+.card{border:0;border-radius:14px;box-shadow:var(--shadow)}
+.btn{background:var(--crimson);border-radius:10px;text-transform:uppercase;letter-spacing:.05em;font-size:14px;font-weight:600}
+.btn.ghost{background:transparent;color:var(--crimson);box-shadow:inset 0 0 0 1.5px var(--crimson)}
+.pill{background:var(--accent-soft);color:var(--plum);font-weight:600}
+.toast{background:#2b1a2a;color:#fff;border-radius:12px}
+.nav{background:#fff;border-top:0;box-shadow:0 -2px 14px rgba(70,20,60,.08)}
+.nav button{font-weight:500}
+.nav button.on{color:var(--crimson)}
+.nav .pay{background:linear-gradient(135deg,var(--plum-2),var(--crimson));border-radius:50%;box-shadow:0 8px 20px -8px var(--crimson);color:#fff}
+.dia-av{border-radius:50%;background:linear-gradient(135deg,var(--plum-2),var(--crimson));box-shadow:0 6px 14px -6px var(--crimson)}
+.msg.me{background:var(--plum)}
+.msg.dia{border:0;box-shadow:var(--shadow)}
+.msg .acts button,.tip-actions button{background:var(--crimson);border-radius:8px;text-transform:uppercase;letter-spacing:.03em;font-weight:600}
+.msg .acts button.alt,.tip-actions button.alt{background:transparent;color:var(--plum);box-shadow:inset 0 0 0 1.5px var(--line)}
+.inbar{border:0;box-shadow:var(--shadow)}.inbar button{background:var(--crimson)}
+.inbar .mic{background:var(--accent-soft);color:var(--plum)}
+.prog i{background:linear-gradient(90deg,var(--plum-2),var(--crimson))}
+.chips button{border-color:var(--line)}
+.chips button.on{border-color:var(--plum);color:var(--plum)}
+.side .tag{background:var(--accent-soft);color:var(--plum)}
+.prev button.on{background:var(--plum)}
+.step.done{border-color:var(--good)}
+
+/* overlays in Dialog plum with the prism glow */
+.earnfx,.splash{background:radial-gradient(80% 50% at 50% 42%,rgba(251,184,35,.35),transparent 70%),var(--tri) right -30px top 60px/220px no-repeat,linear-gradient(170deg,#4a1240,#7b1f6e)}
+.celebrate{background:linear-gradient(170deg,rgba(74,18,64,.97),rgba(123,31,110,.97))}
+
+/* header: coin chip on the light canvas */
+.langbtn{background:#fff;box-shadow:var(--shadow);color:var(--plum)}
+.curr{background:#fff;color:var(--ink);border:1px solid #f3dc9c;box-shadow:var(--shadow)}
+.curr i{background:var(--orange);color:#fff}
+
+/* booster indicator = MyDialog balance tile */
+.bind{border-radius:14px}
+.bind.none{background:#fff;border:1.5px dashed #d8ccdb}
+.bind.on{background:var(--tri) right -34px bottom -26px/150px no-repeat,linear-gradient(140deg,var(--c2),var(--c1));box-shadow:0 12px 24px -14px var(--c2)}
+.bi-art{opacity:.22}
+.bi-live{background:rgba(255,255,255,.22)}
+.bi-live::before{background:#fff;box-shadow:none}
+.bi-bar{background:rgba(255,255,255,.28)}
+.bi-bar i{background:#fff}
+.bi-dots span{background:color-mix(in srgb,var(--c1) 12%,#fff)}
+.bact{background:#fff;border:0;border-radius:14px;box-shadow:var(--shadow)}
+.ba-ic{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:16px;background:color-mix(in srgb,var(--c1) 14%,#fff)}
+.ba-l small{color:var(--c1)}
+.ba-n{border-color:#fff}
+.bact.on{box-shadow:0 0 0 2px var(--c1),var(--shadow)}
+
+/* banner = MyDialog promo card: brand gradient, white caps, triangle motif */
+.bnr{background:var(--tri) right -16px center/140px no-repeat,var(--tri) left -40px top -50px/120px no-repeat,linear-gradient(120deg,var(--c2),var(--c1));gap:7px}
+.bnr::before,.bnr::after{display:none}
+.bnr-t{font-style:normal;color:#fff;text-shadow:none;font-weight:800;text-transform:uppercase;letter-spacing:.02em}
+.bnr-t em{font-style:normal;background:#fff;color:var(--c2);border:0;transform:none;border-radius:6px;box-shadow:none;text-shadow:none;padding:1px 9px}
+.bnr .apps i{box-shadow:0 0 0 1.5px #fff}
+
+/* DIA tip, puzzles, share, shop */
+.tip-actions button.bt{background:var(--crimson)}
+.tip-actions{flex-wrap:wrap}
+.tip-actions button{font-size:11px;padding:8px 10px}
+.pz{background:#fff;border:0}
+.pz-ic{background:var(--gold-soft);box-shadow:none}
+.pz-dots i.on{background:var(--orange)}
+.pz-btn{background:var(--orange);color:#fff;text-transform:uppercase;letter-spacing:.04em;font-weight:600;border-radius:8px}
+.pz.done .pz-ic{background:var(--good-soft)}
+.share-log{border-color:var(--line)}
+.sec-h b{font-weight:600}
+.shopc{border:0;border-radius:14px;box-shadow:var(--shadow)}
+.shopc-m{background:#f7f3f8}
+.shopc-n{font-weight:500}
+.shopc-u{background:#fff3ea;color:var(--orange);font-weight:600}
+.shopc-cta{background:var(--crimson);border-radius:10px;text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.shopc-d .g5{border-color:var(--plum);color:var(--plum)}
+
+/* booster screen: plum tab strip like MyDialog's Details / Payment screens */
+.bs-head{margin:-12px -18px 0;background:var(--plum);padding:0 8px}
+.btabs{background:transparent;padding:0;gap:0;margin:0;border-radius:0}
+.btabs button{border-radius:0;min-height:44px;color:rgba(255,255,255,.7);text-transform:uppercase;font-size:12.5px;font-weight:600;letter-spacing:.05em}
+.btabs button em{background:rgba(255,255,255,.18);color:#fff}
+.btabs button.on{background:transparent;color:#fff;box-shadow:inset 0 -3px 0 var(--orange)}
+.bs-bal{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+.bhero{border:0;border-radius:14px;box-shadow:var(--shadow)}
+.bh-stat{background:#f7f3f8}
+.bh-stat.on{background:color-mix(in srgb,var(--c1) 10%,#fff)}
+.inv-i{border:0;border-radius:14px;box-shadow:var(--shadow)}
+.inv-tile{border-radius:12px}
+.inv-go{background:var(--crimson);border-radius:8px;text-transform:uppercase;letter-spacing:.03em;font-weight:600}
+.src-campaign{background:#fff0e6;color:#d25a10}
+.buy{border:1.5px solid transparent;border-radius:14px;box-shadow:var(--shadow)}
+.buy.hot{border-color:var(--crimson);box-shadow:0 10px 22px -16px var(--crimson)}
+.buy-tag{background:var(--crimson)}
+.buy-cta{background:var(--crimson);border-radius:8px;text-transform:uppercase;letter-spacing:.04em;font-weight:600}
+.buy.coin-opt{border-color:#f3dc9c;background:linear-gradient(180deg,var(--gold-soft),#fff 60%)}
+.buy.coin-opt .buy-tag,.buy.coin-opt .buy-cta{background:var(--orange);color:#fff}
+.bs-note{border:0;box-shadow:var(--shadow)}
+.sh-rows{border:0;box-shadow:var(--shadow)}
+.pick{border-color:transparent;box-shadow:var(--shadow)}
+.sh-p h3{font-weight:600}
 /* calmer for people who turn motion off: stop the decorative loops, keep the story */
 @media (prefers-reduced-motion: reduce){
   .scanline,.zone circle.pulse,.crowd circle,.dia-av i,.live::before,.confetti i{animation:none!important}
@@ -362,21 +583,27 @@ body.presenter .stage{padding:12px}
 <div class="stage">
   <aside class="side">
     <span class="tag">Concept prototype</span>
-    <h1>Data you can earn, spend, share and save.</h1>
-    <p class="lede">DIALOG turns mobile data into a currency. Run the loop on the phone and time it. The goal is under a minute.</p>
+    <h1>5G boosters you can earn, buy, use and share.</h1>
+    <p class="lede">Pick the 5G you need: Scroll for social, Clutch for games, Binge for streaming. Earn DIALOG to unlock them, or buy bigger ones. Run the loop on the phone and time it. The goal is under a minute.</p>
     <div class="steps">
       <div class="step" id="s-pay"><div class="n">1</div><div><b>Pay</b><span>Scan a shop QR and pay Rs 2,500</span></div></div>
-      <div class="step" id="s-earn"><div class="n">2</div><div><b>Earn</b><span>The receipt drops +30 min of 5G</span></div></div>
-      <div class="step" id="s-boost"><div class="n">3</div><div><b>Boost</b><span>Spend it and watch 4G jump to 5G</span></div></div>
-      <div class="step" id="s-share"><div class="n">4</div><div><b>Share</b><span>Ask Dia to “give Amma 20GB”</span></div></div>
+      <div class="step" id="s-earn"><div class="n">2</div><div><b>Earn</b><span>The receipt drops +150 DIALOG</span></div></div>
+      <div class="step" id="s-boost"><div class="n">3</div><div><b>Boost</b><span>Activate a booster and jump to 5G</span></div></div>
+      <div class="step" id="s-share"><div class="n">4</div><div><b>Share</b><span>Gift a booster to Amma</span></div></div>
     </div>
     <div class="timer">Loop time<strong id="timer">0:00</strong></div>
     <button class="presbtn" id="presBtn">▶ Presenter mode <kbd>P</kbd></button><button class="reset" id="resetBtn">↺ Reset demo</button>
+    <div class="prev" id="prev">
+      <span>Preview states</span>
+      <div><b>Booster</b><button data-pv="none" class="on">None</button><button data-pv="scroll">Scroll</button><button data-pv="clutch">Clutch</button><button data-pv="binge">Binge</button></div>
+      <div><b>Puzzles</b><button data-pz="live" class="on">Live</button><button data-pz="0">To do</button><button data-pz="3">Done</button></div>
+    </div>
   </aside>
   <div class="ptimer"><span class="pdots"><i data-s="pay"></i><i data-s="earn"></i><i data-s="boost"></i><i data-s="share"></i></span><b id="ptime">0:00</b><span>P exit · M sound</span><button id="pexit">✕</button></div>
 
   <div class="phone"><div class="screen">
     <div class="status"><span>9:41</span><span class="net"><span class="badge" id="netBadge">4G</span>▮▮▮▯ 82%</span></div>
+    <div class="mp-bar"><button class="mp-back" id="mpBack" aria-label="Back"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button><b id="mpTitle">5G Boosters</b><div class="mp-cap"><button id="mpMore" aria-label="More">•••</button><i></i><button id="mpClose" aria-label="Close mini program"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.5" fill="currentColor"/></svg></button></div></div>
     <div class="toast" id="toast"></div>
     <div class="earnfx" id="earnfx" hidden>
       <div class="ef-chip" id="efChip"><span class="coin"></span><span id="efBal">2,400</span></div>
@@ -391,50 +618,45 @@ body.presenter .stage{padding:12px}
     </div>
     <div class="celebrate" id="celebrate" hidden><div class="confetti" id="confetti"></div><div class="cel-emoji" id="celEmoji">🏏</div><div class="cel-title" id="celTitle"></div><div class="cel-sub" id="celSub"></div><button class="btn" id="celOk">Brilliant</button></div>
     <div class="splash" id="splash"><span class="coin sp-coin"></span><div class="sp-name">DIALOG</div><div class="sp-line">Data is<br>money now.</div><div class="sp-sub">Earn it · Spend it · Share it · Save it</div><div class="sp-tap">Tap to start</div></div>
+    <div class="sheet" id="sheet" hidden><div class="sh-bg" id="shBg"></div><div class="sh-p" role="dialog" aria-modal="true"><div class="sh-grab"></div><div id="shBody"></div><div class="sh-acts" id="shActs"></div></div></div>
     <div class="views">
 
       <!-- HOME -->
       <section class="view active" id="v-home">
-        <div class="row" style="margin-top:4px">
+        <div class="hdr">
           <div><div class="sub" data-i18n="gm">Good morning</div><h2 style="margin:0">Nadeesha</h2></div>
-          <div class="lang" id="lang" aria-label="Language"><button data-l="si">සිං</button><button data-l="ta">தமிழ்</button><button data-l="en" class="on">EN</button></div>
-          <span id="homeNet" hidden>4G</span>
-        </div>
-        <div class="card wallet">
-          <div class="lbl" data-i18n="wallet">DIALOG WALLET</div>
-          <div class="bal"><span class="coin">G</span><span id="bal">2,400</span></div>
-          <div class="eq" id="eq">≈ 24 GB · or 8 hours of boosted 5G</div>
-          <div class="qa">
-            <button data-go="pay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v7h-7"/></svg><span data-i18n="pay">Pay</span></button>
-            <button data-go="boost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><span data-i18n="boost">Boost</span></button>
-            <button data-go="dia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg><span data-i18n="share">Share</span></button>
-            <button data-scroll="saveCard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0 0 4h14v4M3 5v14a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg><span data-i18n="save">Save</span></button>
+          <div class="hdr-r">
+            <button class="langbtn" id="lang" aria-label="Change language">EN</button>
+            <button class="curr" data-go="play" aria-label="DIALOG balance. Tap to earn more"><span class="coin"></span><b class="balv">2,400</b><i>+</i></button>
           </div>
         </div>
 
-        <div class="card dia-tip">
+        <!-- booster status + one activate button per booster -->
+        <div class="bz">
+          <div class="bind none" id="bind" role="status" aria-live="polite"></div>
+          <div class="bacts" id="bacts"></div>
+        </div>
+
+        <div class="card dia-tip" id="diaTip" style="--c1:#f7941e;--c2:#e2382a">
           <div class="dia-av"><i></i><i></i></div>
           <div>
-            <b style="font-size:14px" data-i18n="spotted">Dia spotted something</b>
-            <p class="sub" style="margin-top:2px" data-i18n="tip">Your bus reaches a busy cell near Kollupitiya in about 4 min. YouTube will likely buffer. Boost now?</p>
-            <div class="tip-actions"><button data-go="boost" data-i18n="tipBoost">Boost for 150 D</button><button class="alt" data-go="dia" data-i18n="askDia">Ask Dia</button></div>
+            <b style="font-size:14px" data-i18n="spotted">DIA spotted something</b>
+            <p class="sub" style="margin-top:2px" data-i18n="tip">Your bus reaches a busy cell near Kollupitiya in about 4 min. YouTube will likely buffer. Switch on 5G for streaming?</p>
+            <div class="tip-actions"><button class="bt" id="tipAct">🍿 Activate Binge Booster</button><button class="alt" data-go="dia" data-i18n="askDia">Ask DIA</button></div>
           </div>
         </div>
 
-        <div class="card savestrip" id="saveCard">
-          <span class="ss-ic">🏦</span>
-          <span class="ss-t"><b id="saveAmt">Rs 360</b> <span data-i18n="saveLine">goes to DF Savings on 30 Nov</span></span>
-          <span class="toggle on" id="saveToggle" role="switch" aria-checked="true" aria-label="Auto-save leftover DIALOG" tabindex="0"></span>
-        </div>
+        <div class="card pz" id="pzCard"></div>
 
         <div class="card">
-          <div class="row"><b style="font-size:15px" data-i18n="recent">Recent</b><span class="pill gold">+ earn on every payment</span></div>
-          <div class="feed" id="feed" style="margin-top:8px">
-            <div><span>Fuel · Ceypetco Borella</span><span class="plus">+240 D</span></div>
-            <div><span>Electricity bill · CEB</span><span class="plus">+180 D</span></div>
-            <div><span>Boost · 1 hr 5G</span><span class="minus">−300 D</span></div>
-          </div>
+          <div class="row"><b style="font-size:16px">Share a booster</b><span class="pill">🎁 from your inventory</span></div>
+          <p class="sub" style="margin-top:4px">Gift boosters to family and friends. They land instantly and keep their expiry date.</p>
+          <div class="ppl" id="ppl"></div>
+          <div class="share-log" id="shareLog"></div>
         </div>
+
+        <div class="sec-h"><b>Booster shop</b><span class="sub">5G for the apps you use most</span></div>
+        <div class="shop" id="shop"></div>
       </section>
 
       <!-- PAY -->
@@ -460,43 +682,21 @@ body.presenter .stage{padding:12px}
         </div>
       </section>
 
-      <!-- BOOST -->
+      <!-- BOOSTERS: inventory + buy -->
       <section class="view" id="v-boost">
-        <h2 data-i18n="boostH">Boost</h2>
-        <p class="sub">Spend DIALOG to switch to 5G priority. Works anywhere 5G reaches.</p>
-        <div class="vid lo" id="vid">
-          <div class="vscene"><svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
-            <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b1030"/><stop offset="1" stop-color="#1d2a5a"/></linearGradient><radialGradient id="fld" cx=".5" cy=".25" r=".9"><stop offset="0" stop-color="#46b257"/><stop offset="1" stop-color="#145a27"/></radialGradient><radialGradient id="fl"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>
-            <rect width="320" height="180" fill="url(#sky)"/>
-            <path d="M0 34 Q160 6 320 34 V72 H0Z" fill="#151c40"/>
-            <g class="crowd" id="crowd"></g>
-            <circle cx="22" cy="14" r="18" fill="url(#fl)" opacity=".7"/><circle cx="298" cy="14" r="18" fill="url(#fl)" opacity=".7"/>
-            <ellipse cx="160" cy="160" rx="240" ry="104" fill="url(#fld)"/>
-            <polygon points="150,60 170,60 192,180 128,180" fill="#d9c28e"/>
-            <g stroke="#fff" stroke-width="1.6"><path d="M156 52v9M160 52v9M164 52v9"/></g>
-            <g stroke="#f4ead2" stroke-width="3"><path d="M150 152v24M160 152v24M170 152v24"/></g>
-            <circle cx="180" cy="124" r="6" fill="#f2c9a0"/><rect x="174" y="130" width="12" height="24" rx="4" fill="#1d4ed8"/>
-            <path class="bat" d="M176 146 L162 166" stroke="#e9d5a5" stroke-width="5" stroke-linecap="round"/>
-            <circle class="ball" r="3.5" fill="#fff"/>
-          </svg></div>
-          <div class="vtop"><span class="live">LIVE</span><span>SL vs IND</span><span class="vq" id="vq">240p</span></div>
-          <div class="vspin"></div>
-          <div class="vlabel" id="vlabel">Busy 4G cell · buffering</div>
-          <div class="vbar"><i id="vprog"></i></div>
-        </div>
-        <div class="speedrow"><div><b id="speed">18</b><small>Mbps</small></div><div class="gen"><span id="g4" class="on">4G</span><span id="g5">5G</span></div></div>
-        <div class="countdown" id="countdown">Standard speed</div>
-        <div class="opts" id="opts">
-          <button class="opt on" data-cost="150" data-min="30"><div><b>30 min 5G priority</b><small>Matches what you just earned</small></div><span class="cost"><span class="coin">G</span>150</span></button>
-          <button class="opt" data-cost="300" data-min="60"><div><b>1 hour 5G priority</b><small>Best for a match stream</small></div><span class="cost"><span class="coin">G</span>300</span></button>
-          <button class="opt" data-cost="900" data-min="240"><div><b>Work-from-café pass</b><small>4 hours, hotspot included</small></div><span class="cost"><span class="coin">G</span>900</span></button>
-        </div>
-        <button class="btn" id="boostBtn">Boost for 150 DIALOG</button>
+        <div class="bs-head"><div class="btabs" id="btabs" role="tablist"></div></div>
+        <div class="bs-bal"><span class="sub">Your balance</span><button class="curr sm" data-go="play" aria-label="DIALOG balance"><span class="coin"></span><b class="balv">2,400</b><i>+</i></button></div>
+        <div class="bhero" id="bhero"></div>
+        <div class="sec-h"><b>Your inventory</b><span class="sub" id="invCount"></span></div>
+        <div id="inv"></div>
+        <div class="sec-h" id="buyH"><b id="buyTitle">Get more</b><span class="sub">swipe →</span></div>
+        <div class="buyrow" id="buyrow"></div>
+        <p class="bs-note">1-hour boosters come only from Dialog gifts and campaigns. Boosters from gifts, campaigns and DIALOG coins last <b>7 days</b>. Boosters bought with cash last <b>30 days</b>. Prices exclude taxes.</p>
       </section>
 
       <!-- DIA -->
       <section class="view" id="v-dia" style="padding-bottom:0">
-        <div class="row" style="margin-top:4px"><div class="row" style="gap:10px"><div class="dia-av"><i></i><i></i></div><div><b>Dia</b><div class="sub">Your network concierge · සිං · தமிழ் · EN</div></div></div></div>
+        <div class="row" style="margin-top:4px"><div class="row" style="gap:10px"><div class="dia-av"><i></i><i></i></div><div><b>DIA</b><div class="sub">Your digital assistant · සිං · தமிழ் · EN</div></div></div></div>
         <div class="chat" id="chat"></div>
         <div class="composer">
           <div class="chips" id="diaChips">
@@ -587,7 +787,7 @@ body.presenter .stage{padding:12px}
       <button data-go="home" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10l9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span data-i18n="nHome">Home</span></button>
       <button data-go="arenas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg><span data-i18n="nArenas">Arenas</span></button>
       <button data-go="pay" class="pay" aria-label="Pay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v7h-7"/></svg></button>
-      <button data-go="dia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>Dia</button>
+      <button data-go="dia"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>DIA</button>
       <button data-go="together"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="2.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M15 14.5a5 5 0 0 1 6.5 4.8"/></svg><span data-i18n="nTogether">Together</span></button>
       <button data-go="play"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M8 3v18M3 9h5M14 8h4M16 6v4M14 15.5h.01M18 15.5h.01"/></svg><span data-i18n="nPlay">Play</span></button>
     </nav>
@@ -610,23 +810,23 @@ body.presenter .stage{padding:12px}
     document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.go===v));
     const view=$('#v-'+v); if(view) view.scrollTop=0;
     if(v==='dia' && !$('#chat').children.length) diaIntro();
+    $('#mpTitle').textContent=TITLES[v]||'5G Boosters'; S.view=v;
   }
+  const TITLES={home:'5G Boosters',boost:'My boosters',pay:'Scan & Pay',dia:'Ask DIA',arenas:'5G Arenas',together:'Together',play:'Daily Puzzles'};
   document.addEventListener('click',e=>{
     const g=e.target.closest('[data-go]'); if(g){startClock(); go(g.dataset.go)}
-    const s=e.target.closest('[data-scroll]'); if(s){const el=document.getElementById(s.dataset.scroll); el.scrollIntoView({behavior:'smooth',block:'center'})}
+    const bb=e.target.closest('[data-boost]'); if(bb){startClock(); openBoost(bb.dataset.boost, bb.dataset.to)}
   });
 
-  // ---- wallet
+  // ---- DIALOG balance, shown as a coin chip top-right
   function setBal(n, animate=true){
-    const from=S.bal; S.bal=n;
-    const eqTxt=()=>`≈ ${fmt(Math.floor(S.bal/100))} GB · or ${fmt(Math.floor(S.bal/300))} hours of boosted 5G`;
-    if(!animate){$('#bal').textContent=fmt(n);$('#eq').textContent=eqTxt();return}
+    const from=S.bal; S.bal=n; const els=document.querySelectorAll('.balv');
+    if(!animate){els.forEach(e=>e.textContent=fmt(n));return}
+    document.querySelectorAll('.curr').forEach(c=>{c.classList.remove('bump');c.offsetWidth;c.classList.add('bump')});
     const t0=performance.now(),d=700;
-    (function tick(t){const p=Math.min(1,(t-t0)/d);$('#bal').textContent=fmt(Math.round(from+(n-from)*(1-Math.pow(1-p,3))));if(p<1)requestAnimationFrame(tick)})(t0);
-    $('#eq').textContent=eqTxt();
-    const proj=Math.round(S.bal*0.15); $('#saveAmt').textContent='Rs '+fmt(proj); 
+    (function tick(t){const p=Math.min(1,(t-t0)/d);els.forEach(e=>e.textContent=fmt(Math.round(from+(n-from)*(1-Math.pow(1-p,3)))));if(p<1)requestAnimationFrame(tick)})(t0);
   }
-  function feed(label, amt){const d=document.createElement('div');d.innerHTML=`<span>${label}</span><span class="${amt>0?'plus':'minus'}">${amt>0?'+':'−'}${fmt(Math.abs(amt))} D</span>`;$('#feed').prepend(d)}
+  S.ledger=[]; function feed(label, amt){S.ledger.unshift([label,amt])}
   let toastT; function toast(msg){const t=$('#toast');t.innerHTML=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600)}
 
   // ---- demo clock & steps
@@ -677,31 +877,196 @@ body.presenter .stage{padding:12px}
       (function tick(){const p=Math.max(0,Math.min(1,(performance.now()-t0)/dur));$('#efBal').textContent=fmt(Math.round(before+g*p));chip.classList.toggle('bump',p>0&&p<1);if(p<1)setTimeout(tick,30);else done('earn')})();
     },700);
   }
-  $('#efUse').onclick=()=>{$('#earnfx').hidden=true;go('boost')};
+  $('#efUse').onclick=()=>{$('#earnfx').hidden=true;openBoost('binge','buy')};
   $('#efDone').onclick=()=>{$('#earnfx').hidden=true;go('home')};
 
-  // ---- boost
-  $('#opts').onclick=e=>{const o=e.target.closest('.opt');if(!o||S.boostTimer)return;document.querySelectorAll('.opt').forEach(x=>x.classList.toggle('on',x===o));S.boostCost=+o.dataset.cost;S.boostMin=+o.dataset.min;$('#boostBtn').textContent=`Boost for ${S.boostCost} DIALOG`};
-  function animSpeed(to){const el=$('#speed');const from=+el.textContent;const t0=performance.now();(function tick(){const p=Math.min(1,(performance.now()-t0)/1600);el.textContent=Math.round(from+(to-from)*(1-Math.pow(1-p,3)));if(p<1)setTimeout(tick,30)})()}
-  function setNet(five){S.five=five;$('#g4').classList.toggle('on',!five);$('#g5').classList.toggle('on',five);['#netBadge','#homeNet'].forEach(s=>{$(s).textContent=five?'5G ⚡':'4G'});$('#netBadge').classList.toggle('on',five)}
-  function startBoost(mins, label){
-    clearInterval(S.boostTimer); let left=mins*60;
-    setNet(true); animSpeed(420);
-    $('#boostBtn').textContent='Boost active'; $('#boostBtn').disabled=true;
-    const upd=()=>{$('#countdown').innerHTML=`${label} · <b>${Math.floor(left/60)}:${String(left%60).padStart(2,'0')}</b> left`};upd();
-    S.boostTimer=setInterval(()=>{left--;upd();if(left<=0){clearInterval(S.boostTimer);S.boostTimer=null;setNet(false);animSpeed(18);$('#countdown').textContent='Standard speed';$('#boostBtn').disabled=false;$('#boostBtn').textContent=`Boost for ${S.boostCost} DIALOG`}},1000);
-  }
-  $('#boostBtn').onclick=()=>{
-    startClock();
-    if(S.bal<S.boostCost){toast('Not enough DIALOG. Pay at a shop to earn more.');return}
-    setBal(S.bal-S.boostCost); feed(`Boost · ${S.boostMin} min 5G`, -S.boostCost);
-    startBoost(S.boostMin,'5G priority'); toast('⚡ Boosted to 5G. Video will start in HD.'); done('boost');
+  // ---- 5G Boosters
+  // Scroll = social, Clutch = games, Binge = streaming. App badges are placeholders, not logos.
+  const BT={
+    scroll:{name:'Scroll Booster',short:'Scroll',word:'SCROLL',cat:'Social',ic:'💬',tag:'Stories, reels and calls in HD',c1:'#d6247f',c2:'#7e2a8c',
+      apps:[['TikTok','#111','♪'],['Facebook','#1877f2','f'],['WhatsApp','#1fa855','W'],['Instagram','#d62976','◎']]},
+    clutch:{name:'Clutch Booster',short:'Clutch',word:'CLUTCH',cat:'Gaming',ic:'🎮',tag:'Low-ping lane for ranked matches',c1:'#2a8fe0',c2:'#4b3cc4',
+      apps:[['PUBG Mobile','#d99a00','P'],['Mobile Legends','#3b5bdb','ML'],['Call of Duty Mobile','#3a3a3a','C'],['Roblox','#5a5a5a','R']]},
+    binge:{name:'Binge Booster',short:'Binge',word:'BINGE',cat:'Watch',ic:'🍿',tag:'HD streams with zero buffering',c1:'#f7941e',c2:'#e2382a',
+      apps:[['YouTube','#e00','▶'],['Netflix','#b20710','N'],['Dialog Play','#6a3dff','D'],['Twitch','#9146ff','T']]}
   };
+  // 30 min: DIALOG coins only. 1 hr: Dialog gifts/campaigns only. 3/6/12 hr: cash.
+  const TIERS={
+    m30:{min:30,mb:500,label:'30 min',data:'500 MB',coin:150},
+    h1:{min:60,mb:1024,label:'1 hour',data:'1 GB'},
+    h3:{min:180,mb:3072,label:'3 hours',data:'3 GB',price:149},
+    h6:{min:360,mb:6144,label:'6 hours',data:'6 GB',price:249,tag:'Popular',save:'Save 16%'},
+    h12:{min:720,mb:12288,label:'12 hours',data:'12 GB',price:399,tag:'Best value',save:'Save 33%'}
+  };
+  const SRC={gift:'Gift from Dialog',campaign:'Campaign',coins:'Bought with DIALOG',paid:'Purchased'};
+  const DAY=864e5, HR=36e5, tc=t=>`--c1:${BT[t].c1};--c2:${BT[t].c2}`;
+  let uid=0;
+  const mk=(type,tier,src,days,note)=>({id:++uid,type,tier,src,note,exp:Date.now()+days*DAY-2*HR});
+  S.inv=[mk('scroll','m30','gift',5,'Welcome to 5G'),mk('scroll','h1','campaign',6,'Big Match Week'),
+    mk('clutch','m30','coins',3),mk('clutch','h3','paid',24),
+    mk('binge','m30','coins',6),mk('binge','m30','coins',6),mk('binge','h1','gift',2,'Loyalty thank-you'),mk('binge','h6','paid',18)];
+  S.active=null; S.bt='binge'; S.sent=[];
+
+  const clock=sec=>{sec=Math.max(0,Math.ceil(sec));const h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),x=sec%60;return (h?h+':'+String(m).padStart(2,'0'):m)+':'+String(x).padStart(2,'0')};
+  const mbTxt=mb=>mb>=1000?(Math.round(mb/102.4)/10)+' GB':Math.max(0,Math.round(mb))+' MB';
+  const expTxt=ms=>{const d=Math.floor(ms/DAY);return d>=1?`${d} day${d>1?'s':''}`:`${Math.max(1,Math.floor(ms/HR))} hr`};
+  const appDots=t=>BT[t].apps.map(a=>`<i title="${a[0]}" style="background:${a[1]}">${a[2]}</i>`).join('');
+  const banner=t=>`<div class="bnr" style="${tc(t)}"><div class="bnr-t"><span>5G</span><em>${BT[t].word}</em><span>BOOST</span></div><div class="apps">${appDots(t)}</div></div>`;
+  const tile=(t,tier)=>`<div class="inv-tile" style="${tc(t)}"><b>${TIERS[tier].label}</b><small>${TIERS[tier].data}</small></div>`;
+  const count=t=>S.inv.filter(i=>!t||i.type===t).length;
+  // identical boosters (same type, size, source, expiry) stack as ×N, soonest expiry first
+  function groups(t){const g={};S.inv.filter(i=>!t||i.type===t).forEach(i=>{const k=[i.type,i.tier,i.src,i.note||'',Math.round(i.exp/HR)].join('|');(g[k]=g[k]||{...i,ids:[]}).ids.push(i.id)});return Object.values(g).sort((a,b)=>a.exp-b.exp)}
+  const soonest=t=>S.inv.filter(i=>i.type===t).sort((a,b)=>a.exp-b.exp)[0];
+
+  function setNet(five){S.five=five;$('#netBadge').textContent=five?'5G ⚡':'4G';$('#netBadge').classList.toggle('on',five)}
+
+  // ---- home: status indicator (4 looks: none / scroll / clutch / binge)
+  function renderInd(){
+    const el=$('#bind'),a=S.active;
+    if(!a){
+      el.className='bind none';el.style.cssText='';
+      el.innerHTML=`<div class="bi-lbl">No booster active</div><div class="bi-4g">4G<small>standard</small></div><div class="bi-s" style="opacity:1;color:var(--muted)">Busy cells may buffer</div>
+        <div class="bi-ready"><b>${count()} boosters</b> ready to use<div class="bi-dots">${Object.keys(BT).map(k=>`<span style="${tc(k)}">${BT[k].ic} ${count(k)}</span>`).join('')}</div></div>`;
+      return;
+    }
+    const b=BT[a.type];
+    el.className='bind on';el.style.cssText=tc(a.type);
+    el.innerHTML=`<span class="bi-art">${b.ic}</span><div class="bi-lbl"><span>${b.name}</span><span class="bi-live">5G</span></div><div class="bi-tag">${b.tag}</div>
+      <div class="bi-time" data-k="time"></div><div class="bi-s">time left</div>
+      <div class="bi-bar" style="margin-top:12px"><i data-k="bar"></i></div><div class="bi-s"><b data-k="mb"></b> of <span data-k="mbt"></span> left</div>
+      <div class="apps">${appDots(a.type)}</div>`;
+    tickInd();
+  }
+  function tickInd(){
+    const a=S.active;if(!a)return;const left=(a.end-Date.now())/1000;
+    document.querySelectorAll('[data-k="time"]').forEach(e=>e.textContent=clock(left));
+    document.querySelectorAll('[data-k="bar"]').forEach(e=>e.style.width=Math.max(0,a.mbLeft/a.mbTotal*100)+'%');
+    document.querySelectorAll('[data-k="mb"]').forEach(e=>e.textContent=mbTxt(a.mbLeft));
+    document.querySelectorAll('[data-k="mbt"]').forEach(e=>e.textContent=mbTxt(a.mbTotal));
+  }
+  function renderActs(){
+    $('#bacts').innerHTML=Object.keys(BT).map(k=>{const on=S.active&&S.active.type===k;return `<button class="bact${on?' on':''}" data-boost="${k}" style="${tc(k)}"><span class="ba-ic">${BT[k].ic}</span><span class="ba-l"><small>${on?'Active now':'Activate'}</small><b>${BT[k].name}</b></span><em class="ba-n">${count(k)||''}</em></button>`}).join('');
+    const on=S.active&&S.active.type==='binge';
+    $('#tipAct').textContent=on?'🍿 Binge Booster is on ✓':'🍿 Activate Binge Booster';$('#tipAct').disabled=on;
+  }
+  $('#bind').onclick=()=>openBoost(S.active?S.active.type:S.bt);
+
+  // ---- booster screen
+  function openBoost(t,to){
+    if(t&&BT[t])S.bt=t; renderBoost(); go('boost');
+    if(to==='buy')setTimeout(()=>$('#buyH').scrollIntoView({behavior:'smooth',block:'start'}),60);
+  }
+  function renderBoost(){
+    const t=S.bt,b=BT[t],a=S.active;
+    $('#v-boost').style.cssText=tc(t);
+    $('#btabs').innerHTML=Object.keys(BT).map(k=>`<button role="tab" aria-selected="${k===t}" data-bt="${k}" class="${k===t?'on':''}" style="${tc(k)}">${BT[k].ic} ${BT[k].short}<em>${count(k)}</em></button>`).join('');
+    let stat;
+    if(a&&a.type===t) stat=`<div class="bh-stat on"><b data-k="time"></b><span>left</span><div class="bi-bar"><i data-k="bar"></i></div><b data-k="mb" style="font-size:13px"></b></div>`;
+    else if(a) stat=`<div class="bh-stat">${BT[a.type].ic}&nbsp;Your ${BT[a.type].name} is running. Activating this one switches over.</div>`;
+    else stat=`<div class="bh-stat">⚪&nbsp;Not active. You're on standard 4G.</div>`;
+    $('#bhero').innerHTML=banner(t)+`<div class="bh-b"><div class="bh-apps"><b>${b.name}</b> · ${b.cat}. 5G priority on ${b.apps.map(x=>x[0]).join(', ')}.</div>${stat}</div>`;
+    const gs=groups(t), same=a&&a.type===t;
+    $('#invCount').textContent=`${count(t)} ${b.short} · ${count()} total`;
+    $('#inv').innerHTML=gs.length?gs.map(g=>{const ms=g.exp-Date.now();return `<div class="inv-i${ms<3*DAY?' soon':''}">${tile(t,g.tier)}<div class="inv-m"><b>${b.name}</b>${g.ids.length>1?`<span class="qty">×${g.ids.length}</span>`:''}<div><span class="src src-${g.src}">${SRC[g.src]}${g.note?' · '+g.note:''}</span></div><div class="inv-exp">Use within ${expTxt(ms)}</div></div><button class="inv-go" data-act="${g.ids[0]}">${same?'Add time':'Activate'}</button></div>`}).join('')
+      :`<div class="inv-empty">No ${b.name}s yet.<br>Buy one below, or solve the Daily Puzzles to earn DIALOG.</div>`;
+    $('#buyTitle').textContent=`Get more ${b.short} boosters`;
+    // cash options first; the DIALOG-coin option sits last, on the right
+    $('#buyrow').innerHTML=['h3','h6','h12'].map(k=>{const T=TIERS[k];return `<button class="buy${k==='h6'?' hot':''}" data-buy="${k}">${T.tag?`<span class="buy-tag">${T.tag}</span>`:''}<b class="buy-h">${T.label}</b><span class="buy-d">${T.data} 5G data</span><span class="buy-p">Rs ${T.price}</span><span class="buy-x">${T.save||''}</span><span class="buy-v">Valid 30 days</span><span class="buy-cta">Buy</span></button>`}).join('')
+      +`<button class="buy coin-opt" data-buy="m30"><span class="buy-tag">Use your coins</span><b class="buy-h">30 min</b><span class="buy-d">500 MB 5G data</span><span class="buy-p"><span class="coin"></span>150</span><span class="buy-x" style="color:var(--muted)">You have ${fmt(S.bal)}</span><span class="buy-v">Valid 7 days</span><span class="buy-cta">Get with DIALOG</span></button>`;
+    tickInd();
+  }
+  $('#btabs').onclick=e=>{const b=e.target.closest('[data-bt]');if(b){S.bt=b.dataset.bt;renderBoost()}};
+  $('#inv').onclick=e=>{const b=e.target.closest('[data-act]');if(b)activate(+b.dataset.act)};
+  $('#buyrow').onclick=e=>{const b=e.target.closest('[data-buy]');if(b)buy(b.dataset.buy)};
+
+  // ---- bottom sheet
+  function sheet(html,acts,type){
+    const w=$('#sheet');w.style.cssText=type?tc(type):'';$('#shBody').innerHTML=html;
+    const box=$('#shActs');box.innerHTML='';
+    (acts||[]).forEach(([l,fn,cls])=>{const b=document.createElement('button');b.className='btn'+(cls?' '+cls:'');b.textContent=l;
+      b.onclick=()=>{closeSheet();fn&&fn()};box.appendChild(b)});
+    w.hidden=false;w.offsetHeight;w.classList.add('show');
+  }
+  function closeSheet(){const w=$('#sheet');w.classList.remove('show');setTimeout(()=>{if(!w.classList.contains('show'))w.hidden=true},300)}
+  $('#shBg').onclick=closeSheet;
+
+  // ---- activate (same type adds time and data; another type asks first)
+  function activate(id,force){
+    const i=S.inv.find(x=>x.id===id);if(!i)return;
+    const a=S.active,T=TIERS[i.tier],b=BT[i.type];
+    if(a&&a.type!==i.type&&!force){
+      sheet(`${banner(i.type)}<h3>Switch to ${b.name}?</h3><p class="sub" style="margin-top:4px">Your ${BT[a.type].name} still has ${clock((a.end-Date.now())/1000)} and ${mbTxt(a.mbLeft)} left. One booster runs at a time, so switching ends it now.</p>`,
+        [[`Switch to ${b.short}`,()=>activate(id,true)],[`Keep ${BT[a.type].short}`,null,'ghost']],i.type);
+      return;
+    }
+    S.inv=S.inv.filter(x=>x!==i);
+    if(a&&a.type===i.type){a.end+=T.min*60e3;a.mbTotal+=T.mb;a.mbLeft+=T.mb;toast(`${b.ic} ${b.name} extended · +${T.label} and ${T.data}`)}
+    else{S.active={type:i.type,end:Date.now()+T.min*60e3,mbTotal:T.mb,mbLeft:T.mb,rate:T.mb/(T.min*60)*.7};toast(`⚡ ${b.name} is on · ${T.label} of 5G for ${b.cat.toLowerCase()} apps`)}
+    S.preview=false;setNet(true);startClock();done('boost');renderAll();
+  }
+  function startFree(type,tier,note){const it=mk(type,tier,'campaign',7,note);S.inv.push(it);activate(it.id,true)}
+
+  // ---- buy
+  function buy(tier){
+    const t=S.bt,b=BT[t],T=TIERS[tier],coin=!T.price;
+    const rows=coin
+      ?`<div><span>Price</span><b>150 DIALOG</b></div><div><span>Your balance</span><b>${fmt(S.bal)} → ${fmt(S.bal-150)}</b></div><div><span>Use within</span><b>7 days</b></div>`
+      :`<div><span>Price</span><b>Rs ${T.price} + tax</b></div><div><span>Pay with</span><b>Add to Dialog bill · 077 ••• 1904</b></div><div><span>Use within</span><b>30 days</b></div>`;
+    sheet(`${banner(t)}<h3>${b.name} · ${T.label}</h3><p class="sub" style="margin-top:2px">${T.data} of 5G priority on ${b.apps.map(x=>x[0]).join(', ')}.</p><div class="sh-rows">${rows}</div>`,
+      [[coin?'Get for 150 DIALOG':`Pay Rs ${T.price}`,()=>doBuy(tier,false)],['Buy and activate now',()=>doBuy(tier,true),'ghost']],t);
+  }
+  function doBuy(tier,now){
+    const t=S.bt,T=TIERS[tier],coin=!T.price;
+    if(coin&&S.bal<T.coin){toast('Not enough DIALOG. Solve the Daily Puzzles or pay at a shop to earn more.');return}
+    if(coin){setBal(S.bal-T.coin);feed(`${BT[t].name} · 30 min`,-T.coin)}
+    const it=mk(t,tier,coin?'coins':'paid',coin?7:30);S.inv.push(it);
+    if(now)activate(it.id);else{toast(`🛍️ ${BT[t].name} · ${T.label} added to your inventory`);renderAll()}
+  }
+
+  // ---- share a booster
+  const PPL=[['Amma','#e11d48','077 ••• 4521'],['Thaththa','#0891b2','071 ••• 8830'],['Malli','#7c3aed','076 ••• 1290'],['Kasun','#ca8a04','077 ••• 6614']];
+  $('#ppl').innerHTML=PPL.map((p,i)=>`<button data-to="${i}"><span style="background:${p[1]}">${p[0][0]}</span>${p[0]}</button>`).join('')+`<button class="add" id="pplAdd"><span>+</span>Contact</button>`;
+  $('#ppl').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(b.id==='pplAdd'){toast('Opening your contacts…');return}shareTo(+b.dataset.to)};
+  function shareTo(pi){
+    const p=PPL[pi],gs=groups();
+    if(!gs.length){toast('No boosters to share. Buy one in the Booster shop.');return}
+    sheet(`<h3>Gift a booster to ${p[0]}</h3><p class="sub" style="margin-top:2px">${p[2]} · they get it instantly, with the same expiry date.</p>
+      <div style="margin-top:6px">${gs.map((g,i)=>`<label class="pick" style="${tc(g.type)}"><input type="radio" name="pk" value="${g.ids[0]}"${i?'':' checked'}>${tile(g.type,g.tier)}<span><b>${BT[g.type].name}</b>${g.ids.length>1?` <span class="qty">×${g.ids.length}</span>`:''}<small>${SRC[g.src]} · use within ${expTxt(g.exp-Date.now())}</small></span></label>`).join('')}</div>`,
+      [[`Send to ${p[0]}`,()=>{const v=+document.querySelector('input[name=pk]:checked').value;send(v,p[0])}],['Cancel',null,'ghost']]);
+  }
+  function send(id,who){
+    const i=S.inv.find(x=>x.id===id);if(!i)return;
+    S.inv=S.inv.filter(x=>x!==i);S.sent.unshift([who,i]);
+    toast(`🎁 ${BT[i.type].name} · ${TIERS[i.tier].label} sent to ${who}`);startClock();done('share');renderAll();
+  }
+  function renderShare(){$('#shareLog').innerHTML=S.sent.slice(0,3).map(([w,i])=>`<div><span>${BT[i.type].ic} ${BT[i.type].name} · ${TIERS[i.tier].label}</span><span>to <b>${w}</b></span></div>`).join('')}
+
+  // ---- booster shop on home (after the 5G Mode cards); dial codes are placeholders
+  $('#shop').innerHTML=Object.keys(BT).map((k,i)=>`<div class="shopc" style="${tc(k)}">${banner(k)}
+    <div class="shopc-m"><div class="shopc-n">${BT[k].name}</div><div class="row" style="margin-top:2px"><b class="shopc-p"><small>from</small> Rs 149</b><span class="sub">3 hours</span></div></div>
+    <div class="shopc-b"><div class="shopc-d"><span class="g5">5G</span><span><small>${BT[k].cat} apps</small><b>3 GB</b></span></div><div class="shopc-u">or dial #678*5${i+1}#</div><button class="shopc-cta" data-boost="${k}" data-to="buy">Buy</button></div></div>`).join('');
+
+  // ---- Dia's suggestion: use the Binge Booster that expires first
+  function diaActivate(){const g=soonest('binge');if(!g){openBoost('binge','buy');return null}activate(g.id,true);return g}
+  $('#tipAct').onclick=()=>{startClock();diaActivate()};
+
+  function renderAll(){renderInd();renderActs();renderShare();if($('#v-boost').classList.contains('active'))renderBoost()}
+
+  // ---- 1s tick: count down, use data, end when time or data runs out
+  setInterval(()=>{
+    const a=S.active;
+    if(a){
+      if(!S.preview)a.mbLeft-=a.rate*(.6+Math.random()*.8);
+      if(a.end<=Date.now()||a.mbLeft<=0){const b=BT[a.type];S.active=null;setNet(false);toast(`${b.ic} ${b.name} finished. Back on 4G.`);renderAll()}
+      else tickInd();
+    }
+    tickPz();
+  },1000);
 
   // ---- Dia
   const chat=$('#chat');
   function say(who, html, acts){const m=document.createElement('div');m.className='msg '+who;m.innerHTML=html;if(acts){const a=document.createElement('div');a.className='acts';acts.forEach(([t,fn,alt])=>{const b=document.createElement('button');b.textContent=t;if(alt)b.className='alt';b.onclick=()=>{a.remove();fn()};a.appendChild(b)});m.appendChild(a)}chat.appendChild(m);requestAnimationFrame(()=>{$('#v-dia').scrollTop=1e6})}
-  function diaIntro(){say('dia','Hi Nadeesha 👋 I watch the network so you don’t have to. Your bus reaches a busy cell near Kollupitiya in about 4 minutes. Want me to pre-load a 30-minute boost?',[['Boost for 150 D',()=>{say('me','Yes, boost');if(S.bal<150){say('dia','You’re short on DIALOG. Pay at any shop and you’ll earn them back.');return}setBal(S.bal-150);feed('Boost · Dia predicted',-150);startBoost(30,'5G priority');done('boost');say('dia','Done ⚡ You’re on 5G priority for 30 minutes. No buffering on the way.')}],['Not now',()=>say('dia','No problem. Just say “boost” whenever you need it.'),true]])}
+  function diaIntro(){say('dia','Hi Nadeesha 👋 I watch the network so you don’t have to. Your bus reaches a busy cell near Kollupitiya in about 4 minutes. Want me to switch on a Binge Booster?',[['Activate Binge Booster',()=>{say('me','Yes, activate it');const g=diaActivate();if(!g){say('dia','You’re out of Binge Boosters. I opened the shop for you.');return}say('dia',`Done ⚡ I used your ${TIERS[g.tier].label} Binge Booster that expires first. YouTube stays in HD on the way.`)}],['Not now',()=>say('dia','No problem. Just say “boost” whenever you need it.'),true]])}
   const names={amma:'Amma','අම්මා':'Amma','අම්මාට':'Amma','அம்மா':'Amma','அம்மாவுக்கு':'Amma',thaththa:'Thaththa',appa:'Appa',malli:'Malli',akka:'Akka',nangi:'Nangi'};
   function handle(text,voice){
     say('me',(voice?'🎙 ':'')+text.replace(/</g,'&lt;'));
@@ -718,7 +1083,7 @@ body.presenter .stage{padding:12px}
       } else if(/buffer|netflix|youtube|stream/i.test(text)){
         say('dia','Tonight from 8 to 10 pm your home cell is usually 70% busy. I can switch you to 5G priority at 7:55 for 300 DIALOG. Want me to schedule it?',[['Schedule it',()=>{say('dia','Scheduled for 7:55 pm. I’ll only charge if the network actually gets busy.')}],['No thanks',()=>say('dia','Okay. I’ll warn you if it gets bad.'),true]]);
       } else if(/boost/i.test(text)){
-        go('boost');
+        openBoost(S.bt);
       } else {
         say('dia','I can boost, share or save data. Try “give Amma 20GB” in Sinhala, Tamil or English.');
       }
@@ -730,10 +1095,10 @@ body.presenter .stage{padding:12px}
   // ---- Arenas
   let selZone=document.querySelector('.zone[data-near]');
   $('#mapSvg').addEventListener('click',e=>{const z=e.target.closest('.zone');if(!z)return;selZone=z;const near=!!z.dataset.near;$('#zName').textContent=z.dataset.z;$('#zDist').textContent=z.dataset.d+(near?' · 312 people checked in today':' · walk there to check in');$('#zPill').textContent=near?'In range':'Out of range';$('#zPill').className='pill '+(near?'good':'gold');$('#checkinBtn').disabled=!near||S.checkedIn;$('#checkinBtn').textContent=S.checkedIn&&near?'Checked in ✓':near?'Check in · unlock free 30 min':'Get directions'});
-  $('#checkinBtn').onclick=()=>{if(!selZone.dataset.near){toast('Opening directions to '+selZone.dataset.z+'…');return}S.checkedIn=true;$('#checkinBtn').textContent='Checked in ✓';$('#checkinBtn').disabled=true;startBoost(30,'Free Arena boost');toast('📍 Galle Face Arena: free 30 min of 5G unlocked')};
+  $('#checkinBtn').onclick=()=>{if(!selZone.dataset.near){toast('Opening directions to '+selZone.dataset.z+'…');return}S.checkedIn=true;$('#checkinBtn').textContent='Checked in ✓';$('#checkinBtn').disabled=true;startFree('scroll','m30','Galle Face Arena');toast('📍 Galle Face Arena: free 30-min Scroll Booster unlocked')};
 
   // ---- Together: match
-  function drawFans(){const p=Math.min(100,S.fans/1000);$('#matchProg i').style.width=p+'%';$('#fans').textContent=fmt(Math.min(S.fans,100000));if(S.fans>=100000){$('#matchProg').classList.add('done');$('#matchEta').textContent='Goal reached!';$('#joinMatch').textContent='🎉 Free hour unlocked for everyone';$('#joinMatch').disabled=true;clearInterval(S.matchTimer);if(!S.matchToast){S.matchToast=true;celebrate('🏏','Free hour unlocked!','100,000 fans boosted together. Everyone watching gets 1 hour of 5G.');startBoost(60,'Match hour (free)')}}}
+  function drawFans(){const p=Math.min(100,S.fans/1000);$('#matchProg i').style.width=p+'%';$('#fans').textContent=fmt(Math.min(S.fans,100000));if(S.fans>=100000){$('#matchProg').classList.add('done');$('#matchEta').textContent='Goal reached!';$('#joinMatch').textContent='🎉 Free hour unlocked for everyone';$('#joinMatch').disabled=true;clearInterval(S.matchTimer);if(!S.matchToast){S.matchToast=true;celebrate('🏏','Free hour unlocked!','100,000 fans boosted together. Everyone watching gets 1 hour of 5G.');startFree('binge','h1','Boost the Match')}}}
   $('#joinMatch').onclick=()=>{if(S.joinedMatch)return;if(S.bal<20){toast('Need 20 DIALOG to join');return}S.joinedMatch=true;$('#faces').insertAdjacentHTML('afterbegin','<span style="background:var(--accent)">You</span>');$('#faces em').textContent='You, Kasun, Amaya and 2 friends';setBal(S.bal-20);feed('Boost the Match',-20);$('#joinMatch').textContent='You’re in. Fans are piling on…';$('#joinMatch').disabled=true;S.matchTimer=setInterval(()=>{S.fans+=Math.round(900+Math.random()*900);drawFans()},350)};
 
   // ---- Together: street
@@ -750,19 +1115,8 @@ body.presenter .stage{padding:12px}
     const iv=setInterval(()=>{if(S.homesLit>=25){clearInterval(iv);$('#joinStreet').textContent='✨ Temple Rd is live on Air Fibre';celebrate('🏠','Temple Rd is live!','25 of 25 homes signed up. Air Fibre installs start this week.');return}kids[S.homesLit].classList.add('lit');S.homesLit++;streets[0][2]=S.homesLit;$('#homesN').textContent=S.homesLit;$('#natHomes').textContent=fmt(++nat);drawLb()},700);
   };
 
-  // ---- savings toggle
-  $('#saveToggle').onclick=e=>{e.currentTarget.classList.toggle('on');toast(e.currentTarget.classList.contains('on')?'Leftover DIALOG will go to DF Savings on 30 Nov':'Auto-save paused')};
-
   // ---- voice
   $('#micBtn').onclick=()=>{startClock();const f=$('#diaForm');if(f.classList.contains('listening'))return;f.classList.add('listening');tone(880,0,.12,.05);setTimeout(()=>{f.classList.remove('listening');handle('අම්මාට 20GB දෙන්න',true)},1900)};
-
-  // ---- boost video: stalls on 4G, smooth on 5G
-  const crowd=$('#crowd');let ch='';for(let i=0;i<70;i++){const x=(i*37)%320,y=30+((i*53)%36);ch+=`<circle cx="${x}" cy="${y}" r="1.4" fill="${i%5?'#ffd36b':'#8fb3ff'}"/>`}crowd.innerHTML=ch;
-  let vp=0,vt=0;
-  setInterval(()=>{const v=$('#vid');vt+=100;const five=!!S.five;const playing=five||(vt%3200)<1100;
-    v.classList.toggle('buf',!playing);v.classList.toggle('lo',!five);
-    $('#vq').textContent=five?'1080p HD':'240p';$('#vlabel').textContent=five?'5G priority · no stalls':'Busy 4G cell · buffering';
-    if(playing){vp=(vp+(five?.45:.3))%100;$('#vprog').style.width=vp+'%'}},100);
 
   // ---- fit to screen + presenter mode
   function fit(){const ph=$('.phone');if(innerWidth<=430){ph.style.zoom='';return}
@@ -786,23 +1140,17 @@ body.presenter .stage{padding:12px}
   const EN={};document.querySelectorAll('[data-i18n]').forEach(el=>EN[el.dataset.i18n]=el.textContent);
   let LANG='en';
   function T(k){return (I18N[LANG]&&I18N[LANG][k])||EN[k]}
-  function setLang(l){LANG=l;document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=T(el.dataset.i18n));document.querySelectorAll('#lang button').forEach(b=>b.classList.toggle('on',b.dataset.l===l));document.documentElement.lang=l==='en'?'en':l}
-  $('#lang').onclick=e=>{const b=e.target.closest('button');if(b)setLang(b.dataset.l)};
+  function setLang(l){LANG=l;document.querySelectorAll('[data-i18n]').forEach(el=>el.textContent=T(el.dataset.i18n));$('#lang').textContent={en:'EN',si:'සිං',ta:'தமிழ்'}[l];document.documentElement.lang=l==='en'?'en':l}
 
   // ---- celebrations
   function celebrate(emoji,title,sub){
     $('#celEmoji').textContent=emoji;$('#celTitle').textContent=title;$('#celSub').textContent=sub;
-    const c=$('#confetti');c.innerHTML='';const cols=['#ffd36b','#8b7fff','#3fd39a','#ff6b8b','#4fc3ff'];
+    const c=$('#confetti');c.innerHTML='';const cols=['#fbb823','#f37021','#e1195b','#8f2a7d','#2a8fe0'];
     for(let i=0;i<70;i++){const p=document.createElement('i');p.style.left=Math.random()*100+'%';p.style.background=cols[i%cols.length];p.style.animationDuration=(1.8+Math.random()*1.8)+'s';p.style.animationDelay=(Math.random()*.6)+'s';p.style.transform=`rotate(${Math.random()*180}deg)`;c.appendChild(p)}
     const el=$('#celebrate');el.hidden=false;el.querySelectorAll('.cel-emoji,.cel-title,.cel-sub,.btn').forEach(x=>{x.style.animation='none';x.offsetHeight;x.style.animation=''});
     chime();
   }
   $('#celOk').onclick=()=>{$('#celebrate').hidden=true};
-
-  // ---- savings switch (keyboard too)
-  const st=$('#saveToggle');st.onclick=null;
-  const flip=()=>{st.classList.toggle('on');const on=st.classList.contains('on');st.setAttribute('aria-checked',on);toast(on?'Leftover DIALOG goes to DF Savings on 30 Nov':'Auto-save paused')};
-  st.addEventListener('click',flip);st.addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();flip()}});
 
   // ---- opening splash (doesn't start the loop timer)
   const sp=$('#splash');let spT=setTimeout(hideSplash,3200);
@@ -815,7 +1163,19 @@ body.presenter .stage{padding:12px}
   const lsGet=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
   const lsSet=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
   function puzzleDay(){return Math.floor((Date.now()+5.5*3600e3-Date.UTC(2026,0,1))/864e5)}
-  function updatePlayStrip(){const d=puzzleDay();const n=['rush','mines','olinda'].filter(g=>lsGet(`dp:res:${g}:${d}`)).length;$('#playDone').textContent=n;$('#playStrip').classList.toggle('all',n===3)}
+  const solvedToday=()=>{const d=puzzleDay();return ['rush','mines','olinda'].filter(g=>lsGet(`dp:res:${g}:${d}`)).length};
+  function updatePlayStrip(){const n=solvedToday();$('#playDone').textContent=n;$('#playStrip').classList.toggle('all',n===3);renderPz()}
+  // puzzles reset at midnight Sri Lanka time
+  const resetIn=()=>Date.UTC(2026,0,1)-5.5*HR+(puzzleDay()+1)*DAY-Date.now();
+  let pzDay=puzzleDay();
+  function renderPz(){
+    const n=S.pzOverride!=null?S.pzOverride:solvedToday(),el=$('#pzCard'),dots=[0,1,2].map(i=>`<i class="${i<n?'on':''}"></i>`).join('');
+    el.classList.toggle('done',n>=3);
+    el.innerHTML=n>=3
+      ?`<div class="pz-ic">✅</div><div class="pz-t"><b>All 3 puzzles solved · +300 D</b><div class="sub">New puzzles in</div><div class="pz-timer"><span id="pzTimer">${clock(resetIn()/1000)}</span><small>resets at midnight</small></div></div>`
+      :`<div class="pz-ic">🧩</div><div class="pz-t"><b>${n?`${n} of 3 solved. Keep going!`:'Daily Puzzles are ready'}</b><div class="sub">Play to earn <b>+${(3-n)*50+150} D</b>${n?' more':''} for boosters</div><div class="pz-dots">${dots}</div></div><button class="pz-btn" data-go="play">Play</button>`;
+  }
+  function tickPz(){if(puzzleDay()!==pzDay){pzDay=puzzleDay();renderPz()}const t=$('#pzTimer');if(t)t.textContent=clock(resetIn()/1000)}
   function loadPlay(){updatePlayStrip();if(playLoaded)return;playLoaded=true;lsSet('dp:lang',LANG);const th=document.documentElement.dataset.theme;frame.src='puzzles/index.html?skin=dialog'+(th?'&theme='+th:'')}
   document.addEventListener('click',e=>{if(e.target.closest('[data-go="play"]'))loadPlay()});
   addEventListener('message',e=>{
@@ -833,12 +1193,28 @@ body.presenter .stage{padding:12px}
     if(m.event==='streak_milestone')setTimeout(()=>celebrate('🔥',`${p.days}-day streak!`,'You unlocked a free 1 GB data reward.'),5200);
   });
   // keep the game's language in step with the app's switch
-  $('#lang').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;lsSet('dp:lang',b.dataset.l);
-    if(playLoaded){try{const w=frame.contentWindow;w.DP.setLang(b.dataset.l);w.dispatchEvent(new HashChangeEvent('hashchange'))}catch(_){}}});
+  $('#lang').onclick=()=>{const L=['en','si','ta'],l=L[(L.indexOf(LANG)+1)%3];setLang(l);lsSet('dp:lang',l);
+    if(playLoaded){try{const w=frame.contentWindow;w.DP.setLang(l);w.dispatchEvent(new HashChangeEvent('hashchange'))}catch(_){}}};
 
   // ---- reset (also clears today's puzzle progress so the demo can be re-run)
   $('#resetBtn').onclick=()=>{try{Object.keys(localStorage).filter(k=>k.startsWith('dp:')&&k!=='dp:lang').forEach(k=>localStorage.removeItem(k))}catch(e){}location.reload()};
-  setBal(2400,false);
+  // ---- MyDialog host bar
+  $('#mpBack').onclick=()=>{if(S.view&&S.view!=='home')go('home');else toast('Back to MyDialog home')};
+  $('#mpMore').onclick=()=>toast('Share · Add to favourites · About this mini program');
+  $('#mpClose').onclick=()=>toast('Closes 5G Boosters and returns to MyDialog');
+
+  // ---- side panel: jump to any booster / puzzle state for reviews
+  $('#prev').onclick=e=>{
+    const b=e.target.closest('button');if(!b)return;
+    b.parentNode.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+    if(b.dataset.pv){const t=b.dataset.pv;
+      if(t==='none'){S.active=null;setNet(false)}
+      else{S.active={type:t,end:Date.now()+(38*60+12)*1000,mbTotal:1024,mbLeft:612,rate:0};S.preview=true;setNet(true)}
+      renderAll()}
+    if(b.dataset.pz){S.pzOverride=b.dataset.pz==='live'?null:+b.dataset.pz;renderPz()}
+  };
+
+  setBal(2400,false); renderAll(); renderPz();
 })();
 </script>
 </body>
